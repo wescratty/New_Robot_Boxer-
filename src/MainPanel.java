@@ -10,6 +10,7 @@ import javax.swing.border.EtchedBorder;
 public class MainPanel extends JPanel {
 
     public MainPanel() {
+        //added nothing
 
 
         JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
