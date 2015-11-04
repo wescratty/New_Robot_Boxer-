@@ -1,6 +1,8 @@
 /**
  * Created by Brian Trethewey on 11/3/15.
  */
+
+//todo this class
 public class SimpleBlock implements Block {
     //attributes
     private int strength;
