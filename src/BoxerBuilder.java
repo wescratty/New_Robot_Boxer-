@@ -4,10 +4,15 @@
 public class BoxerBuilder {
     private Boxer boxer;
     private RNG rng;
+
+    public BoxerBuilder() {
+        rng = RNG.getInstance();
+    }
+
     private Boxer setStats(int unusedPoints){
         boxer = new Boxer();
-        //set call dialogue box
-
+        //call dialogue box
+        // set user specified stats
         return boxer;
     }
 
