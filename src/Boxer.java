@@ -17,10 +17,11 @@ public class Boxer implements Subject {
     private int punchedTime = 100;
     int punchNum =0;
     private RNG rng;
+    //why are there 2 Points center and location?
     private Point center;
     private AudioPlayer player;
-    //    private ArrayList<Attack> attackList;
-    //private block:Block
+    private ArrayList<Attack> attackList;
+    private ArrayList<Block>blockList;
     int x,y = 0;
     public Point location = new Point(x, y);
     private int exp;
@@ -37,6 +38,7 @@ public class Boxer implements Subject {
 
         observers = new ArrayList<Observer>();
 
+
     }
 
     public void setid(int id, int bNum){
@@ -52,8 +54,8 @@ public class Boxer implements Subject {
     public int selectMove(){
 
         checkForPunch();
-
-        int choice =chance.getRandomChoice();
+        int choiceCount  =3;
+        int choice =chance.getRandomChoice(choiceCount);
         if(choice==0){
             System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
@@ -188,8 +190,25 @@ public class Boxer implements Subject {
     }
 
 
+    public void setStrengthScore(int strengthScore) {
+        this.strengthScore = strengthScore;
+    }
 
+    public void setAgilityScore(int agilityScore) {
+        this.agilityScore = agilityScore;
+    }
 
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public void setAttackList(ArrayList<Attack> attackList) {
+        this.attackList = attackList;
+    }
+
+    public void setBlockList(ArrayList<Block> blockList) {
+        this.blockList = blockList;
+    }
 }
 
 //

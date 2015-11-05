@@ -21,8 +21,8 @@ public class ChanceBot {
         return random.nextInt(1000);
 
     }
-    public int getRandomChoice(){
-        return random.nextInt(3);
+    public int getRandomChoice(int choices){
+        return random.nextInt(choices);
 
     }
     public int getChance(){
