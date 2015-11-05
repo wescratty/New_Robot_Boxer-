@@ -58,9 +58,9 @@ public class Boxer implements Subject {
             System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         }else if(choice==1) {
-            System.out.println("Boxer with id: "+this.id+" decided to stand there");
+            //System.out.println("Boxer with id: "+this.id+" decided to stand there");
         }else if(choice==2) {
-            System.out.println("Boxer with id: " + this.id + " decided to move");
+            //System.out.println("Boxer with id: " + this.id + " decided to move");
             sleepTime(chance.getRandomAttackDelay());
 
         }
