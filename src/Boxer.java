@@ -38,6 +38,7 @@ public class Boxer implements Subject {
 
         observers = new ArrayList<Observer>();
 
+
     }
 
     public void setid(int id, int bNum){
@@ -189,8 +190,25 @@ public class Boxer implements Subject {
     }
 
 
+    public void setStrengthScore(int strengthScore) {
+        this.strengthScore = strengthScore;
+    }
 
+    public void setAgilityScore(int agilityScore) {
+        this.agilityScore = agilityScore;
+    }
 
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    public void setAttackList(ArrayList<Attack> attackList) {
+        this.attackList = attackList;
+    }
+
+    public void setBlockList(ArrayList<Block> blockList) {
+        this.blockList = blockList;
+    }
 }
 
 //
