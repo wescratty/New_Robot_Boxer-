@@ -54,8 +54,8 @@ public class Boxer implements Subject {
     public int selectMove(){
 
         checkForPunch();
-
-        int choice =chance.getRandomChoice();
+        int choiceCount  =3;
+        int choice =chance.getRandomChoice(choiceCount);
         if(choice==0){
             System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
