@@ -55,4 +55,7 @@ public class BoxerBuilder {
         return pointsSpent;
     }
 
+    public int getPointsUsed() {
+        return pointsUsed;
+    }
 }
