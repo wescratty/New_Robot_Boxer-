@@ -9,12 +9,13 @@ public class AttackBuilder {
     private ArrayList<Attack> attackList;
     //factory for building individual attacks
     private  AttackFactory attackFactory;
-
+    private RNG rng;
     /**
      * Constructor to create attack factory
      */
     public AttackBuilder() {
         attackFactory = new AttackFactory();
+        rng = RNG.getInstance();
     }
 
     /**
