@@ -1,7 +1,7 @@
 /**
  * Created by Brian Trethewey on 11/4/15.
  */
-//todo this class
+//todo beeds javadoc commetns
 public class BoxerDirector {
 
     private BoxerBuilder boxerbuilder;
