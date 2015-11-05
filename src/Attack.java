@@ -34,4 +34,6 @@ public abstract class Attack {
     public abstract void update(int fatigue);
 
     public abstract void refresh(int str, int speed,int accuracy);
+
+    public abstract String getStats();
 }
