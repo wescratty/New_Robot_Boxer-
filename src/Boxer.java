@@ -17,10 +17,11 @@ public class Boxer implements Subject {
     private int punchedTime = 100;
     int punchNum =0;
     private RNG rng;
+    //why are there 2 Points center and location?
     private Point center;
     private AudioPlayer player;
-    //    private ArrayList<Attack> attackList;
-    //private block:Block
+    private ArrayList<Attack> attackList;
+    private ArrayList<Block>blockList;
     int x,y = 0;
     public Point location = new Point(x, y);
     private int exp;
