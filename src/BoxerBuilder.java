@@ -1,6 +1,7 @@
 /**
  * Created by sinless on 11/4/15.
  */
+
 public class BoxerBuilder {
     private Boxer boxer;
     private RNG rng;
@@ -38,6 +39,7 @@ public class BoxerBuilder {
      */
     private int setStats(int unusedPoints){
         int pointsSpent = 0;
+        //todo add dialogue box call here
         //call dialogue box
         //set boxer stats
         return pointsSpent;
@@ -51,6 +53,7 @@ public class BoxerBuilder {
     private int setAIStats(int unusedPoints){
         int pointsSpent = 0;
         //create random stats
+        //todo create random stats code
         //set boxer stats
         return pointsSpent;
     }
