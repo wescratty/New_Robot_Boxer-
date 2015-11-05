@@ -18,7 +18,7 @@ public class BoxerBuilder {
      */
     public Boxer createBoxer(int unusedPoints){
         boxer = new Boxer();
-        pointsUsed =  setStats(unusedPoints);
+        pointsUsed =  initiateBoxer(unusedPoints);
         return boxer;
     }
     /**
@@ -28,7 +28,7 @@ public class BoxerBuilder {
      */
     public Boxer createAIBoxer(int unusedPoints){
         boxer = new Boxer();
-        setAIStats(unusedPoints);
+        initiateAI(unusedPoints);
         return boxer;
     }
 
@@ -37,7 +37,7 @@ public class BoxerBuilder {
      * @param unusedPoints number of points the player has available to assign to stats
      * @return number of points spent during this step
      */
-    private int setStats(int unusedPoints){
+    private int initiateBoxer(int unusedPoints){
         int pointsSpent = 0;
         //todo add dialogue box call here
         //call dialogue box
@@ -50,7 +50,7 @@ public class BoxerBuilder {
      * @param unusedPoints number of points the computer has available to assign to stats
      * @return number of points spent during this step
      */
-    private int setAIStats(int unusedPoints){
+    private int initiateAI(int unusedPoints){
         int pointsSpent = 0;
         //create random stats
         //todo create random stats code
@@ -60,5 +60,18 @@ public class BoxerBuilder {
 
     public int getPointsUsed() {
         return pointsUsed;
+    }
+
+    private void setStats(String inputs){
+        String[] inputArray = inputs.split("|");
+        int strength =Integer.parseInt(inputArray[0]);
+        int speed =Integer.parseInt(inputArray[1]);
+        int accuracy  =Integer.parseInt(inputArray[2]);
+        int reach = Integer.parseInt(inputArray[3]);
+        boxer.setAgilityScore(speed);
+        boxer.setStrengthScore(strength);
+        boxer.setAccuracy(accuracy);
+        boxer.setReach(reach);
+        boxer.setFatigue(0);
     }
 }
