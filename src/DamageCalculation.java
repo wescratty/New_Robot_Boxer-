@@ -28,7 +28,7 @@ public abstract class DamageCalculation {
      * @param block the Block, if any, that is being applied to the attack
      * @return A String Detailing the results of the damage calculations, String so more than just a value can be returned if desired
      */
-    public abstract String execute(Attack attack, Block block);
+    public abstract String execute(Attack attack, Block block, int damage);
 
 
 }
