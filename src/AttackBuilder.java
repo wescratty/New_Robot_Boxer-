@@ -10,12 +10,14 @@ public class AttackBuilder {
     //factory for building individual attacks
     private  AttackFactory attackFactory;
     private RNG rng;
+    private int pointsUsed;
     /**
      * Constructor to create attack factory
      */
     public AttackBuilder() {
         attackFactory = new AttackFactory();
         rng = RNG.getInstance();
+        int pointsUsed;
     }
 
     /**
@@ -48,8 +50,15 @@ public class AttackBuilder {
      * @return the list of attacks containing the starting attacks and any special attacks the player has specified
      */
     public ArrayList<Attack>buildAttacks(int unusedPoints){
+        //track points spent on attacks
+        int pointsSpent = 0;
+
         //create starting attacks
         buildBasicAttacks();
+
+        //create user attacks
+        //set points spent
+        pointsUsed = pointsSpent;
         return attackList;
     }
     /**
@@ -58,8 +67,17 @@ public class AttackBuilder {
      * @return the list of attacks containing the starting attacks and any special attacks the that have been randomly selected
      */
     public ArrayList<Attack>buildAIAttacks(int unusedPoints){
+        //track points spent on attacks
+        int pointsSpent = 0;
         buildBasicAttacks();
+        //create attacks from CPU list
+        //set points spent
+        pointsUsed = pointsSpent;
         return attackList;
+    }
+
+    public int getPointsUsed() {
+        return pointsUsed;
     }
 }
 
