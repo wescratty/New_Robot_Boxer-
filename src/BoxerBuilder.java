@@ -41,6 +41,12 @@ public class BoxerBuilder {
         int pointsSpent = 0;
         //todo add dialogue box call here
         //call dialogue box
+        String stats = "";
+        //call dialogue box
+        //todo get dialogebox working
+        //stats = dialogueBox.gatherStats(unusedPoints);
+        //set boxer stats
+        setStats(stats);
         //set boxer stats
         return pointsSpent;
     }
@@ -52,9 +58,12 @@ public class BoxerBuilder {
      */
     private int initiateAI(int unusedPoints){
         int pointsSpent = 0;
+
+        String stats = "";
         //create random stats
         //todo create random stats code
         //set boxer stats
+        setStats(stats);
         return pointsSpent;
     }
 
