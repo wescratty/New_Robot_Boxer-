@@ -72,11 +72,21 @@ public class BoxerBuilder {
     }
 
     private void setStats(String inputs){
+
         String[] inputArray = inputs.split("|");
-        int strength =Integer.parseInt(inputArray[0]);
-        int speed =Integer.parseInt(inputArray[1]);
-        int accuracy  =Integer.parseInt(inputArray[2]);
-        int reach = Integer.parseInt(inputArray[3]);
+        int strength = 0;
+        int speed =0;
+        int accuracy = 0;
+        int reach = 0;
+        try {
+            strength = Integer.parseInt(inputArray[0]);
+            speed = Integer.parseInt(inputArray[1]);
+            accuracy = Integer.parseInt(inputArray[2]);
+            reach = Integer.parseInt(inputArray[3]);
+        }catch (Exception e){
+           System.out.println(e.toString());
+        }
+
         boxer.setAgilityScore(speed);
         boxer.setStrengthScore(strength);
         boxer.setAccuracy(accuracy);
