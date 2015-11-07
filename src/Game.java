@@ -53,6 +53,7 @@ public class Game implements Runnable {
 
     public void  run(){
         timer.Stopwatch();
+        int len = 100;
 
 
         while(round_in_Play){
@@ -67,7 +68,7 @@ public class Game implements Runnable {
 
 
 //                mp.setLables();
-                if(timer.elapsedTime()>20){
+                if(timer.elapsedTime()>len){
                     round_in_Play = false;
                     AudioPlayer bell =  AudioPlayer.getInstance();
                     bell.bellSound();
@@ -78,9 +79,8 @@ public class Game implements Runnable {
 
 
                 }else {
-                    System.out.println(timer.elapsedTime());
                     MainPanel mp = MainPanel.getInstance();
-                    mp.setLables(Double.toString(20-timer.elapsedTime()));
+                    mp.setLables(Double.toString(len-timer.elapsedTime()));
                     pb.revalidate();
                     pb.repaint();
                     boxers[0].setOtherBoxerLoc(boxers[1]);

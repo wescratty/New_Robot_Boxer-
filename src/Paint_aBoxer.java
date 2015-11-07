@@ -23,6 +23,8 @@ public class Paint_aBoxer extends JPanel {
     int b_1y = 400;
     int b_2x = 600;
     int b_2y = 400;
+    ArrayList<Point> bSplat = new ArrayList<>();
+    ArrayList<Point> rSplat = new ArrayList<>();
 
 
 
@@ -52,6 +54,7 @@ public class Paint_aBoxer extends JPanel {
         Point _b_1Right;
         Point _b_2Left;
         Point _b_2Right;
+        
 
         Point _b_2;
         CircleLine circleLine = CircleLine.getInstance();
@@ -77,12 +80,15 @@ public class Paint_aBoxer extends JPanel {
 
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
+            rSplat.add(_b_2);
 
         }
         if(_boxer2.getDidPunch()){
             _b_2Right =  _b_1;
+            bSplat.add(_b_1);
 
         }
+
 
 
 
@@ -111,17 +117,32 @@ public class Paint_aBoxer extends JPanel {
         g.drawArc(845, 30, 50, 840, 90, 180);  //right rope
         g.drawArc(30, 845, 840, 50, 0, 180);
 
+        g.setColor(Color.RED);
+
+        for(Point i : rSplat){    //(String i : data)
+            g.fillArc((int)i.X(),(int)i.Y(), 5, 5, 0, 360);
+
+        }
+        g.setColor(Color.BLUE);
+
+        for(Point i : bSplat){    //(String i : data)
+            g.fillArc((int)i.X(),(int)i.Y(), 5, 5, 0, 360);
+
+        }
+
         // Boxer 1
         g.setColor(Color.BLUE);
         g.fillArc(b_1x, b_1y, 50, 50, 0, 360);
         g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 30, 30, 0, 360);
-        g.fillArc((int)_b_1Right.X(),(int)_b_1Right.Y(), 30, 30, 0, 360);
+        g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), 30, 30, 0, 360);
 
         // Boxer 1
         g.setColor(Color.RED);
         g.fillArc(b_2x, b_2y, 50, 50, 0, 360);
         g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 30, 30, 0, 360);
         g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 30, 30, 0, 360);
+
+
 
 }
 
