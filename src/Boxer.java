@@ -55,10 +55,11 @@ public class Boxer implements Subject {
         double dist = distance(thisBoxerLocation,_otherBoxer);
         int choiceCount  =4;
         int choice =chance.getRandomChoice(choiceCount);
+
         if(_otherBoxer.X() == thisBoxerLocation.X()&&_otherBoxer.Y() == thisBoxerLocation.Y()){
             choice = 2;
         }
-        if(dist<100&&choice==0){
+        if(dist<80&&choice==0){
 //            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         }else if(choice==1) {
@@ -216,8 +217,11 @@ public class Boxer implements Subject {
             notifyObserverOfPunch();  //punch in motion
         //TODO make sleeptime reflect punch strangth
             sleepTime(chance.getRandomAttackDelay());  // wait
-        didPunch = true;
+
+        if(distance(thisBoxerLocation,_otherBoxer)<80) {
+            didPunch = true;
             observerCheckDidBLock();  // see if blocked
+        }
 
     }
 

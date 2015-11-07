@@ -7,10 +7,20 @@ import java.text.DecimalFormat;
  * Created by wescratty on 10/31/15.
  */
 public class Game implements Runnable {
+    private static Game ourInstance = new Game();
+
+    public static Game getInstance() {
+        return ourInstance;
+    }
+
+//    private Game() {
+//    }
+
+
     // Match currentBout;
     // experienceCap:int
 //    gui:GUI
-    Timer timer = new Timer();
+    GameTimer timer = GameTimer.getInstance();
     //    Observer watcher;
     // boxerBuilder:Director
     Boxer[] boxers = new Boxer[2];
@@ -20,6 +30,11 @@ public class Game implements Runnable {
 //    ObservaBoxing obs2;
 
     boolean round_in_Play = true;
+
+
+    public String getTimer() {
+        return (Double.toString(timer.elapsedTime()));
+    }
 
 
 
@@ -37,6 +52,8 @@ public class Game implements Runnable {
     }
 
     public void  run(){
+        timer.Stopwatch();
+
 
         while(round_in_Play){
 
@@ -46,26 +63,47 @@ public class Game implements Runnable {
             }else if (System.identityHashCode(Thread.currentThread())==boxers[0].getid()){
                 boxers[0].selectMove();
             }else {
-                pb.revalidate();
-                pb.repaint();
-                boxers[0].setOtherBoxerLoc(boxers[1]);
-                boxers[1].setOtherBoxerLoc(boxers[0]);
-                boxers[0].move();
-                boxers[1].move();
-                try {
-                    Thread.sleep(50);
 
-                }catch (Exception e){}
+
+
+//                mp.setLables();
+                if(timer.elapsedTime()>20){
+                    round_in_Play = false;
+                    AudioPlayer bell =  AudioPlayer.getInstance();
+                    bell.bellSound();
+                }else if (timer.elapsedTime()<1){
+
+                    AudioPlayer bell =  AudioPlayer.getInstance();
+                    bell.bellSound();
+
+
+                }else {
+                    System.out.println(timer.elapsedTime());
+                    MainPanel mp = MainPanel.getInstance();
+                    mp.setLables(Double.toString(20-timer.elapsedTime()));
+                    pb.revalidate();
+                    pb.repaint();
+                    boxers[0].setOtherBoxerLoc(boxers[1]);
+                    boxers[1].setOtherBoxerLoc(boxers[0]);
+                    boxers[0].move();
+                    boxers[1].move();
+                    try {
+                        Thread.sleep(10);
+
+                    } catch (Exception e) {
+                    }
+                }
 
 
             }
 
         }
 
-        AudioPlayer bell =  AudioPlayer.getInstance();
-        bell.bellSound();
+
 
     }
+
+
 
 
 }

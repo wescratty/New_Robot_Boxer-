@@ -9,20 +9,32 @@ import javax.swing.border.EtchedBorder;
 
 
 public class MainPanel extends JPanel {
+    private static MainPanel ourInstance = new MainPanel();
+
+    public static MainPanel getInstance() {
+        return ourInstance;
+    }
+
+    private MainPanel() {
+
+    }
+
 
     Boxer _boxer1 = new Boxer();
     Boxer _boxer2 = new Boxer();
 
+    public JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
 
-    public MainPanel() {
 
 
-        JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
+    protected void makeMain() {
+
+
+
         JPanel b1LabelPanel = new JPanel();
         JPanel b2LabelPanel = new JPanel();
         JPanel gameLabelPanel = new JPanel();
         JPanel subPanel = new JPanel();
-
 
         time = new JLabel("Time left in bought: ");
         timer = new JLabel("5:00");
@@ -33,6 +45,7 @@ public class MainPanel extends JPanel {
         fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
         strengthLblP2 = new JLabel(" P2 Strength: 0  ");
         agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+
 
         b1LabelPanel.add(fatigueLblP1);
         b1LabelPanel.add(strengthLblP1);
@@ -123,7 +136,29 @@ public class MainPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public void setLables(){
+    public void setLables(String string){
+//        time = new JLabel("Time left in bought: ");
+//        timer = new JLabel("5:00");
+//        splash = new JLabel("client message");
+//        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
+//        strengthLblP1 = new JLabel(" P1 Strength: 0  ");
+//        agilityLblP1 = new JLabel("  P1 Agility: 0   ");
+//        fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
+//        strengthLblP2 = new JLabel(" P2 Strength: 0  ");
+//        agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+
+
+
+        timer .setText(string);
+//        splash = new JLabel("client message");
+//        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
+//        strengthLblP1 = new JLabel(" P1 Strength: 0  ");
+//        agilityLblP1 = new JLabel("  P1 Agility: 0   ");
+//        fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
+//        strengthLblP2 = new JLabel(" P2 Strength: 0  ");
+//        agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+
+
 
     }
 

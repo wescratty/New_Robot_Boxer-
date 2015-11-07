@@ -52,7 +52,7 @@ public class AudioPlayer implements LineListener {
             while (!playCompleted) {
                 // wait for the playback completes
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -83,7 +83,7 @@ public class AudioPlayer implements LineListener {
     }
 
     public void bellSound(){
-        playSound("/Users/wescratty/GitHub/javaRepos/javaRepo/New_Robot_Boxer/endRound.wav");
+        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
     }
 
     public void update(LineEvent event) {
