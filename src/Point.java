@@ -3,20 +3,20 @@
  */
 
 public class Point {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    public Point(int x, int y){
+    public Point(double x, double y){
         this.x=x;
         this.y=y;
     }
 
 
-    public int X(){
+    public double X(){
         return this.x;
 
     }
-    public int Y(){
+    public double Y(){
         return this.y;
 
     }

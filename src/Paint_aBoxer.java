@@ -1,5 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by wescratty on 11/6/15.
@@ -34,10 +38,20 @@ public class Paint_aBoxer extends JPanel {
 
         super.paintComponent(g);
 
+
+        List<Point> gloves = new  ArrayList<>();
         int top = 100;
         int width = 800;
         int poleDiag = 80;
         Point nw= new Point(100,100);
+        Point _b_1;
+        Point _b_1Left;
+        Point _b_1Right;
+        Point _b_2Left;
+        Point _b_2Right;
+
+        Point _b_2;
+        CircleLine circleLine = CircleLine.getInstance();
 
         b_1x = _boxer1.getX();
         b_1y = _boxer1.getY();
@@ -45,9 +59,32 @@ public class Paint_aBoxer extends JPanel {
         b_2x = _boxer2.getX();
         b_2y = _boxer2.getY();
 
+        _b_1 = new Point(b_1x,b_1y);
+        _b_2 = new Point(b_2x,b_2y);
+
+        gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, 50);
+
+        _b_1Left = gloves.get(0);
+        _b_1Right = gloves.get(1);
+
+        gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, 50);
+
+        _b_2Left = gloves.get(0);
+        _b_2Right = gloves.get(1);
+
+        if(_boxer1.getDidPunch()){
+            _b_1Right =  _b_2;
+
+        }
+        if(_boxer2.getDidPunch()){
+            _b_2Right =  _b_1;
+
+        }
+
+
 
         //create ring
-        g.drawLine(nw.X(), nw.Y(), top - poleDiag, top - poleDiag);
+        g.drawLine((int)nw.X(),(int) nw.Y(), top - poleDiag, top - poleDiag);
         g.drawLine(width, top, width + poleDiag, top - poleDiag);
         g.drawLine(top, width, top - poleDiag, width + poleDiag);
         g.drawLine(width, width, width + poleDiag, width + poleDiag);
@@ -74,14 +111,14 @@ public class Paint_aBoxer extends JPanel {
         // Boxer 1
         g.setColor(Color.BLUE);
         g.fillArc(b_1x, b_1y, 50, 50, 0, 360);
-        g.fillArc(b_1x+30, b_1y+50, 30, 30, 0, 360);
-        g.fillArc(b_1x+30, b_1y-30, 30, 30, 0, 360);
+        g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 30, 30, 0, 360);
+        g.fillArc((int)_b_1Right.X(),(int)_b_1Right.Y(), 30, 30, 0, 360);
 
         // Boxer 1
         g.setColor(Color.RED);
         g.fillArc(b_2x, b_2y, 50, 50, 0, 360);
-        g.fillArc(b_2x, b_2y+50, 30, 30, 0, 360);
-        g.fillArc(b_2x, b_2y-30, 30, 30, 0, 360);
+        g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 30, 30, 0, 360);
+        g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 30, 30, 0, 360);
 
 }
 

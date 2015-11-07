@@ -28,6 +28,8 @@ public class Boxer implements Subject {
     private Point desiredLocation = new Point(x, y);
     private Point thisBoxerLocation = new Point(x, y);
 
+
+
     private int exp;
 
     private ArrayList<Observer> observers;
@@ -35,6 +37,7 @@ public class Boxer implements Subject {
     public  boolean sentMessage = false;
     public  boolean didBLock = false;
     public  boolean attack = true;
+    private boolean didPunch = false;
     private  ChanceBot chance = new ChanceBot();
 
 
@@ -49,17 +52,21 @@ public class Boxer implements Subject {
     public int selectMove(){
 
         checkForPunch();
+        double dist = distance(thisBoxerLocation,_otherBoxer);
         int choiceCount  =4;
         int choice =chance.getRandomChoice(choiceCount);
-        if(choice==0){
-            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
+        if(_otherBoxer.X() == thisBoxerLocation.X()&&_otherBoxer.Y() == thisBoxerLocation.Y()){
+            choice = 2;
+        }
+        if(dist<100&&choice==0){
+//            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         }else if(choice==1) {
             //System.out.println("Boxer with id: "+this.id+" decided to stand there");
         }else if(choice==2) {
             attack = false;
             changeLocation();
-            System.out.println("Boxer with id: " + this.id + " decided to move");
+//            System.out.println("Boxer with id: " + this.id + " decided to move");
 
         }else if(choice==3) {
             //TODO change out this if for real attack logic
@@ -77,7 +84,7 @@ public class Boxer implements Subject {
 
     private void changeLocation(){
         desiredLocation= chance.pickNewLocation();
-        System.out.println(desiredLocation.X() + ", " + desiredLocation.Y());
+//        System.out.println(desiredLocation.X() + ", " + desiredLocation.Y());
     }
 
     public void move(){
@@ -87,11 +94,11 @@ public class Boxer implements Subject {
         if(dist<100&&attack){
             attack = false;
             desiredLocation=thisBoxerLocation;
-            System.out.println("this one : ");
+//            System.out.println("this one : ");
 
         }
 
-        System.out.println("distance : "+dist);
+//        System.out.println("distance : "+dist);
 
             if (desiredLocation.X() > x ) {
                 x = x + 10;
@@ -107,6 +114,8 @@ public class Boxer implements Subject {
         sleepTime(50);
 
     }
+
+
 
     public  void checkIfAttack(){
         if(attack){
@@ -124,7 +133,7 @@ public class Boxer implements Subject {
 
     public void setSentMessage(){
         sentMessage = true;
-        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
+//        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
 
     }
 
@@ -161,7 +170,7 @@ public class Boxer implements Subject {
             if(observer.getObserverId()!=this.bNum) {
 
                 observer.notifyPunch();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -176,7 +185,7 @@ public class Boxer implements Subject {
             if(observer.getObserverId()!=this.bNum) {
 
                 observer.update();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -190,7 +199,7 @@ public class Boxer implements Subject {
             if(observer.getObserverId()!=bNum) {
 
                 observer.observerCheckDidBLock();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -207,18 +216,25 @@ public class Boxer implements Subject {
             notifyObserverOfPunch();  //punch in motion
         //TODO make sleeptime reflect punch strangth
             sleepTime(chance.getRandomAttackDelay());  // wait
+        didPunch = true;
             observerCheckDidBLock();  // see if blocked
 
+    }
+
+    public boolean getDidPunch(){
+        boolean retBool= didPunch;
+        didPunch = false;
+        return retBool;
     }
 
     public void checkDidBlock(){
         AudioPlayer player = AudioPlayer.getInstance();
 
         if(didBLock){
-            System.out.println(id+" blocked punch");
+//            System.out.println(id+" blocked punch");
             player.blockSound();
         }else{
-            System.out.println(id+" got Punched");
+//            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay());
@@ -244,6 +260,11 @@ public class Boxer implements Subject {
 
         }catch(InterruptedException e)
         {}//TODO actually deal with exception
+
+    }
+
+    public Point  getBoxerPoint(){
+        return thisBoxerLocation;
 
     }
 
