@@ -27,7 +27,7 @@ public class ChanceBot {
 
     }
     public Point pickNewLocation(){
-        point = new Point(random.nextInt(400)+300,random.nextInt(400)+300);
+        point = new Point(random.nextInt(600)+200,random.nextInt(600)+200);
         return point;
 
     }
