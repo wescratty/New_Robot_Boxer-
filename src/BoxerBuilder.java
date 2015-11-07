@@ -18,7 +18,7 @@ public class BoxerBuilder {
      */
     public Boxer createBoxer(int unusedPoints){
         boxer = new Boxer();
-        pointsUsed =  setStats(unusedPoints);
+        pointsUsed =  initiateBoxer(unusedPoints);
         return boxer;
     }
     /**
@@ -28,7 +28,7 @@ public class BoxerBuilder {
      */
     public Boxer createAIBoxer(int unusedPoints){
         boxer = new Boxer();
-        setAIStats(unusedPoints);
+        initiateAI(unusedPoints);
         return boxer;
     }
 
@@ -37,10 +37,16 @@ public class BoxerBuilder {
      * @param unusedPoints number of points the player has available to assign to stats
      * @return number of points spent during this step
      */
-    private int setStats(int unusedPoints){
+    private int initiateBoxer(int unusedPoints){
         int pointsSpent = 0;
         //todo add dialogue box call here
         //call dialogue box
+        String stats = "";
+        //call dialogue box
+        //todo get dialogebox working
+        //stats = dialogueBox.gatherStats(unusedPoints);
+        //set boxer stats
+        setStats(stats);
         //set boxer stats
         return pointsSpent;
     }
@@ -50,15 +56,41 @@ public class BoxerBuilder {
      * @param unusedPoints number of points the computer has available to assign to stats
      * @return number of points spent during this step
      */
-    private int setAIStats(int unusedPoints){
+    private int initiateAI(int unusedPoints){
         int pointsSpent = 0;
+
+        String stats = "";
         //create random stats
         //todo create random stats code
         //set boxer stats
+        setStats(stats);
         return pointsSpent;
     }
 
     public int getPointsUsed() {
         return pointsUsed;
+    }
+
+    private void setStats(String inputs){
+
+        String[] inputArray = inputs.split("|");
+        int strength = 0;
+        int speed =0;
+        int accuracy = 0;
+        int reach = 0;
+        try {
+            strength = Integer.parseInt(inputArray[0]);
+            speed = Integer.parseInt(inputArray[1]);
+            accuracy = Integer.parseInt(inputArray[2]);
+            reach = Integer.parseInt(inputArray[3]);
+        }catch (Exception e){
+           System.out.println(e.toString());
+        }
+
+        boxer.setAgilityScore(speed);
+        boxer.setStrengthScore(strength);
+        boxer.setAccuracy(accuracy);
+        boxer.setReach(reach);
+        boxer.setFatigue(0);
     }
 }
