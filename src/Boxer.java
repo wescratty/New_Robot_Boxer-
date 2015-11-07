@@ -209,6 +209,14 @@ public class Boxer implements Subject {
     public void setBlockList(ArrayList<Block> blockList) {
         this.blockList = blockList;
     }
+
+    public void setReach(int reach) {
+        this.reach = reach;
+    }
+
+    public void setFatigue(int fatigue) {
+        this.fatigue = fatigue;
+    }
 }
 
 //
