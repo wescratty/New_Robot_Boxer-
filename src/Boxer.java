@@ -18,18 +18,22 @@ public class Boxer implements Subject {
     int punchNum =0;
     private RNG rng;
     //why are there 2 Points center and location?
-    private Point center;
+    // I was thinking center would be boxer center and location could be if they decided to move to a new location.
+    // perhaps a method  move() that incremented center by constant C toward location each time the thread came through.
+
+//    private Point center;
     private AudioPlayer player;
     private ArrayList<Attack> attackList;
     private ArrayList<Block>blockList;
     int x,y = 0;
-    public Point location = new Point(x, y);
+    public Point desiredLocation = new Point(x, y);
     private int exp;
 
     private ArrayList<Observer> observers;
 
     public  boolean sentMessage = false;
     public  boolean didBLock = false;
+    public  boolean attack = true;
     private  ChanceBot chance = new ChanceBot();
 
 
@@ -54,7 +58,7 @@ public class Boxer implements Subject {
     public int selectMove(){
 
         checkForPunch();
-        int choiceCount  =3;
+        int choiceCount  =4;
         int choice =chance.getRandomChoice(choiceCount);
         if(choice==0){
             System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
@@ -62,14 +66,45 @@ public class Boxer implements Subject {
         }else if(choice==1) {
             //System.out.println("Boxer with id: "+this.id+" decided to stand there");
         }else if(choice==2) {
-            //System.out.println("Boxer with id: " + this.id + " decided to move");
-            sleepTime(chance.getRandomAttackDelay());
+            changeLocation();
+            System.out.println("Boxer with id: " + this.id + " decided to move");
+//            sleepTime(chance.getRandomAttackDelay());
+
+        }else if(choice==4) {
+            if(attack){
+                attack = false;
+            }else{
+                attack = true;
+            }
 
         }
         checkForPunch();
 
 
         return 0;
+    }
+
+    private void changeLocation(){
+        desiredLocation= chance.pickNewLocation();
+        System.out.println(desiredLocation.X() + ", " + desiredLocation.Y());
+    }
+
+    public void move(){
+
+
+            if(desiredLocation.X()>x){
+               x= x+10;
+            }else if (desiredLocation.X()<x){
+                x= x-10;
+            }
+            if(desiredLocation.Y()>y){
+                y= y+10;
+            }else if (desiredLocation.Y()<y){
+                y= y-10;
+                sleepTime(500);
+            }
+
+
     }
 
     public void setSentMessage(){
@@ -188,6 +223,21 @@ public class Boxer implements Subject {
         {}//TODO actually deal with exception
 
     }
+
+    public void setLoc(int x, int y){
+        this.x = x;
+        this.y = y;
+
+    }
+    public int getX(){
+        return this.x;
+
+    }
+    public int getY(){
+        return this.y;
+
+    }
+
 
 
     public void setStrengthScore(int strengthScore) {

@@ -7,10 +7,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 
 
+
 public class MainPanel extends JPanel {
 
+    Boxer _boxer1 = new Boxer();
+    Boxer _boxer2 = new Boxer();
+
     public MainPanel() {
-        //added nothing
 
 
         JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
@@ -57,28 +60,30 @@ public class MainPanel extends JPanel {
         setBorder(BorderFactory.createLoweredBevelBorder());
         setBackground(Color.LIGHT_GRAY);
 
+        Paint_aBoxer paintBoxers = Paint_aBoxer.getInstance();
+        add(paintBoxers);
+
         add(subPanel, BorderLayout.SOUTH);
 
         create();
 
     }
 
+
     public void create(){
-        Dialog boxer1Stats = Dialog.getInstance();
-        String b1Sts = boxer1Stats.getBoxerStats();
-
-
-        Boxer _boxer1 = new Boxer();
-        Boxer _boxer2 = new Boxer();
+//        Dialog boxer1Stats = Dialog.getInstance();
+//        String b1Sts = boxer1Stats.getBoxerStats();
 
         ObservaBoxing obs1 = new ObservaBoxing(_boxer1);
-//        ObservaBoxing obs2 = new ObservaBoxing(_boxer2);
+        ObservaBoxing obs2 = new ObservaBoxing(_boxer2);
 
-        _boxer1.register(obs1);
+        _boxer1.register(obs2);
         _boxer2.register(obs1);
 
         Runnable game = new Game(_boxer1,_boxer2);
 
+
+        Thread paintThread = new Thread(game);
         Thread boxer1Thread = new Thread(game);
         int b1Identifier = System.identityHashCode(boxer1Thread);
         Thread boxer2Thread = new Thread(game);
@@ -92,6 +97,9 @@ public class MainPanel extends JPanel {
 
         boxer1Thread.start();
         boxer2Thread.start();
+        paintThread.start();
+
+        // TODO join threads
 //        try {
 //            boxer1Thread.join();
 //            boxer2Thread.join();
@@ -105,55 +113,8 @@ public class MainPanel extends JPanel {
     }
 
 
-
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        int top = 100;
-        int width = 800;
-        int poleDiag = 80;
-        Point nw= new Point(100,100);
-
-
-        //create ring
-        g.drawLine(nw.X(),nw.Y(),top-poleDiag,top-poleDiag);
-        g.drawLine(width,top,width+poleDiag,top-poleDiag);
-        g.drawLine(top,width,top-poleDiag,width+poleDiag);
-        g.drawLine(width, width, width + poleDiag, width + poleDiag);
-
-
-        g.drawLine(top,top,top,width);
-        g.drawLine(top,top,width,top);
-        g.drawLine(width,top,width,width);
-        g.drawLine(top, width, width, width);
-
-
-        g.drawArc(20,20,20,20,20,360);
-        g.drawArc(20,860,20,20,20,360);
-        g.drawArc(860,860,20,20,20,360);
-        g.drawArc(860,20,20,20,20,360);
-
-
-        g.drawArc(30,5,840,50,180,180);  //top rope
-        g.drawArc(5,30,50,840,270,180);  // left rope
-
-        g.drawArc(845,30,50,840,90,180);  //right rope
-        g.drawArc(30, 845, 840, 50, 0, 180);
-
-
-        // Boxer 1
-        g.setColor(Color.BLUE);
-        g.fillArc(200, 400, 50, 50, 0, 360);
-        g.fillArc(200+30, 400+50, 30, 30, 0, 360);
-        g.fillArc(200+30, 400-30, 30, 30, 0, 360);
-
-        // Boxer 1
-        g.setColor(Color.RED);
-        g.fillArc(600, 400, 50, 50, 0, 360);
-        g.fillArc(600, 400+50, 30, 30, 0, 360);
-        g.fillArc(600, 400-30, 30, 30, 0, 360);
-
     }
 
 }

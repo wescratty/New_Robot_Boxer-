@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 /**
  * Created by wescratty on 10/31/15.
  */
-public class Game implements Runnable{
+public class Game implements Runnable {
     // Match currentBout;
     // experienceCap:int
 //    gui:GUI
@@ -15,8 +15,11 @@ public class Game implements Runnable{
     // boxerBuilder:Director
     Boxer[] boxers = new Boxer[2];
     ChanceBot rand = new ChanceBot();
-    ObservaBoxing obs1;
-    ObservaBoxing obs2;
+    Paint_aBoxer pb = Paint_aBoxer.getInstance();
+//    ObservaBoxing obs1;
+//    ObservaBoxing obs2;
+
+    boolean round_in_Play = true;
 
 
 
@@ -27,6 +30,9 @@ public class Game implements Runnable{
 
         boxers[0]=b1;
         boxers[1]=b2;
+        boxers[0].setLoc(200,400);
+        boxers[1].setLoc(600,400);
+        pb.setBoxers(boxers[0], boxers[1]);
 //        this.obs1=obs1;
 //        this.obs2=obs2;
 
@@ -34,13 +40,24 @@ public class Game implements Runnable{
 
     public void  run(){
 
-        for(int i = 1; i <= 20; i++){
+        while(round_in_Play){
 
             // get thread to see if b1 or b2 boxer
             if (System.identityHashCode(Thread.currentThread())==boxers[1].getid()){
                 boxers[1].selectMove();
-            }else{
+            }else if (System.identityHashCode(Thread.currentThread())==boxers[0].getid()){
                 boxers[0].selectMove();
+            }else {
+                pb.revalidate();
+                pb.repaint();
+                boxers[0].move();
+                boxers[1].move();
+                try {
+                    Thread.sleep(50);
+
+                }catch (Exception e){}
+
+
             }
 
         }
