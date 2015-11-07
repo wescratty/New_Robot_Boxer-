@@ -4,7 +4,16 @@ import java.util.Random;
  * Created by wescratty on 10/31/15.
  */
 public class ChanceBot {
+    private static ChanceBot ourInstance = new ChanceBot();
+
+    public static ChanceBot getInstance() {
+        return ourInstance;
+    }
+
+
+
     private Random random= new Random();
+    protected Point point;
 
     public ChanceBot(){
 
@@ -17,8 +26,13 @@ public class ChanceBot {
         return random.nextInt();
 
     }
+    public Point pickNewLocation(){
+        point = new Point(random.nextInt(400)+300,random.nextInt(400)+300);
+        return point;
+
+    }
     public int getRandomAttackDelay(){
-        return random.nextInt(1000);
+        return random.nextInt(2500);
 
     }
     public int getRandomChoice(int choices){

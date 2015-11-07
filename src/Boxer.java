@@ -13,68 +13,127 @@ public class Boxer implements Subject {
     private int agilityScore;
     private int accuracy;
     private int reach;
-    private int punchTime = 200;
-    private int punchedTime = 100;
-    int punchNum =0;
+    private int punchTime = 1000;
+    private int punchedTime = 0;
+    private int x,y = 0;
+
     private RNG rng;
-    //why are there 2 Points center and location?
-    private Point center;
+
     private AudioPlayer player;
     private ArrayList<Attack> attackList;
     private ArrayList<Block>blockList;
-    int x,y = 0;
-    public Point location = new Point(x, y);
+
+    private Point _otherBoxer= new Point(0,0);
+
+    private Point desiredLocation = new Point(x, y);
+    private Point thisBoxerLocation = new Point(x, y);
+
+
+
     private int exp;
 
     private ArrayList<Observer> observers;
 
     public  boolean sentMessage = false;
     public  boolean didBLock = false;
+    public  boolean attack = true;
+    private boolean didPunch = false;
     private  ChanceBot chance = new ChanceBot();
 
 
-// constructor
     public Boxer() {
 
         observers = new ArrayList<Observer>();
 
-
     }
 
-    public void setid(int id, int bNum){
-        this.id = id;
-        this.bNum = bNum;
-    }
-
-    public int getid(){
-        return this.id;
-    }
 
 
     public int selectMove(){
 
         checkForPunch();
-        int choiceCount  =3;
+        double dist = distance(thisBoxerLocation,_otherBoxer);
+        int choiceCount  =4;
         int choice =chance.getRandomChoice(choiceCount);
-        if(choice==0){
-            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
+        if(_otherBoxer.X() == thisBoxerLocation.X()&&_otherBoxer.Y() == thisBoxerLocation.Y()){
+            choice = 2;
+        }
+        if(dist<100&&choice==0){
+//            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         }else if(choice==1) {
             //System.out.println("Boxer with id: "+this.id+" decided to stand there");
         }else if(choice==2) {
-            //System.out.println("Boxer with id: " + this.id + " decided to move");
-            sleepTime(chance.getRandomAttackDelay());
+            attack = false;
+            changeLocation();
+//            System.out.println("Boxer with id: " + this.id + " decided to move");
+
+        }else if(choice==3) {
+            //TODO change out this if for real attack logic
+
+                attack = true;
+            desiredLocation=_otherBoxer;
 
         }
-        checkForPunch();
 
+        checkForPunch();
+        checkIfAttack();
 
         return 0;
     }
 
+    private void changeLocation(){
+        desiredLocation= chance.pickNewLocation();
+//        System.out.println(desiredLocation.X() + ", " + desiredLocation.Y());
+    }
+
+    public void move(){
+        thisBoxerLocation.setPoint(x, y);
+
+        double dist = distance(thisBoxerLocation,_otherBoxer);
+        if(dist<100&&attack){
+            attack = false;
+            desiredLocation=thisBoxerLocation;
+//            System.out.println("this one : ");
+
+        }
+
+//        System.out.println("distance : "+dist);
+
+            if (desiredLocation.X() > x ) {
+                x = x + 10;
+            } else if (desiredLocation.X() < x) {
+                x = x - 10;
+            }
+            if (desiredLocation.Y() > y ) {
+                y = y + 10;
+            } else if (desiredLocation.Y() < y) {
+                y = y - 10;
+
+            }
+        sleepTime(50);
+
+    }
+
+
+
+    public  void checkIfAttack(){
+        if(attack){
+            desiredLocation=_otherBoxer;
+        }
+
+    }
+
+    public void setOtherBoxerLoc(Boxer otherBoxer){
+
+        _otherBoxer.setX(otherBoxer.getX());
+        _otherBoxer.setY(otherBoxer.getY());
+
+    }
+
     public void setSentMessage(){
         sentMessage = true;
-        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
+//        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
 
     }
 
@@ -111,7 +170,7 @@ public class Boxer implements Subject {
             if(observer.getObserverId()!=this.bNum) {
 
                 observer.notifyPunch();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -126,7 +185,7 @@ public class Boxer implements Subject {
             if(observer.getObserverId()!=this.bNum) {
 
                 observer.update();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -137,45 +196,60 @@ public class Boxer implements Subject {
 
         // Cycle through all observers and notifies them
         for(Observer observer : observers){
-            if(observer.getObserverId()!=this.bNum) {
+            if(observer.getObserverId()!=bNum) {
 
                 observer.observerCheckDidBLock();//ibmPrice, aaplPrice, googPrice
-                System.out.println("Notifying Observer " + (observer.getObserverId()));
+//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
     }
 
 
+    public double distance(Point b_1, Point b_2){
+        return Math.sqrt(Math.pow(b_2.X()-b_1.X(),2)+Math.pow(b_2.Y()-b_1.Y(),2));
+
+    }
 
     public void punch(){
 
             notifyObserverOfPunch();  //punch in motion
-            sleepTime(punchTime);  // wait
+        //TODO make sleeptime reflect punch strangth
+            sleepTime(chance.getRandomAttackDelay());  // wait
+        didPunch = true;
             observerCheckDidBLock();  // see if blocked
 
+    }
+
+    public boolean getDidPunch(){
+        boolean retBool= didPunch;
+        didPunch = false;
+        return retBool;
     }
 
     public void checkDidBlock(){
         AudioPlayer player = AudioPlayer.getInstance();
 
-        if(this.didBLock){
-            System.out.println(this.id+" blocked punch");
+        if(didBLock){
+//            System.out.println(id+" blocked punch");
             player.blockSound();
         }else{
-            System.out.println(this.id+" got Punched in face");
+//            System.out.println(id+" got Punched");
+            attack = false;
             player.punchSound();
-            sleepTime(punchedTime);
+            sleepTime(chance.getRandomAttackDelay());
+            //TODO make sleeptime reflect punch strangth
+            //TODO make punch graphics
 
         }
-        this.didBLock = false;
+        didBLock = false;
     }
 
 
     public void checkForPunch(){
-        if(this.sentMessage){
-            this.sentMessage= false;
-            this.didBLock = true;
+        if(sentMessage){
+            sentMessage= false;
+            didBLock = true;
         }
     }
 
@@ -187,6 +261,33 @@ public class Boxer implements Subject {
         }catch(InterruptedException e)
         {}//TODO actually deal with exception
 
+    }
+
+    public Point  getBoxerPoint(){
+        return thisBoxerLocation;
+
+    }
+
+    public void setLoc(int x, int y){
+        this.x = x;
+        this.y = y;
+
+    }
+    public int getX(){
+        return this.x;
+
+    }
+    public int getY(){
+        return this.y;
+
+    }
+    public void setid(int id, int bNum){
+        this.id = id;
+        this.bNum = bNum;
+    }
+
+    public int getid(){
+        return this.id;
     }
 
 

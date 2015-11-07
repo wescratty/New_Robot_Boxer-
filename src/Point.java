@@ -3,23 +3,40 @@
  */
 
 public class Point {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
-    public Point(int x, int y){
+    public Point(double x, double y){
         this.x=x;
         this.y=y;
     }
 
 
-    public int X(){
+    public double X(){
         return this.x;
 
     }
-    public int Y(){
+    public double Y(){
         return this.y;
 
     }
+
+    public void setX(int x){
+        this.x=x;
+
+    }
+    public void setY(int y){
+        this.y=y;
+
+    }
+
+    public  void setPoint(int x, int y){
+        this.x=x;
+        this.y=y;
+
+    }
+
+
 
     public String toString(){
         return "("+ this.x+","+this.y+")";
