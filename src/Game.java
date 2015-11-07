@@ -33,8 +33,6 @@ public class Game implements Runnable {
         boxers[0].setLoc(200,400);
         boxers[1].setLoc(600,400);
         pb.setBoxers(boxers[0], boxers[1]);
-//        this.obs1=obs1;
-//        this.obs2=obs2;
 
     }
 
@@ -50,6 +48,8 @@ public class Game implements Runnable {
             }else {
                 pb.revalidate();
                 pb.repaint();
+                boxers[0].setOtherBoxerLoc(boxers[1]);
+                boxers[1].setOtherBoxerLoc(boxers[0]);
                 boxers[0].move();
                 boxers[1].move();
                 try {

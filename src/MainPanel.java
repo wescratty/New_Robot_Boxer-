@@ -80,6 +80,10 @@ public class MainPanel extends JPanel {
         _boxer1.register(obs2);
         _boxer2.register(obs1);
 
+//        _boxer1.setOtherBoxerLoc(_boxer2);
+//        _boxer2.setOtherBoxerLoc(_boxer1);
+
+
         Runnable game = new Game(_boxer1,_boxer2);
 
 

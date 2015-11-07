@@ -74,14 +74,14 @@ public class Paint_aBoxer extends JPanel {
         // Boxer 1
         g.setColor(Color.BLUE);
         g.fillArc(b_1x, b_1y, 50, 50, 0, 360);
-//        g.fillArc(200+30, 400+50, 30, 30, 0, 360);
-//        g.fillArc(200+30, 400-30, 30, 30, 0, 360);
+        g.fillArc(b_1x+30, b_1y+50, 30, 30, 0, 360);
+        g.fillArc(b_1x+30, b_1y-30, 30, 30, 0, 360);
 
         // Boxer 1
         g.setColor(Color.RED);
         g.fillArc(b_2x, b_2y, 50, 50, 0, 360);
-//        g.fillArc(600, 400+50, 30, 30, 0, 360);
-//        g.fillArc(600, 400-30, 30, 30, 0, 360);
+        g.fillArc(b_2x, b_2y+50, 30, 30, 0, 360);
+        g.fillArc(b_2x, b_2y-30, 30, 30, 0, 360);
 
 }
 
