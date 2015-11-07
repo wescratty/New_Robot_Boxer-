@@ -76,6 +76,10 @@ public class AttackBuilder {
         return attackList;
     }
 
+    /**
+     * Getter for points used during this step of creation
+     * @return integer of points used during this step
+     */
     public int getPointsUsed() {
         return pointsUsed;
     }
