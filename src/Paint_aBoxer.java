@@ -24,7 +24,10 @@ public class Paint_aBoxer extends JPanel {
     int b_2x = 600;
     int b_2y = 400;
     ArrayList<Point> bSplat = new ArrayList<>();
+    ArrayList<String> bSize = new ArrayList<>();
+
     ArrayList<Point> rSplat = new ArrayList<>();
+    ArrayList<String> rSize = new ArrayList<>();
 
 
 
@@ -48,13 +51,18 @@ public class Paint_aBoxer extends JPanel {
         int top = 100;
         int width = 800;
         int poleDiag = 80;
+        int spatterSize = 5;
+
+        ChanceBot chance = ChanceBot.getInstance();
+        spatterSize=spatterSize+chance.getRandomChoice(8);
+
         Point nw= new Point(100,100);
         Point _b_1;
         Point _b_1Left;
         Point _b_1Right;
         Point _b_2Left;
         Point _b_2Right;
-        
+
 
         Point _b_2;
         CircleLine circleLine = CircleLine.getInstance();
@@ -81,11 +89,13 @@ public class Paint_aBoxer extends JPanel {
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
             rSplat.add(_b_2);
+            rSize.add(Integer.toString(spatterSize));
 
         }
         if(_boxer2.getDidPunch()){
             _b_2Right =  _b_1;
             bSplat.add(_b_1);
+            bSize.add(Integer.toString(spatterSize));
 
         }
 
@@ -118,15 +128,22 @@ public class Paint_aBoxer extends JPanel {
         g.drawArc(30, 845, 840, 50, 0, 180);
 
         g.setColor(Color.RED);
+        int j = 0;
 
         for(Point i : rSplat){    //(String i : data)
-            g.fillArc((int)i.X(),(int)i.Y(), 5, 5, 0, 360);
+
+
+            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(rSize.get(j)), Integer.parseInt(rSize.get(j)), 0, 360);
+            j++;
 
         }
         g.setColor(Color.BLUE);
+        j = 0;
 
         for(Point i : bSplat){    //(String i : data)
-            g.fillArc((int)i.X(),(int)i.Y(), 5, 5, 0, 360);
+
+            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(bSize.get(j)), Integer.parseInt(bSize.get(j)), 0, 360);
+            j++;
 
         }
 
