@@ -24,6 +24,8 @@ public class Paint_aBoxer extends JPanel {
     int b_2x = 600;
     int b_2y = 400;
 
+
+
     public Paint_aBoxer(){
 
     }
@@ -33,6 +35,7 @@ public class Paint_aBoxer extends JPanel {
         _boxer2 = b;
 
     }
+
 
     protected void paintComponent (Graphics g){
 

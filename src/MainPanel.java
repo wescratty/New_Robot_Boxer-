@@ -13,6 +13,7 @@ public class MainPanel extends JPanel {
     Boxer _boxer1 = new Boxer();
     Boxer _boxer2 = new Boxer();
 
+
     public MainPanel() {
 
 
@@ -43,6 +44,7 @@ public class MainPanel extends JPanel {
         b2LabelPanel.add(strengthLblP2);
         b2LabelPanel.add(agilityLblP2);
         b2LabelPanel.setLayout(new BoxLayout(b2LabelPanel, BoxLayout.PAGE_AXIS));
+
         b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
         gameLabelPanel.add(time);
@@ -119,6 +121,10 @@ public class MainPanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+    }
+
+    public void setLables(){
+
     }
 
 }
