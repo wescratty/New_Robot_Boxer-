@@ -42,7 +42,7 @@ public class Paint_aBoxer extends JPanel {
         super.paintComponent(g);
 
 
-        List<Point> gloves = new  ArrayList<>();
+        List<Point> gloves = new  ArrayList<Point>();
         int top = 100;
         int width = 800;
         int poleDiag = 80;
