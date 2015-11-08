@@ -22,6 +22,9 @@ public class StatDialogue {
         int accuracy = 0;
         int range = 0;
 
+        // flag for cancel
+        boolean isValid = true;
+
         // break input string into arrays
         String[] statsArray = currentStats.split("\\|");
         //parse string results into correct variables
@@ -38,40 +41,59 @@ public class StatDialogue {
         int maxStr =strength +  (unusedPoints /(STEPPING*STRCOST)*STEPPING);
         Integer[] strengthPossibilites = range(strength, maxStr, STEPPING);
         Integer newStrength = (Integer)dialog.getStat("Strength","Strength Value:(Cost "+STRCOST+" Points )",strengthPossibilites);
-        int deltaStrength = newStrength -strength;
-        pointsUsed += deltaStrength * STRCOST;
-        unusedPoints -= pointsUsed;
-        strength = newStrength;
+        if (newStrength == null) {
+        isValid = false;
+        }
+            int deltaStrength = newStrength - strength;
+            pointsUsed += deltaStrength * STRCOST;
+            unusedPoints -= pointsUsed;
+            strength = newStrength;
+
 
         //get Speed from User
-        int maxSpeed =speed +  (unusedPoints /(STEPPING*SPEEDCOST)*STEPPING);
-        Integer[] SpeedPossibilites = range(speed, maxSpeed, STEPPING);
-        Integer newSpeed = (Integer)dialog.getStat("Speed","Speed Value: (Cost "+SPEEDCOST+" Points )",SpeedPossibilites);
-        int deltaSpeed = newSpeed -speed;
-        pointsUsed += deltaSpeed * SPEEDCOST;
-        unusedPoints -= pointsUsed;
-        speed = newSpeed;
+        if (isValid) {
+            int maxSpeed = speed + (unusedPoints / (STEPPING * SPEEDCOST) * STEPPING);
+            Integer[] SpeedPossibilites = range(speed, maxSpeed, STEPPING);
+            Integer newSpeed = (Integer) dialog.getStat("Speed", "Speed Value: (Cost " + SPEEDCOST + " Points )", SpeedPossibilites);
+            if (newSpeed == null) {
+                isValid = false;
+            }
+            int deltaSpeed = newSpeed - speed;
+            pointsUsed += deltaSpeed * SPEEDCOST;
+            unusedPoints -= pointsUsed;
+            speed = newSpeed;
+        }
 
         //get Accuracy from User
-        int maxAccuracy =accuracy +  (unusedPoints /(STEPPING*ACCURACYCOST)*STEPPING);
-        Integer[] AccuracyPossibilites = range(accuracy, maxAccuracy, STEPPING);
-        Integer newAccuracy = (Integer)dialog.getStat("Accuracy","Accuracy Value: (Cost "+ACCURACYCOST+" Points )",AccuracyPossibilites);
-        int deltaAccuracy = newAccuracy -accuracy;
-        pointsUsed += deltaAccuracy * ACCURACYCOST;
-        unusedPoints -= pointsUsed;
-        accuracy = newAccuracy;
-
+        if (isValid) {
+            int maxAccuracy = accuracy + (unusedPoints / (STEPPING * ACCURACYCOST) * STEPPING);
+            Integer[] AccuracyPossibilites = range(accuracy, maxAccuracy, STEPPING);
+            Integer newAccuracy = (Integer) dialog.getStat("Accuracy", "Accuracy Value: (Cost " + ACCURACYCOST + " Points )", AccuracyPossibilites);
+            if (newAccuracy == null) {
+                isValid = false;
+            }
+            int deltaAccuracy = newAccuracy - accuracy;
+            pointsUsed += deltaAccuracy * ACCURACYCOST;
+            unusedPoints -= pointsUsed;
+            accuracy = newAccuracy;
+        }
         //get Range from User
         int maxRange =range +  (unusedPoints /(STEPPING*RANGECOST)*STEPPING);
         Integer[] rangePossibilities = range(accuracy, maxRange, STEPPING);
         Integer newRange = (Integer)dialog.getStat("Range","Range Value: (Cost "+RANGECOST+" Points )",rangePossibilities);
+        if (newRange == null) {
+            isValid = false;
+        }
         int detaRange = newRange -range;
         pointsUsed += detaRange * RANGECOST;
         unusedPoints -= pointsUsed;
         range = newRange;
 
-        //create String Pipe delimiter usedPoints, Strength, speed, accuracy range order
-        String resultString = ""+pointsUsed+"|"+strength+"|"+speed+"|"+accuracy+"|"+range;
+        String resultString = null;
+        if (isValid) {
+            //create String Pipe delimiter usedPoints, Strength, speed, accuracy range order
+            resultString = "" + pointsUsed + "|" + strength + "|" + speed + "|" + accuracy + "|" + range;
+        }
         return resultString;
     }
 
@@ -91,5 +113,9 @@ public class StatDialogue {
             }
         }
         return result;
+    }
+
+    public void errorBox(String message){
+        dialog.errorBox(message);
     }
 }

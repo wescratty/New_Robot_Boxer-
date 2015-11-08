@@ -44,4 +44,7 @@ public class Dialog {
                 null,possibilities,possibilities[0]);
         return userChoice;
     }
+public void errorBox(String message) {
+    JOptionPane.showMessageDialog(null, message);
+}
 }

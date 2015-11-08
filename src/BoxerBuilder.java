@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * Created by sinless on 11/4/15.
  */
@@ -46,8 +48,13 @@ public class BoxerBuilder {
         //call dialogue box
         String stats = "";
         //call dialogue box
-        //todo get dialogebox working
-        stats = dialogue.getStats(unusedPoints, boxer.getStats());
+        do {
+            stats = dialogue.getStats(unusedPoints, boxer.getStats());
+            //statsGatheredCheck
+            if (stats == null){
+            dialogue.errorBox("Boxer Stats Invalid");
+            }
+        }while(stats == null);
         //set boxer stats
         setStats(stats);
         //set boxer stats
