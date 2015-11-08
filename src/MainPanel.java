@@ -19,6 +19,7 @@ public class MainPanel extends JPanel {
     private MainPanel() {
 
     }
+    //todo find a home for this
     BoxerDirector builder = new BoxerDirector();
 
     Boxer _boxer1 = builder.build(100);
