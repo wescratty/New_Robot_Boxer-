@@ -11,6 +11,12 @@ public class BoxerDirector {
     private Boxer boxer;
     int unusedPoints;
 
+    public BoxerDirector(){
+        boxerbuilder = new BoxerBuilder();
+        attackBuilder = new AttackBuilder();
+        blockBuilder = new BlockBuilder();
+    }
+
     public Boxer build(int startingPoints){
         this.unusedPoints = startingPoints;
         boxer = boxerbuilder.createBoxer(unusedPoints);

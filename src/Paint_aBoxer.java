@@ -23,11 +23,11 @@ public class Paint_aBoxer extends JPanel {
     int b_1y = 400;
     int b_2x = 600;
     int b_2y = 400;
-    ArrayList<Point> bSplat = new ArrayList<>();
-    ArrayList<String> bSize = new ArrayList<>();
+    ArrayList<Point> bSplat = new ArrayList<Point>();
+    ArrayList<String> bSize = new ArrayList<String>();
 
-    ArrayList<Point> rSplat = new ArrayList<>();
-    ArrayList<String> rSize = new ArrayList<>();
+    ArrayList<Point> rSplat = new ArrayList<Point>();
+    ArrayList<String> rSize = new ArrayList<String>();
 
 
 

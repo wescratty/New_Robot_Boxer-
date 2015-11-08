@@ -19,7 +19,9 @@ public class BoxerBuilder {
      */
     public Boxer createBoxer(int unusedPoints){
         boxer = new Boxer();
+        System.out.println(boxer);
         pointsUsed =  initiateBoxer(unusedPoints);
+        System.out.println(boxer);
         return boxer;
     }
     /**
@@ -74,12 +76,13 @@ public class BoxerBuilder {
 
     private void setStats(String inputs){
 
-        String[] inputArray = inputs.split("|");
+        String[] inputArray = inputs.split("\\|");
         int strength = 0;
         int speed =0;
         int accuracy = 0;
         int reach = 0;
         try {
+            pointsUsed = Integer.parseInt(inputArray[0]);
             strength = Integer.parseInt(inputArray[1]);
             speed = Integer.parseInt(inputArray[2]);
             accuracy = Integer.parseInt(inputArray[3]);

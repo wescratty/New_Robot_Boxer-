@@ -22,19 +22,21 @@ public class StatDialogue {
         int accuracy = 0;
         int range = 0;
 
-        // break intput string into arrays
-        String[] statsArray = currentStats.split("|");
+        // break input string into arrays
+        String[] statsArray = currentStats.split("\\|");
         //parse string results into correct variables
+        System.out.println(statsArray.toString());
         try {
-            strength = Integer.parseInt(statsArray[0]);
-            speed = Integer.parseInt(statsArray[1]);
-            accuracy = Integer.parseInt(statsArray[2]);
+            strength = Integer.parseInt(statsArray[1]);
+            speed = Integer.parseInt(statsArray[2]);
+            accuracy = Integer.parseInt(statsArray[3]);
             range = Integer.parseInt(statsArray[4]);
         }catch (IndexOutOfBoundsException e){
             throw e;
         }
         //get strength from User
-        Integer[] strengthPossibilites = range(strength, (unusedPoints /(5*STRCOST)), STEPPING);
+        int maxStr =strength +  (unusedPoints /(STEPPING*STRCOST)*STEPPING);
+        Integer[] strengthPossibilites = range(strength, maxStr, STEPPING);
         Integer newStrength = (Integer)dialog.getStat("Strength","Strength Value:(Cost "+STRCOST+" Points )",strengthPossibilites);
         int deltaStrength = newStrength -strength;
         pointsUsed += deltaStrength * STRCOST;
@@ -42,7 +44,8 @@ public class StatDialogue {
         strength = newStrength;
 
         //get Speed from User
-        Integer[] SpeedPossibilites = range(speed, (unusedPoints /(5*SPEEDCOST)), STEPPING);
+        int maxSpeed =speed +  (unusedPoints /(STEPPING*SPEEDCOST)*STEPPING);
+        Integer[] SpeedPossibilites = range(speed, maxSpeed, STEPPING);
         Integer newSpeed = (Integer)dialog.getStat("Speed","Speed Value: (Cost "+SPEEDCOST+" Points )",SpeedPossibilites);
         int deltaSpeed = newSpeed -speed;
         pointsUsed += deltaSpeed * SPEEDCOST;
@@ -50,7 +53,8 @@ public class StatDialogue {
         speed = newSpeed;
 
         //get Accuracy from User
-        Integer[] AccuracyPossibilites = range(accuracy, (unusedPoints /(5*ACCURACYCOST)), STEPPING);
+        int maxAccuracy =accuracy +  (unusedPoints /(STEPPING*ACCURACYCOST)*STEPPING);
+        Integer[] AccuracyPossibilites = range(accuracy, maxAccuracy, STEPPING);
         Integer newAccuracy = (Integer)dialog.getStat("Accuracy","Accuracy Value: (Cost "+ACCURACYCOST+" Points )",AccuracyPossibilites);
         int deltaAccuracy = newAccuracy -accuracy;
         pointsUsed += deltaAccuracy * ACCURACYCOST;
@@ -58,7 +62,8 @@ public class StatDialogue {
         accuracy = newAccuracy;
 
         //get Range from User
-        Integer[] rangePossibilities = range(accuracy, (unusedPoints /(5*RANGECOST)), STEPPING);
+        int maxRange =range +  (unusedPoints /(STEPPING*RANGECOST)*STEPPING);
+        Integer[] rangePossibilities = range(accuracy, maxRange, STEPPING);
         Integer newRange = (Integer)dialog.getStat("Range","Range Value: (Cost "+RANGECOST+" Points )",rangePossibilities);
         int detaRange = newRange -range;
         pointsUsed += detaRange * RANGECOST;
@@ -70,13 +75,21 @@ public class StatDialogue {
         return resultString;
     }
 
-    public Integer[] range(int start, int stop, int step)
-    {
-        Integer[] result = new Integer[((stop-start)/step)+1];
+    public Integer[] range(int start, int stop, int step){
+    Integer[] result;
 
-        for(int i=0;i<stop-start;i+=step)
-            result[i] = start+i;
-
+        if (start >= stop){
+        result = new Integer[1];
+        result[0]=start;
+    }else {
+            result = new Integer[((stop - start) / step) + 1];
+            int topValue = start + (((stop - start) / step)) * step;
+            Integer value = start;
+            for (int i = 0; value < topValue; i++) {
+                value = start + i * step;
+                result[i] = value;
+            }
+        }
         return result;
     }
 }
