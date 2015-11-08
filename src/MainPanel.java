@@ -22,8 +22,8 @@ public class MainPanel extends JPanel {
     //todo find a home for this
     BoxerDirector builder = new BoxerDirector();
 
-    Boxer _boxer1 = builder.build(100);
-    Boxer _boxer2 = builder.build(100);
+    Boxer _boxer1 = builder.build(100, "Player 1");
+    Boxer _boxer2 = builder.build(100, "Player 2");
 //    public JLabel[] labArr = new JLabel[9];
 //
 //    for(JLabel label : labArr) {

@@ -13,7 +13,7 @@ public class StatDialogue {
     private Dialog dialog = Dialog.getInstance();
 
 
-    public String getStats(int unusedPoints, String currentStats){
+    public String getStats(int unusedPoints, String currentStats,String boxerID){
         //set default values
         pointsUsed= 0;
         int currentPoints = unusedPoints;
@@ -40,7 +40,7 @@ public class StatDialogue {
         //get strength from User
         int maxStr =strength +  (unusedPoints /(STEPPING*STRCOST)*STEPPING);
         Integer[] strengthPossibilites = range(strength, maxStr, STEPPING);
-        Integer newStrength = (Integer)dialog.getStat("Strength","Strength Value:(Cost "+STRCOST+" Points )",strengthPossibilites);
+        Integer newStrength = (Integer)dialog.getStat(boxerID,"Strength Value:(Cost "+STRCOST+" Points )",strengthPossibilites);
         if (newStrength == null) {
         isValid = false;
         }else {
@@ -54,7 +54,7 @@ public class StatDialogue {
         if (isValid) {
             int maxSpeed = speed + (unusedPoints / (STEPPING * SPEEDCOST) * STEPPING);
             Integer[] SpeedPossibilites = range(speed, maxSpeed, STEPPING);
-            Integer newSpeed = (Integer) dialog.getStat("Speed", "Speed Value: (Cost " + SPEEDCOST + " Points )", SpeedPossibilites);
+            Integer newSpeed = (Integer) dialog.getStat(boxerID, "Speed Value: (Cost " + SPEEDCOST + " Points )", SpeedPossibilites);
             if (newSpeed == null) {
                 isValid = false;
             } else {
@@ -68,7 +68,7 @@ public class StatDialogue {
         if (isValid) {
             int maxAccuracy = accuracy + (unusedPoints / (STEPPING * ACCURACYCOST) * STEPPING);
             Integer[] AccuracyPossibilites = range(accuracy, maxAccuracy, STEPPING);
-            Integer newAccuracy = (Integer) dialog.getStat("Accuracy", "Accuracy Value: (Cost " + ACCURACYCOST + " Points )", AccuracyPossibilites);
+            Integer newAccuracy = (Integer) dialog.getStat(boxerID, "Accuracy Value: (Cost " + ACCURACYCOST + " Points )", AccuracyPossibilites);
             if (newAccuracy == null) {
                 isValid = false;
             }else {
@@ -82,7 +82,7 @@ public class StatDialogue {
         if (isValid) {
             int maxRange = range + (unusedPoints / (STEPPING * RANGECOST) * STEPPING);
             Integer[] rangePossibilities = range(range, maxRange, STEPPING);
-            Integer newRange = (Integer) dialog.getStat("Range", "Range Value: (Cost " + RANGECOST + " Points )", rangePossibilities);
+            Integer newRange = (Integer) dialog.getStat(boxerID, "Range Value: (Cost " + RANGECOST + " Points )", rangePossibilities);
             if (newRange == null) {
                 isValid = false;
             } else {

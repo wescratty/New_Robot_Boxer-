@@ -17,9 +17,9 @@ public class BoxerDirector {
         blockBuilder = new BlockBuilder();
     }
 
-    public Boxer build(int startingPoints){
+    public Boxer build(int startingPoints, String boxerID){
         this.unusedPoints = startingPoints;
-        boxer = boxerbuilder.createBoxer(unusedPoints);
+        boxer = boxerbuilder.createBoxer(unusedPoints, boxerID);
         unusedPoints = unusedPoints - boxerbuilder.getPointsUsed();
         boxer.setAttackList(attackBuilder.buildAttacks(unusedPoints));
         unusedPoints = unusedPoints - attackBuilder.getPointsUsed();

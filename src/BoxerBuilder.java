@@ -17,13 +17,14 @@ public class BoxerBuilder {
     /**
      * Function for the creation of a boxer this includes the initial pass for stat allocation
      * @param unusedPoints number of points the player has available to assign to stats
+     * @param boxerID identifier string for the boxer
      * @return A boxer object with the stats supplied by the player
      */
-    public Boxer createBoxer(int unusedPoints){
+    public Boxer createBoxer(int unusedPoints, String boxerID){
         boxer = new Boxer();
-        System.out.println(boxer);
-        pointsUsed =  initiateBoxer(unusedPoints);
-        System.out.println(boxer);
+        boxer.setBoxerID(boxerID);
+        pointsUsed =  initiateBoxer(unusedPoints, boxerID);
+
         return boxer;
     }
     /**
@@ -33,6 +34,7 @@ public class BoxerBuilder {
      */
     public Boxer createAIBoxer(int unusedPoints){
         boxer = new Boxer();
+        boxer.setBoxerID("AI");
         initiateAI(unusedPoints);
         return boxer;
     }
@@ -42,14 +44,14 @@ public class BoxerBuilder {
      * @param unusedPoints number of points the player has available to assign to stats
      * @return number of points spent during this step
      */
-    private int initiateBoxer(int unusedPoints){
+    private int initiateBoxer(int unusedPoints,String boxerID){
         int pointsSpent = 0;
         //todo add dialogue box call here
         //call dialogue box
         String stats = "";
         //call dialogue box
         do {
-            stats = dialogue.getStats(unusedPoints, boxer.getStats());
+            stats = dialogue.getStats(unusedPoints, boxer.getStats(),boxerID);
             //statsGatheredCheck
             if (stats == null){
             dialogue.errorBox("Boxer Stats Invalid");

@@ -28,6 +28,7 @@ public class Boxer implements Subject {
     private Point desiredLocation = new Point(x, y);
     private Point thisBoxerLocation = new Point(x, y);
 
+    private String boxerID;
 
     private int exp;
 
@@ -403,7 +404,7 @@ public class Boxer implements Subject {
       public void grow(){
         StatDialogue dialogue = new StatDialogue();
           int pointsUsed = 0;
-          String NewStats = dialogue.getStats(exp,this.getStats());
+          String NewStats = dialogue.getStats(exp,this.getStats(),boxerID);
               if (NewStats !=null) {
 
                   String[] inputArray = NewStats.split("\\|");
@@ -431,5 +432,14 @@ public class Boxer implements Subject {
                   dialogue.errorBox("Error Collecting New Parameters");
               }
       }//<String in to dialogue, string out of dialogue pipe delim, attribute order,unused points leader>
+
+
+    public String getBoxerID() {
+        return boxerID;
+    }
+
+    public void setBoxerID(String boxerID) {
+        this.boxerID = boxerID;
+    }
 
 }
