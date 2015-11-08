@@ -9,14 +9,14 @@ public class AttackBuilder {
     private ArrayList<Attack> attackList;
     //factory for building individual attacks
     private  AttackFactory attackFactory;
-    private RNG rng;
+    private ChanceBot rng;
     private int pointsUsed;
     /**
      * Constructor to create attack factory
      */
     public AttackBuilder() {
         attackFactory = new AttackFactory();
-        rng = RNG.getInstance();
+        rng = ChanceBot.getInstance();
         int pointsUsed;
     }
 
