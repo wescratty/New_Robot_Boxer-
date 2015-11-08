@@ -389,6 +389,31 @@ public class Boxer implements Subject {
         }
     }
       public void grow(){
+        StatDialogue dialogue = new StatDialogue();
+          int pointsUsed = 0;
+          String NewStats = dialogue.getStats(exp,this.getStats());
+
+              String[] inputArray = NewStats.split("\\|");
+              int strength = 0;
+              int speed =0;
+              int accuracy = 0;
+              int reach = 0;
+              try {
+                  pointsUsed = Integer.parseInt(inputArray[0]);
+                  strength = Integer.parseInt(inputArray[1]);
+                  speed = Integer.parseInt(inputArray[2]);
+                  accuracy = Integer.parseInt(inputArray[3]);
+                  reach = Integer.parseInt(inputArray[4]);
+              }catch (Exception e){
+                  System.out.println(e.toString());
+              }
+
+              this.setAgilityScore(speed);
+              this.setStrengthScore(strength);
+              this.setAccuracy(accuracy);
+              this.setReach(reach);
+              this.setFatigue(0);
+              this.exp -= pointsUsed;
 
       }//<String in to dialogue, string out of dialogue pipe delim, attribute order,unused points leader>
 

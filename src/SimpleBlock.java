@@ -1,8 +1,6 @@
 /**
  * Created by Brian Trethewey on 11/3/15.
  */
-
-//todo this class
 public class SimpleBlock implements Block {
     //constants
     final double ACCURACYCORRECTION = 0.5;
