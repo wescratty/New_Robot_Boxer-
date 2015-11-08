@@ -4,6 +4,9 @@
 
 //todo this class
 public class SimpleBlock implements Block {
+    //constants
+    final double ACCURACYCORRECTION = 0.5;
+
     //attributes
     private int strength;
     private int speed;
@@ -14,19 +17,29 @@ public class SimpleBlock implements Block {
     //methods
 
     @Override
-    public void refresh(int strength, int speed, int accuracy){
-
+    public void update(int fatigue) {
+        double deltaFatigue = fatigue - this.fatigue;
+        double percentReduction = deltaFatigue/fatigue;
+        strength = (int)(strength* percentReduction);
+        speed = (int)(speed* percentReduction);
+        accuracy = (int)(accuracy * (percentReduction*ACCURACYCORRECTION));
+        this.fatigue = fatigue;
     }
 
     @Override
-    public void update(int fatigue){
-
+    public void refresh(int str, int speed, int accuracy) {
+        strength = str;
+        this.speed = speed;
+        this.accuracy = accuracy;
+        fatigue = 0;
     }
 
-    @Override
-    public String getStats(){
-        return null;
+    public String getStats()
+    {
+        String statString = ""+strength+"|"+speed+"|"+accuracy;
+        return statString;
     }
+
     @Override
     public int getTiming() {
         return timing;
