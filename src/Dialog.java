@@ -15,7 +15,7 @@ public class Dialog {
     private Dialog() {
     }
 
-
+//depriciated?
     public String getBoxerStats(){
         String infoString;
         Object[] possibilities = {"10", "20", "30","40", "50", "60", "70","80", "90", "100"};
@@ -23,7 +23,7 @@ public class Dialog {
                 null,possibilities,"10");
 
 
-        infoString =infoString+", "+(String)getStats("Select Strength:", "Boxer Stats", possibilities);
+        infoString =infoString+","+(String)getStat("Select Strength:", "Boxer Stats", possibilities);
 
 
         System.out.println("Boxer Stats: " + infoString);
@@ -38,7 +38,7 @@ public class Dialog {
      * @param possibilities options available in drop down first item in array will be the default selection
      * @return item  selected from drop down or null if none selected
      */
-    public Object getStats(String title, String field, Object[] possibilities){
+    public Object getStat(String title, String field, Object[] possibilities){
         Object userChoice = null;
         userChoice = (Object)JOptionPane.showInputDialog(null,field,title,JOptionPane.PLAIN_MESSAGE,
                 null,possibilities,possibilities[0]);
