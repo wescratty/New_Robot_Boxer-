@@ -19,8 +19,6 @@ public class Boxer implements Subject {
     private int punchedTime = 0;
     private int x, y = 0;
 
-    private RNG rng;
-
     private AudioPlayer player;
     private ArrayList<Attack> attackList;
     private ArrayList<Block> blockList;
@@ -39,7 +37,7 @@ public class Boxer implements Subject {
     public boolean didBLock = false;
     public boolean attack = true;
     private boolean didPunch = false;
-    private ChanceBot chance = new ChanceBot();
+    private ChanceBot chance = ChanceBot.getInstance();
 
 
     public Boxer() {

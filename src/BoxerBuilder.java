@@ -4,11 +4,11 @@
 
 public class BoxerBuilder {
     private Boxer boxer;
-    private RNG rng;
+    private ChanceBot rng;
     private int pointsUsed;
     private StatDialogue dialogue;
     public BoxerBuilder() {
-        rng = RNG.getInstance();
+        rng = ChanceBot.getInstance();
         dialogue = new StatDialogue();
     }
 

@@ -31,8 +31,8 @@ public class MainPanel extends JPanel {
       JLabel strenghtLblP1, speedLblP1, accuracyLblP1, reachLblP1, strenghtLblP2, speedLblP2, accuracyLblP2, reachLblP2, time, timer, splash,p1Strenght,p1Speed,P1Accuracy,p1Reach,p2Strenght,p2Speed,P2Accuracy,p2Reach;
 
 
-    ArrayList<JLabel> labArray = new ArrayList<>();
-    ArrayList<JLabel> titleLabArray = new ArrayList<>();
+    ArrayList<JLabel> labArray = new ArrayList<JLabel>();
+    ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
 
 
 
