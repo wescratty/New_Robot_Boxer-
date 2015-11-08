@@ -23,6 +23,7 @@ public class Paint_aBoxer extends JPanel {
     int b_1y = 400;
     int b_2x = 600;
     int b_2y = 400;
+    HurtBox hb = HurtBox.getInstance();
     ArrayList<Point> bSplat = new ArrayList<Point>();
     ArrayList<String> bSize = new ArrayList<String>();
 
@@ -56,7 +57,8 @@ public class Paint_aBoxer extends JPanel {
         boolean _b2block = _boxer2.getDidBlock();
 
         ChanceBot chance = ChanceBot.getInstance();
-        spatterSize=spatterSize+chance.getRandomChoice(8);
+        spatterSize=Integer.parseInt(hb.calculateDamage(_boxer1.getAttack(),_boxer1.getBlock()));
+
 
         Point nw= new Point(100,100);
         Point _b_1;

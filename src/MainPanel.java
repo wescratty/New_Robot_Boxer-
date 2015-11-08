@@ -59,14 +59,14 @@ public class MainPanel extends JPanel {
         titleLabArray.add(P2Accuracy = new JLabel(" P2 Accuracy: "));
         titleLabArray.add(p2Reach = new JLabel(" P2 Reach: "));
 
-        labArray.add(strenghtLblP1 = new JLabel(" P1 Strength: 0   "));
-        labArray.add(speedLblP1 = new JLabel(" P1 Speed: 0  "));
-        labArray.add(accuracyLblP1 = new JLabel("  P1 Accuracy: 0   "));
-        labArray.add(reachLblP1 = new JLabel("  P1 Reach: 0   "));
-        labArray.add(strenghtLblP2 = new JLabel(" P2 Strength: 0   "));
-        labArray.add(speedLblP2 = new JLabel(" P2 Speed: 0  "));
-        labArray.add(accuracyLblP2 = new JLabel("  P2 accuracy: 0   "));
-        labArray.add(reachLblP2 = new JLabel("  P2 Reach: 0   "));
+        labArray.add(strenghtLblP1 = new JLabel("  0   "));
+        labArray.add(speedLblP1 = new JLabel("  0  "));
+        labArray.add(accuracyLblP1 = new JLabel("  0   "));
+        labArray.add(reachLblP1 = new JLabel("   0   "));
+        labArray.add(strenghtLblP2 = new JLabel("  0   "));
+        labArray.add(speedLblP2 = new JLabel("  0  "));
+        labArray.add(accuracyLblP2 = new JLabel("   0   "));
+        labArray.add(reachLblP2 = new JLabel("   0   "));
 
 
 
@@ -194,7 +194,7 @@ public class MainPanel extends JPanel {
 
 
         timer .setText(time);
-        splash.setText("");
+        splash.setText(" Round 1");
 
 
 
