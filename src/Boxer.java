@@ -63,6 +63,7 @@ public class Boxer implements Subject {
             choice = 2;
         }
         if (dist < 80 && choice == 0) {
+
 //            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         } else if (choice == 1) {
@@ -95,7 +96,9 @@ public class Boxer implements Subject {
         thisBoxerLocation.setPoint(x, y);
 
         double dist = distance(thisBoxerLocation, _otherBoxer);
+
         if (dist < 100 && attack) {
+
             attack = false;
             desiredLocation = thisBoxerLocation;
 //            System.out.println("this one : ");
@@ -172,7 +175,7 @@ public class Boxer implements Subject {
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
 
-                observer.notifyPunch();//ibmPrice, aaplPrice, googPrice
+                observer.notifyPunch();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -187,7 +190,7 @@ public class Boxer implements Subject {
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
 
-                observer.update();//ibmPrice, aaplPrice, googPrice
+                observer.update();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -201,7 +204,7 @@ public class Boxer implements Subject {
         for (Observer observer : observers) {
             if (observer.getObserverId() != bNum) {
 
-                observer.observerCheckDidBLock();//ibmPrice, aaplPrice, googPrice
+                observer.observerCheckDidBLock();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -235,9 +238,10 @@ public class Boxer implements Subject {
 
     public boolean getDidBlock() {
         boolean retBool = didBLock;
-        didBLock = false;
+//        didBLock = false;
         return retBool;
     }
+
 
     //TODO this seems redundant to have both functions getDidBlock and checkDidBlock
 
@@ -245,16 +249,20 @@ public class Boxer implements Subject {
     public void checkDidBlock() {
         AudioPlayer player = AudioPlayer.getInstance();
 
-        if (didBLock) {
+
+        if(didBLock){
+
 //            System.out.println(id+" blocked punch");
             player.blockSound();
-        } else {
+            didBLock = false;
+        }else{
+
 //            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay());
-            //TODO make sleeptime reflect punch strangth
-            //TODO make punch graphics
+            //TODO make sleeptime reflect punch strength
+
 
         }
 //        didBLock = false;

@@ -16,12 +16,17 @@ public class CircleLine {
     }
 
 
+    final double factor = .5;
 
-    public static List<Point> getCircleLineIntersectionPoint(Point pointA,
-                                                             Point pointB, Point center, double radius) {
+     protected List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius, boolean didBlock) {
         double baX = pointB.Y() - pointA.Y();
         double baY = pointB.X() - pointA.X();
-        baX =baX*(-1);
+         baX =baX*(-1);
+//        if(!didBlock){
+//
+//
+//        }
+
         double caX = center.X() - pointA.X();
         double caY = center.Y() - pointA.Y();
 
