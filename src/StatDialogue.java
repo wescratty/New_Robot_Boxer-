@@ -75,18 +75,20 @@ public class StatDialogue {
         return resultString;
     }
 
-    public Integer[] range(int start, int stop, int step)
-    {
+    public Integer[] range(int start, int stop, int step){
+    Integer[] result;
+
         if (start >= stop){
-        Integer[] result = new Integer[1];
+        result = new Integer[1];
         result[0]=start;
-    }else{
-        Integer[] result = new Integer[((stop-start)/step)+1];
-        int topValue = start +(((stop-start)/step))*step;
-        Integer value = start;
-        for(int i=0;value<topValue;i++) {
-            value = start + i * step;
-            result[i] = value;
+    }else {
+            result = new Integer[((stop - start) / step) + 1];
+            int topValue = start + (((stop - start) / step)) * step;
+            Integer value = start;
+            for (int i = 0; value < topValue; i++) {
+                value = start + i * step;
+                result[i] = value;
+            }
         }
         return result;
     }
