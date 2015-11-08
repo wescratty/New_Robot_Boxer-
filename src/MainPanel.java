@@ -193,7 +193,7 @@ public class MainPanel extends JPanel {
 
 
         timer .setText(time);
-        splash.setText("");
+        splash.setText(" Round 1");
 
 
 
