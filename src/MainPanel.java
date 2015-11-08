@@ -86,8 +86,9 @@ public class MainPanel extends JPanel {
 
 
     public void create(){
-        Dialog boxer1Stats = Dialog.getInstance();
-        String b1Sts = boxer1Stats.getBoxerStats();
+//        Dialog boxerStats = Dialog.getInstance();
+//        String b1Sts = boxerStats.getBoxerStats();
+        
 
         ObservaBoxing obs1 = new ObservaBoxing(_boxer1);
         ObservaBoxing obs2 = new ObservaBoxing(_boxer2);
