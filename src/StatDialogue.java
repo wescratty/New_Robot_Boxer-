@@ -43,12 +43,12 @@ public class StatDialogue {
         Integer newStrength = (Integer)dialog.getStat("Strength","Strength Value:(Cost "+STRCOST+" Points )",strengthPossibilites);
         if (newStrength == null) {
         isValid = false;
-        }
+        }else {
             int deltaStrength = newStrength - strength;
             pointsUsed += deltaStrength * STRCOST;
             unusedPoints -= pointsUsed;
             strength = newStrength;
-
+        }
 
         //get Speed from User
         if (isValid) {
@@ -57,13 +57,13 @@ public class StatDialogue {
             Integer newSpeed = (Integer) dialog.getStat("Speed", "Speed Value: (Cost " + SPEEDCOST + " Points )", SpeedPossibilites);
             if (newSpeed == null) {
                 isValid = false;
+            } else {
+                int deltaSpeed = newSpeed - speed;
+                pointsUsed += deltaSpeed * SPEEDCOST;
+                unusedPoints -= pointsUsed;
+                speed = newSpeed;
             }
-            int deltaSpeed = newSpeed - speed;
-            pointsUsed += deltaSpeed * SPEEDCOST;
-            unusedPoints -= pointsUsed;
-            speed = newSpeed;
         }
-
         //get Accuracy from User
         if (isValid) {
             int maxAccuracy = accuracy + (unusedPoints / (STEPPING * ACCURACYCOST) * STEPPING);
@@ -71,24 +71,27 @@ public class StatDialogue {
             Integer newAccuracy = (Integer) dialog.getStat("Accuracy", "Accuracy Value: (Cost " + ACCURACYCOST + " Points )", AccuracyPossibilites);
             if (newAccuracy == null) {
                 isValid = false;
+            }else {
+                int deltaAccuracy = newAccuracy - accuracy;
+                pointsUsed += deltaAccuracy * ACCURACYCOST;
+                unusedPoints -= pointsUsed;
+                accuracy = newAccuracy;
             }
-            int deltaAccuracy = newAccuracy - accuracy;
-            pointsUsed += deltaAccuracy * ACCURACYCOST;
-            unusedPoints -= pointsUsed;
-            accuracy = newAccuracy;
         }
         //get Range from User
-        int maxRange =range +  (unusedPoints /(STEPPING*RANGECOST)*STEPPING);
-        Integer[] rangePossibilities = range(accuracy, maxRange, STEPPING);
-        Integer newRange = (Integer)dialog.getStat("Range","Range Value: (Cost "+RANGECOST+" Points )",rangePossibilities);
-        if (newRange == null) {
-            isValid = false;
+        if (isValid) {
+            int maxRange = range + (unusedPoints / (STEPPING * RANGECOST) * STEPPING);
+            Integer[] rangePossibilities = range(range, maxRange, STEPPING);
+            Integer newRange = (Integer) dialog.getStat("Range", "Range Value: (Cost " + RANGECOST + " Points )", rangePossibilities);
+            if (newRange == null) {
+                isValid = false;
+            } else {
+                int detaRange = newRange - range;
+                pointsUsed += detaRange * RANGECOST;
+                unusedPoints -= pointsUsed;
+                range = newRange;
+            }
         }
-        int detaRange = newRange -range;
-        pointsUsed += detaRange * RANGECOST;
-        unusedPoints -= pointsUsed;
-        range = newRange;
-
         String resultString = null;
         if (isValid) {
             //create String Pipe delimiter usedPoints, Strength, speed, accuracy range order
