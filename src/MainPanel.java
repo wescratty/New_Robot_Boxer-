@@ -18,10 +18,10 @@ public class MainPanel extends JPanel {
     private MainPanel() {
 
     }
+    BoxerDirector builder = new BoxerDirector();
 
-
-    Boxer _boxer1 = new Boxer();
-    Boxer _boxer2 = new Boxer();
+    Boxer _boxer1 = builder.build(100);
+    Boxer _boxer2 = builder.build(100);
 
     public JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
 
