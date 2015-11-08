@@ -77,7 +77,7 @@ public class StatDialogue {
 
     public Integer[] range(int start, int stop, int step)
     {
-        if (start <= stop){
+        if (start >= stop){
         Integer[] result = new Integer[1];
         result[0]=start;
     }else{
