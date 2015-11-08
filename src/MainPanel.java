@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -22,8 +23,16 @@ public class MainPanel extends JPanel {
 
     Boxer _boxer1 = builder.build(100);
     Boxer _boxer2 = builder.build(100);
+//    public JLabel[] labArr = new JLabel[9];
+//
+//    for(JLabel label : labArr) {
+//        label = new JLabel();
+//    }
+      JLabel strenghtLblP1, speedLblP1, accuracyLblP1, reachLblP1, strenghtLblP2, speedLblP2, accuracyLblP2, reachLblP2, time, timer, splash,p1Strenght,p1Speed,P1Accuracy,p1Reach,p2Strenght,p2Speed,P2Accuracy,p2Reach;
 
-    public JLabel  fatigueLblP1, strengthLblP1, agilityLblP1, fatigueLblP2, strengthLblP2, agilityLblP2, time, timer, splash;
+
+    ArrayList<JLabel> labArray = new ArrayList<>();
+    ArrayList<JLabel> titleLabArray = new ArrayList<>();
 
 
 
@@ -39,23 +48,42 @@ public class MainPanel extends JPanel {
         time = new JLabel("Time left in bought: ");
         timer = new JLabel("5:00");
         splash = new JLabel("client message");
-        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
-        strengthLblP1 = new JLabel(" P1 Strength: 0  ");
-        agilityLblP1 = new JLabel("  P1 Agility: 0   ");
-        fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
-        strengthLblP2 = new JLabel(" P2 Strength: 0  ");
-        agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+
+        titleLabArray.add(p1Strenght = new JLabel(" P1 Strength: "));
+        titleLabArray.add(p1Speed = new JLabel(" P1 Speed: "));
+        titleLabArray.add(P1Accuracy = new JLabel(" P1 Accuracy: "));
+        titleLabArray.add(p1Reach = new JLabel(" P1 Reach: "));
+        titleLabArray.add(p2Strenght = new JLabel(" P2 Strength: "));
+        titleLabArray.add(p2Speed = new JLabel(" P2 Speed: "));
+        titleLabArray.add(P2Accuracy = new JLabel(" P2 Accuracy: "));
+        titleLabArray.add(p2Reach = new JLabel(" P2 Reach: "));
+
+        labArray.add(strenghtLblP1 = new JLabel(" P1 Strength: 0   "));
+        labArray.add(speedLblP1 = new JLabel(" P1 Speed: 0  "));
+        labArray.add(accuracyLblP1 = new JLabel("  P1 Accuracy: 0   "));
+        labArray.add(reachLblP1 = new JLabel("  P1 Reach: 0   "));
+        labArray.add(strenghtLblP2 = new JLabel(" P2 Strength: 0   "));
+        labArray.add(speedLblP2 = new JLabel(" P2 Speed: 0  "));
+        labArray.add(accuracyLblP2 = new JLabel("  P2 accuracy: 0   "));
+        labArray.add(reachLblP2 = new JLabel("  P2 Reach: 0   "));
 
 
-        b1LabelPanel.add(fatigueLblP1);
-        b1LabelPanel.add(strengthLblP1);
-        b1LabelPanel.add(agilityLblP1);
+
+        for(int i=0; i<4; i++){
+            b1LabelPanel.add(titleLabArray.get(i));
+            b1LabelPanel.add(labArray.get(i));
+
+        }
+        for(int i=4; i<8; i++){
+            b2LabelPanel.add(titleLabArray.get(i));
+            b2LabelPanel.add(labArray.get(i));
+
+        }
+
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
         b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-        b2LabelPanel.add(fatigueLblP2);
-        b2LabelPanel.add(strengthLblP2);
-        b2LabelPanel.add(agilityLblP2);
+
         b2LabelPanel.setLayout(new BoxLayout(b2LabelPanel, BoxLayout.PAGE_AXIS));
 
         b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -137,28 +165,32 @@ public class MainPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public void setLables(String string){
-//        time = new JLabel("Time left in bought: ");
-//        timer = new JLabel("5:00");
-//        splash = new JLabel("client message");
-//        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
-//        strengthLblP1 = new JLabel(" P1 Strength: 0  ");
-//        agilityLblP1 = new JLabel("  P1 Agility: 0   ");
-//        fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
-//        strengthLblP2 = new JLabel(" P2 Strength: 0  ");
-//        agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+    public void setLables(String time){
 
 
 
-        timer .setText(string);
+        String inputs_b1= _boxer1.getStats();
+        String[] inputArrayB1 = inputs_b1.split("\\|");
+        String inputs_b2= _boxer2.getStats();
+        String[] inputArrayB2 = inputs_b2.split("\\|");
+
+        try {
+            for(int i=0; i<4; i++){
+                labArray.get(i).setText(inputArrayB1[i]);
+            }
+            for(int i=4; i<8; i++){
+                labArray.get(i).setText(inputArrayB2[i]);
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+
+
+
+        timer .setText(time);
         splash.setText("");
-//        splash = new JLabel("client message");
-//        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
-//        strengthLblP1 = new JLabel(" P1 Strength: 0  ");
-//        agilityLblP1 = new JLabel("  P1 Agility: 0   ");
-//        fatigueLblP2 = new JLabel("  P2 Fatigue: 0   ");
-//        strengthLblP2 = new JLabel(" P2 Strength: 0  ");
-//        agilityLblP2 = new JLabel("  P2 Agility: 0   ");
+
 
 
 
