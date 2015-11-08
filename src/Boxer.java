@@ -5,6 +5,8 @@ import java.util.ArrayList;
  * Created by wescratty on 10/31/15.
  */
 public class Boxer implements Subject {
+    //final for setting the boxers intital stats for all abilities
+    final int INTITALSTATS = 10;
 
     private int id;
     private int bNum;
@@ -44,7 +46,10 @@ public class Boxer implements Subject {
     public Boxer() {
 
         observers = new ArrayList<Observer>();
-
+        strengthScore = INTITALSTATS;
+        agilityScore = INTITALSTATS;
+        accuracy = INTITALSTATS;
+        reach = INTITALSTATS;
     }
 
 
@@ -254,7 +259,7 @@ public class Boxer implements Subject {
     }
 
     public String getStats(){
-        String stats = ""+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach;
+        String stats = ""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach;
         return stats;
     }
 
