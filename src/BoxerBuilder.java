@@ -6,9 +6,10 @@ public class BoxerBuilder {
     private Boxer boxer;
     private RNG rng;
     private int pointsUsed;
-
+    private StatDialogue dialogue;
     public BoxerBuilder() {
         rng = RNG.getInstance();
+        dialogue = new StatDialogue();
     }
 
     /**
@@ -44,7 +45,7 @@ public class BoxerBuilder {
         String stats = "";
         //call dialogue box
         //todo get dialogebox working
-        //stats = dialogueBox.gatherStats(unusedPoints);
+        stats = dialogue.getStats(unusedPoints, boxer.getStats());
         //set boxer stats
         setStats(stats);
         //set boxer stats
@@ -79,10 +80,10 @@ public class BoxerBuilder {
         int accuracy = 0;
         int reach = 0;
         try {
-            strength = Integer.parseInt(inputArray[0]);
-            speed = Integer.parseInt(inputArray[1]);
-            accuracy = Integer.parseInt(inputArray[2]);
-            reach = Integer.parseInt(inputArray[3]);
+            strength = Integer.parseInt(inputArray[1]);
+            speed = Integer.parseInt(inputArray[2]);
+            accuracy = Integer.parseInt(inputArray[3]);
+            reach = Integer.parseInt(inputArray[4]);
         }catch (Exception e){
            System.out.println(e.toString());
         }

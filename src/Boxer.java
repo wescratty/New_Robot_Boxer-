@@ -253,6 +253,11 @@ public class Boxer implements Subject {
         }
     }
 
+    public String getStats(){
+        String stats = ""+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach;
+        return stats;
+    }
+
     public void sleepTime(int sleepTime){
         try {
 
