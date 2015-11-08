@@ -26,9 +26,9 @@ public class StatDialogue {
         String[] statsArray = currentStats.split("|");
         //parse string results into correct variables
         try {
-            strength = Integer.parseInt(statsArray[0]);
-            speed = Integer.parseInt(statsArray[1]);
-            accuracy = Integer.parseInt(statsArray[2]);
+            strength = Integer.parseInt(statsArray[1]);
+            speed = Integer.parseInt(statsArray[2]);
+            accuracy = Integer.parseInt(statsArray[3]);
             range = Integer.parseInt(statsArray[4]);
         }catch (IndexOutOfBoundsException e){
             throw e;
