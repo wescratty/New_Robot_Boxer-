@@ -76,7 +76,7 @@ public class BoxerBuilder {
 
     private void setStats(String inputs){
 
-        String[] inputArray = inputs.split("|");
+        String[] inputArray = inputs.split("\\|");
         int strength = 0;
         int speed =0;
         int accuracy = 0;

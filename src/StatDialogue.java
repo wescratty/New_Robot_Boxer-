@@ -22,9 +22,10 @@ public class StatDialogue {
         int accuracy = 0;
         int range = 0;
 
-        // break intput string into arrays
-        String[] statsArray = currentStats.split("|");
+        // break input string into arrays
+        String[] statsArray = currentStats.split("\\|");
         //parse string results into correct variables
+        System.out.println(statsArray.toString());
         try {
             strength = Integer.parseInt(statsArray[1]);
             speed = Integer.parseInt(statsArray[2]);
