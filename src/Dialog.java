@@ -23,12 +23,25 @@ public class Dialog {
                 null,possibilities,"10");
 
 
-        infoString =infoString+", "+ JOptionPane.showInputDialog(null,"Select power:","Boxer Stats",JOptionPane.PLAIN_MESSAGE,
-                null,possibilities,"10");
+        infoString =infoString+", "+(String)getStats("Select Strength:", "Boxer Stats", possibilities);
 
 
         System.out.println("Boxer Stats: " + infoString);
 
         return infoString;
+    }
+
+    /**
+     * Method for generating a dialogue box with a drop down
+     * @param title Title of the window
+     * @param field Text  to display in front of box
+     * @param possibilities options available in drop down first item in array will be the default selection
+     * @return item  selected from drop down or null if none selected
+     */
+    public Object getStats(String title, String field, Object[] possibilities){
+        Object userChoice = null;
+        userChoice = (Object)JOptionPane.showInputDialog(null,field,title,JOptionPane.PLAIN_MESSAGE,
+                null,possibilities,possibilities[0]);
+        return userChoice;
     }
 }
