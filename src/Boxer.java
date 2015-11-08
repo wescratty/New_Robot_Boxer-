@@ -230,6 +230,15 @@ public class Boxer implements Subject {
         didPunch = false;
         return retBool;
     }
+    public boolean getDidBlock(){
+        boolean retBool= didBLock;
+        didBLock = false;
+        return retBool;
+    }
+
+    //TODO this seems redundant to have both functions getDidBlock and checkDidBlock
+
+
 
     public void checkDidBlock(){
         AudioPlayer player = AudioPlayer.getInstance();
@@ -246,7 +255,7 @@ public class Boxer implements Subject {
             //TODO make punch graphics
 
         }
-        didBLock = false;
+//        didBLock = false;
     }
 
 
@@ -322,7 +331,11 @@ public class Boxer implements Subject {
     public void setFatigue(int fatigue) {
         this.fatigue = fatigue;
     }
+
+
 }
+
+
 
 //
 ////    public location move(): {

@@ -53,7 +53,7 @@ public class Game implements Runnable {
 
     public void  run(){
         timer.Stopwatch();
-        int len = 100;
+        int len = 10;
 
 
         while(round_in_Play){
@@ -67,11 +67,13 @@ public class Game implements Runnable {
 
 
 
-//                mp.setLables();
+
                 if(timer.elapsedTime()>len){
                     round_in_Play = false;
                     AudioPlayer bell =  AudioPlayer.getInstance();
                     bell.bellSound();
+                    bell.bellSound();
+
                 }else if (timer.elapsedTime()<1){
 
                     AudioPlayer bell =  AudioPlayer.getInstance();

@@ -88,15 +88,28 @@ public class Paint_aBoxer extends JPanel {
 
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
-            rSplat.add(_b_2);
-            rSize.add(Integer.toString(spatterSize));
+
+            if(!_boxer2.getDidBlock()) {
+                rSplat.add(_b_2);
+                rSize.add(Integer.toString(spatterSize));
+            }
+//            else{
+//                rSize.add(Integer.toString(0));
+//            }
 
         }
         if(_boxer2.getDidPunch()){
             _b_2Right =  _b_1;
-            bSplat.add(_b_1);
-            bSize.add(Integer.toString(spatterSize));
 
+
+            if(!_boxer1.getDidBlock()) {
+                bSplat.add(_b_1);
+                bSize.add(Integer.toString(spatterSize));
+            }
+//            else{
+//                bSplat.add(_b_1);
+//                bSize.add(Integer.toString(spatterSize));
+//            }
         }
 
 

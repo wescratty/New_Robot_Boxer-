@@ -52,7 +52,7 @@ public class AudioPlayer implements LineListener {
             while (!playCompleted) {
                 // wait for the playback completes
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(1);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
