@@ -357,8 +357,14 @@ public class Boxer implements Subject {
 
     }
 
+    public void takeDamage(int damage){
+        fatigue += damage;
+        updateAttacks(fatigue);
+        updateBlock(fatigue);
+    }
 
-   private void updateAttacks(){
+
+   private void updateAttacks( int fatigue){
    for(Attack attack :attackList){
        updateAttack(fatigue,attack);
    }
