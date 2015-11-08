@@ -31,8 +31,8 @@ public class ChanceBot {
         return point;
 
     }
-    public int getRandomAttackDelay(){
-        return random.nextInt(2500);
+    public int getRandomAttackDelay(int delay){
+        return random.nextInt(delay)+delay/2;
 
     }
     public int getRandomChoice(int choices){

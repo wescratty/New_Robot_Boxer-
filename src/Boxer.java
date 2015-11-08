@@ -15,7 +15,7 @@ public class Boxer implements Subject {
     private int agilityScore;
     private int accuracy;
     private int reach;
-    private int punchTime = 1000;
+    private int punchTime = 2000;
     private int punchedTime = 0;
     private int x, y = 0;
 
@@ -220,7 +220,7 @@ public class Boxer implements Subject {
 
         notifyObserverOfPunch();  //punch in motion
         //TODO make sleeptime reflect punch strangth
-        sleepTime(chance.getRandomAttackDelay());  // wait
+        sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));  // wait
 
         if (distance(thisBoxerLocation, _otherBoxer) < 80) {
             didPunch = true;
@@ -259,7 +259,7 @@ public class Boxer implements Subject {
 //            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
-            sleepTime(chance.getRandomAttackDelay());
+            sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));
             //TODO make sleeptime reflect punch strength
 
 
