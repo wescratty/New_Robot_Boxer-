@@ -175,12 +175,16 @@ public class MainPanel extends JPanel {
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
         try {
+
             for(int i=0; i<4; i++){
-                labArray.get(i).setText(inputArrayB1[i]);
+                labArray.get(i).setText(inputArrayB1[i+1]);//""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
             }
+
             for(int i=4; i<8; i++){
-                labArray.get(i).setText(inputArrayB2[i]);
+
+                labArray.get(i).setText(inputArrayB2[i-3]);
             }
+
         }catch (Exception e){
             System.out.println(e.toString());
         }

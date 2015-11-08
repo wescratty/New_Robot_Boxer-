@@ -64,7 +64,7 @@ public class Boxer implements Subject {
         if(_otherBoxer.X() == thisBoxerLocation.X()&&_otherBoxer.Y() == thisBoxerLocation.Y()){
             choice = 2;
         }
-        if(dist<reach&&choice==0){
+        if(dist<100&&choice==0){
 //            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         }else if(choice==1) {
@@ -97,7 +97,7 @@ public class Boxer implements Subject {
         thisBoxerLocation.setPoint(x, y);
 
         double dist = distance(thisBoxerLocation, _otherBoxer);
-        if(dist<reach&&attack){
+        if(dist<80&&attack){
             attack = false;
             desiredLocation=thisBoxerLocation;
 //            System.out.println("this one : ");
