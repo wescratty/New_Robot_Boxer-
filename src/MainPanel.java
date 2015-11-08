@@ -88,7 +88,7 @@ public class MainPanel extends JPanel {
     public void create(){
 //        Dialog boxerStats = Dialog.getInstance();
 //        String b1Sts = boxerStats.getBoxerStats();
-        
+
 
         ObservaBoxing obs1 = new ObservaBoxing(_boxer1);
         ObservaBoxing obs2 = new ObservaBoxing(_boxer2);
@@ -151,6 +151,7 @@ public class MainPanel extends JPanel {
 
 
         timer .setText(string);
+        splash.setText("");
 //        splash = new JLabel("client message");
 //        fatigueLblP1 = new JLabel(" P1 Fatigue: 0   ");
 //        strengthLblP1 = new JLabel(" P1 Strength: 0  ");

@@ -47,11 +47,13 @@ public class Paint_aBoxer extends JPanel {
         super.paintComponent(g);
 
 
-        List<Point> gloves = new  ArrayList<Point>();
+        List<Point> gloves;
         int top = 100;
         int width = 800;
         int poleDiag = 80;
         int spatterSize = 5;
+        boolean _b1block = _boxer1.getDidBlock();
+        boolean _b2block = _boxer2.getDidBlock();
 
         ChanceBot chance = ChanceBot.getInstance();
         spatterSize=spatterSize+chance.getRandomChoice(8);
@@ -76,12 +78,12 @@ public class Paint_aBoxer extends JPanel {
         _b_1 = new Point(b_1x,b_1y);
         _b_2 = new Point(b_2x,b_2y);
 
-        gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, 50);
+        gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, 50,_b1block);
 
         _b_1Left = gloves.get(0);
         _b_1Right = gloves.get(1);
 
-        gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, 50);
+        gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, 50,_b2block);
 
         _b_2Left = gloves.get(0);
         _b_2Right = gloves.get(1);
@@ -89,27 +91,22 @@ public class Paint_aBoxer extends JPanel {
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
 
-            if(!_boxer2.getDidBlock()) {
+            if(!_b2block) {
                 rSplat.add(_b_2);
                 rSize.add(Integer.toString(spatterSize));
             }
-//            else{
-//                rSize.add(Integer.toString(0));
-//            }
+
 
         }
         if(_boxer2.getDidPunch()){
             _b_2Right =  _b_1;
 
 
-            if(!_boxer1.getDidBlock()) {
+            if(!_b1block) {
                 bSplat.add(_b_1);
                 bSize.add(Integer.toString(spatterSize));
             }
-//            else{
-//                bSplat.add(_b_1);
-//                bSize.add(Integer.toString(spatterSize));
-//            }
+
         }
 
 

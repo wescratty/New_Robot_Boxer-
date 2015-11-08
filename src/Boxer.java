@@ -96,7 +96,7 @@ public class Boxer implements Subject {
     public void move(){
         thisBoxerLocation.setPoint(x, y);
 
-        double dist = distance(thisBoxerLocation,_otherBoxer);
+        double dist = distance(thisBoxerLocation, _otherBoxer);
         if(dist<100&&attack){
             attack = false;
             desiredLocation=thisBoxerLocation;
@@ -160,7 +160,7 @@ public class Boxer implements Subject {
 
         // Print out message (Have to increment index to match)
 
-        System.out.println("Observer " + (observerIndex+1) + " deleted");
+        System.out.println("Observer " + (observerIndex + 1) + " deleted");
 
         // Removes observer from the ArrayList
 
@@ -175,7 +175,7 @@ public class Boxer implements Subject {
         for(Observer observer : observers){
             if(observer.getObserverId()!=this.bNum) {
 
-                observer.notifyPunch();//ibmPrice, aaplPrice, googPrice
+                observer.notifyPunch();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -190,7 +190,7 @@ public class Boxer implements Subject {
         for(Observer observer : observers){
             if(observer.getObserverId()!=this.bNum) {
 
-                observer.update();//ibmPrice, aaplPrice, googPrice
+                observer.update();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -204,7 +204,7 @@ public class Boxer implements Subject {
         for(Observer observer : observers){
             if(observer.getObserverId()!=bNum) {
 
-                observer.observerCheckDidBLock();//ibmPrice, aaplPrice, googPrice
+                observer.observerCheckDidBLock();
 //                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
@@ -237,7 +237,7 @@ public class Boxer implements Subject {
     }
     public boolean getDidBlock(){
         boolean retBool= didBLock;
-        didBLock = false;
+//        didBLock = false;
         return retBool;
     }
 
@@ -249,15 +249,17 @@ public class Boxer implements Subject {
         AudioPlayer player = AudioPlayer.getInstance();
 
         if(didBLock){
+
 //            System.out.println(id+" blocked punch");
             player.blockSound();
+            didBLock = false;
         }else{
 //            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay());
-            //TODO make sleeptime reflect punch strangth
-            //TODO make punch graphics
+            //TODO make sleeptime reflect punch strength
+
 
         }
 //        didBLock = false;
