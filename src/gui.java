@@ -10,7 +10,7 @@ public class gui {
         MainPanel main = MainPanel.getInstance();
         mainFrame.add(main);
         main.makeMain();
-        mainFrame.setSize(900, 1000);
+        mainFrame.setSize(900, 1050);
         mainFrame.setLocation(200, 200);
         mainFrame.setVisible(true);
 
