@@ -23,6 +23,11 @@ public class Paint_aBoxer extends JPanel {
     int b_1y = 400;
     int b_2x = 600;
     int b_2y = 400;
+    ArrayList<Point> bSplat = new ArrayList<>();
+    ArrayList<String> bSize = new ArrayList<>();
+
+    ArrayList<Point> rSplat = new ArrayList<>();
+    ArrayList<String> rSize = new ArrayList<>();
 
 
 
@@ -46,12 +51,18 @@ public class Paint_aBoxer extends JPanel {
         int top = 100;
         int width = 800;
         int poleDiag = 80;
+        int spatterSize = 5;
+
+        ChanceBot chance = ChanceBot.getInstance();
+        spatterSize=spatterSize+chance.getRandomChoice(8);
+
         Point nw= new Point(100,100);
         Point _b_1;
         Point _b_1Left;
         Point _b_1Right;
         Point _b_2Left;
         Point _b_2Right;
+
 
         Point _b_2;
         CircleLine circleLine = CircleLine.getInstance();
@@ -78,11 +89,29 @@ public class Paint_aBoxer extends JPanel {
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
 
+            if(!_boxer2.getDidBlock()) {
+                rSplat.add(_b_2);
+                rSize.add(Integer.toString(spatterSize));
+            }
+//            else{
+//                rSize.add(Integer.toString(0));
+//            }
+
         }
         if(_boxer2.getDidPunch()){
             _b_2Right =  _b_1;
 
+
+            if(!_boxer1.getDidBlock()) {
+                bSplat.add(_b_1);
+                bSize.add(Integer.toString(spatterSize));
+            }
+//            else{
+//                bSplat.add(_b_1);
+//                bSize.add(Integer.toString(spatterSize));
+//            }
         }
+
 
 
 
@@ -111,17 +140,39 @@ public class Paint_aBoxer extends JPanel {
         g.drawArc(845, 30, 50, 840, 90, 180);  //right rope
         g.drawArc(30, 845, 840, 50, 0, 180);
 
+        g.setColor(Color.RED);
+        int j = 0;
+
+        for(Point i : rSplat){    //(String i : data)
+
+
+            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(rSize.get(j)), Integer.parseInt(rSize.get(j)), 0, 360);
+            j++;
+
+        }
+        g.setColor(Color.BLUE);
+        j = 0;
+
+        for(Point i : bSplat){    //(String i : data)
+
+            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(bSize.get(j)), Integer.parseInt(bSize.get(j)), 0, 360);
+            j++;
+
+        }
+
         // Boxer 1
         g.setColor(Color.BLUE);
         g.fillArc(b_1x, b_1y, 50, 50, 0, 360);
         g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 30, 30, 0, 360);
-        g.fillArc((int)_b_1Right.X(),(int)_b_1Right.Y(), 30, 30, 0, 360);
+        g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), 30, 30, 0, 360);
 
         // Boxer 1
         g.setColor(Color.RED);
         g.fillArc(b_2x, b_2y, 50, 50, 0, 360);
         g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 30, 30, 0, 360);
         g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 30, 30, 0, 360);
+
+
 
 }
 
