@@ -32,11 +32,20 @@ public class Match implements Runnable {
     public String  Bout(){
         roundTimer.Stopwatch();
         audio.bellSound();
-        while (roundTimer.elapsedTime()< ROUNDDURATION){
+        String result;
+        boolean boxer1Win = false;
+        boolean boxer2Win = false;
+        while (roundTimer.elapsedTime()< ROUNDDURATION && !(boxer1Win || boxer2Win)) {
+        // todo do all the damage stuff no idea how to get to it
 
         }
+        if (boxer1Win){
+            result = boxer1.getBoxerID();
+        }else{
+           result = boxer2.getBoxerID();
+        }
 
-        return null;
+        return result;
     }
 
     private boolean checkTKO(int damage){
@@ -70,6 +79,22 @@ public class Match implements Runnable {
 
     @Override
     public void run() {
+        score = new int[2];
+        score[0] = 0;
+        score[1] = 0;
+        while (Math.max(score[0],score[1])<= totalRounds/2){
+            String winner = Bout();
+            if (winner.compareTo(boxer1.getBoxerID())==0){
+                score[0]+=1;
+            }else{
+                score[1]+=1;
+            }
+        }
+        if (score[0]>totalRounds/2){
+            winner = boxer1;
+        }else{
+            winner = boxer2;
+        }
 
     }
     public String getWinner(){
