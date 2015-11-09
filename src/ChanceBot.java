@@ -39,13 +39,13 @@ public class ChanceBot {
         return random.nextInt(choices);
 
     }
-    public int getChance(){
-        return random.nextInt();
+    public double getChance(){
+        return random.nextDouble();
 
     }
-    public int getCoinFlip(){
+    public boolean getCoinFlip(){
 
-        return random.nextInt(2);
+        return getChance()>0.5;
 
 
 
