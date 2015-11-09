@@ -46,9 +46,16 @@ public class ChanceBot {
     public boolean getCoinFlip(){
 
         return getChance()>0.5;
-
-
-
     }
+    public int[] RandomizeArray(int[] array){
 
+        for (int i=0; i<array.length; i++) {
+            int randomPosition = random.nextInt(array.length);
+            int temp = array[i];
+            array[i] = array[randomPosition];
+            array[randomPosition] = temp;
+        }
+
+        return array;
+    }
 }
