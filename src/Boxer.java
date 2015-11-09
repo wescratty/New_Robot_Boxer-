@@ -66,14 +66,11 @@ public class Boxer implements Subject {
         }
         if (dist < 80 && choice == 0) {
 
-//            System.out.println("Boxer with id: " + this.id + " decided to punch"+ "Punch:  ");
             punch();
         } else if (choice == 1) {
-            //System.out.println("Boxer with id: "+this.id+" decided to stand there");
         } else if (choice == 2) {
             attack = false;
             changeLocation();
-//            System.out.println("Boxer with id: " + this.id + " decided to move");
 
         } else if (choice == 3) {
             //TODO change out this if for real attack logic
@@ -91,7 +88,6 @@ public class Boxer implements Subject {
 
     private void changeLocation() {
         desiredLocation = chance.pickNewLocation();
-//        System.out.println(desiredLocation.X() + ", " + desiredLocation.Y());
     }
 
     public void move() {
@@ -103,11 +99,9 @@ public class Boxer implements Subject {
 
             attack = false;
             desiredLocation = thisBoxerLocation;
-//            System.out.println("this one : ");
 
         }
 
-//        System.out.println("distance : "+dist);
 
         if (desiredLocation.X() > x) {
             x = x + 10;
@@ -141,7 +135,6 @@ public class Boxer implements Subject {
 
     public void setSentMessage() {
         sentMessage = true;
-//        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
 
     }
     public void setExp(int exp) {
@@ -184,7 +177,6 @@ public class Boxer implements Subject {
             if (observer.getObserverId() != this.bNum) {
 
                 observer.notifyPunch();
-//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -199,7 +191,6 @@ public class Boxer implements Subject {
             if (observer.getObserverId() != this.bNum) {
 
                 observer.update();
-//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -213,7 +204,6 @@ public class Boxer implements Subject {
             if (observer.getObserverId() != bNum) {
 
                 observer.observerCheckDidBLock();
-//                System.out.println("Notifying Observer " + (observer.getObserverId()));
             }
 
         }
@@ -275,7 +265,6 @@ public class Boxer implements Subject {
 
 
         }
-//        didBLock = false;
     }
 
 
@@ -397,16 +386,16 @@ public class Boxer implements Subject {
     }
     }
 
-//    public void reset(){
-//    fatigue = 0;
-//    resetAttacks();
-//    resetBlocks();
-//    }
-//    private void resetAttacks(){
-//        for(Attack attack : attackList){
-//            attack.refresh(strengthScore,agilityScore,accuracy);
-//        }
-//    }
+    public void reset(){
+    fatigue = 0;
+    resetAttacks();
+    resetBlocks();
+    }
+    private void resetAttacks(){
+        for(Attack attack : attackList){
+            attack.refresh(strengthScore,agilityScore,accuracy);
+        }
+    }
     private void resetBlocks(){
         for(Block block : blockList){
             block.refresh(strengthScore,agilityScore,accuracy);
