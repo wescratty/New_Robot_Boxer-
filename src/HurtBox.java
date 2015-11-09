@@ -25,7 +25,7 @@ public class HurtBox {
      * @return a string containing damage caused and potentially any other data.
      */
     public String calculateDamage(Attack attack, Block block){
-        int damage = chance.getRandomChoice(100);
+        int damage = chance.getRandomChoice(50);
         if(block!=null){
             damage*= .4;
         }
