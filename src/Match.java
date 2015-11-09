@@ -1,30 +1,63 @@
 /**
  * Created by Brian Trethewey on 11/8/15.
  */
-public class Match {
+public class Match implements Runnable {
     private final int TKOTHESHOLD = 150;
-    private final int COUNTDELAY = 100;
-    private final int COUNTTOLERANCE = 10;
+    private final int COUNTDELAY = 10;
+    private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
-    private final int ROUNDDURATION = 100;
+    private final int ROUNDDURATION = 300;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
     private int totalRounds;
-    private Boxer boxer1;
-    private Boxer boxer2;
+    private Boxer[] boxers;
     private DownTimer timer;
+    private  GameTimer roundTimer;
     private int[] score;
     private ChanceBot chance = ChanceBot.getInstance();
+    private AudioPlayer audio = AudioPlayer.getInstance();
+    private HurtBox hurt = HurtBox.getInstance();
+    private Boxer winner;
 
     public Match(int totalRounds, Boxer boxer1, Boxer boxer2) {
         this.totalRounds = totalRounds;
-        this.boxer1 = boxer1;
-        this.boxer2 = boxer2;
+        this.boxers = new Boxer[2];
+        this.boxers[0] =boxer1;
+        this.boxers[1] = boxer2;
+        this.roundTimer = GameTimer.getInstance();
     }
         //todo this needs to handle the fight loop will probably need wes to help
-    public String  Bout(){
-        return null;
+        // should return which boxer won the round
+    public int  Bout(){
+        roundTimer.Stopwatch();
+        audio.bellSound();
+        String result;
+        int boxerWinner = 255;
+
+        while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==55) {
+        // todo do all the damage stuff no idea how to get to it
+            Attack attack = null;
+            Block block = null;
+            int attacker = 0;  // need to get attacker index somehow
+            int defender =1;
+        String damageString = hurt.calculateDamage(attack, block);
+        int damage = Integer.parseInt(damageString);
+
+        if (checkTKO(damage)){
+
+        }else if(checkDown(boxers[defender].getFatigue())){
+             int countResult = count(boxers[defender].getFatigue());
+                if( countResult > 0){
+                boxers[defender].setFatigue(countResult);
+            }else {
+                boxerWinner = attacker;
+        }
+        }
+
+        }
+
+        return boxerWinner;
     }
 
     private boolean checkTKO(int damage){
@@ -54,5 +87,26 @@ public class Match {
             }
         }
         return 0;
+    }
+
+    @Override
+    public void run() {
+        score = new int[2];
+        score[0] = 0;
+        score[1] = 0;
+        while (Math.max(score[0],score[1])<= totalRounds/2){
+            int winner = Bout();
+            score[winner]+=1;
+
+        }
+        if (score[0]>totalRounds/2){
+            winner = boxers[0];
+        }else{
+            winner = boxers[1];
+        }
+
+    }
+    public String getWinner(){
+        return winner.getBoxerID();
     }
 }

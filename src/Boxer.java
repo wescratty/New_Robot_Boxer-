@@ -19,6 +19,8 @@ public class Boxer implements Subject {
     private int punchedTime = 0;
     private int x, y = 0;
 
+
+
     private AudioPlayer player;
     private ArrayList<Attack> attackList;
     private ArrayList<Block> blockList;
@@ -141,7 +143,13 @@ public class Boxer implements Subject {
 //        System.out.println("Boxer with id: " + this.id + " got message about punch: ");
 
     }
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
 
+    public int getExp() {
+        return exp;
+    }
 
     public void register(Observer newObserver) {
 
@@ -210,6 +218,9 @@ public class Boxer implements Subject {
         }
     }
 
+    public int getFatigue() {
+        return fatigue;
+    }
 
     public double distance(Point b_1, Point b_2) {
         return Math.sqrt(Math.pow(b_2.X() - b_1.X(), 2) + Math.pow(b_2.Y() - b_1.Y(), 2));

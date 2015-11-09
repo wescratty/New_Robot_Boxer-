@@ -46,8 +46,6 @@ public class BoxerBuilder {
      */
     private int initiateBoxer(int unusedPoints,String boxerID){
         int pointsSpent = 0;
-        //todo add dialogue box call here
-        //call dialogue box
         String stats = "";
         //call dialogue box
         do {
@@ -73,7 +71,36 @@ public class BoxerBuilder {
 
         String stats = "";
         //create random stats
+        int strength;
+        int speed;
+        int accuracy;
+        int range;
         //todo create random stats code
+        // break input string into arrays
+        String[] statsArray = boxer.getStats().split("\\|");
+        //parse string results into correct variables
+        System.out.println(statsArray.toString());
+        try {
+            strength = Integer.parseInt(statsArray[1]);
+            speed = Integer.parseInt(statsArray[2]);
+            accuracy = Integer.parseInt(statsArray[3]);
+            range = Integer.parseInt(statsArray[4]);
+        }catch (IndexOutOfBoundsException e){
+            throw e;
+        }
+        int[] addedStats = new int[4];
+        for(int i = 0; i < addedStats.length;i++){
+            addedStats[i] = rng.getRandomChoice(unusedPoints);
+            unusedPoints -= addedStats[i];
+        }
+        //randomize values
+        addedStats = rng.RandomizeArray(addedStats);
+        strength += addedStats[0];
+        speed += addedStats[1];
+        accuracy+= addedStats[2];
+        range+= addedStats[3];
+
+        stats = ""+0+"|"+strength+"|"+speed+"|"+accuracy+"|"+range;
         //set boxer stats
         setStats(stats);
         return pointsSpent;
