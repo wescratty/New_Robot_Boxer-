@@ -24,11 +24,7 @@ public class MainPanel extends JPanel {
 
     Boxer _boxer1 = builder.build(100, "Player 1");
     Boxer _boxer2 = builder.build(100, "Player 2");
-//    public JLabel[] labArr = new JLabel[9];
-//
-//    for(JLabel label : labArr) {
-//        label = new JLabel();
-//    }
+
       JLabel strenghtLblP1, speedLblP1, accuracyLblP1, reachLblP1, strenghtLblP2, speedLblP2, accuracyLblP2, reachLblP2, time, timer, splash,p1Strenght,p1Speed,P1Accuracy,p1Reach,p2Strenght,p2Speed,P2Accuracy,p2Reach;
 
 
