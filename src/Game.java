@@ -53,7 +53,7 @@ public class Game implements Runnable {
 
     public void  run(){
         timer.Stopwatch();
-        int len = 100;
+        int len = 60;
 
 
         while(round_in_Play){
