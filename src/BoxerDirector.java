@@ -24,6 +24,7 @@ public class BoxerDirector {
         boxer.setAttackList(attackBuilder.buildAttacks(unusedPoints));
         unusedPoints = unusedPoints - attackBuilder.getPointsUsed();
         boxer.setBlockList(blockBuilder.buildBlocks(unusedPoints));
+        boxer.reset();
         return boxer;
     }
 
@@ -34,6 +35,7 @@ public class BoxerDirector {
         boxer.setAttackList(attackBuilder.buildAIAttacks(unusedPoints));
         unusedPoints = unusedPoints - attackBuilder.getPointsUsed();
         boxer.setBlockList(blockBuilder.buildBlocks(unusedPoints));
+        boxer.reset();
         return boxer;
     }
 }
