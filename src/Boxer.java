@@ -218,6 +218,9 @@ public class Boxer implements Subject {
         }
     }
 
+    public int getFatigue() {
+        return fatigue;
+    }
 
     public double distance(Point b_1, Point b_2) {
         return Math.sqrt(Math.pow(b_2.X() - b_1.X(), 2) + Math.pow(b_2.Y() - b_1.Y(), 2));
