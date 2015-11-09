@@ -3,10 +3,10 @@
  */
 public class Match {
     private final int TKOTHESHOLD = 150;
-    private final int COUNTDELAY = 100;
-    private final int COUNTTOLERANCE = 10;
+    private final int COUNTDELAY = 10;
+    private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
-    private final int ROUNDDURATION = 100;
+    private final int ROUNDDURATION = 300;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -14,6 +14,7 @@ public class Match {
     private Boxer boxer1;
     private Boxer boxer2;
     private DownTimer timer;
+    private  GameTimer roundTimer;
     private int[] score;
     private ChanceBot chance = ChanceBot.getInstance();
 
@@ -21,6 +22,7 @@ public class Match {
         this.totalRounds = totalRounds;
         this.boxer1 = boxer1;
         this.boxer2 = boxer2;
+        this.roundTimer = GameTimer.getInstance();
     }
         //todo this needs to handle the fight loop will probably need wes to help
     public String  Bout(){

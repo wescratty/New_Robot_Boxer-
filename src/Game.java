@@ -24,7 +24,7 @@ public class Game implements Runnable {
     //    Observer watcher;
     // boxerBuilder:Director
     Boxer[] boxers = new Boxer[2];
-    ChanceBot rand = new ChanceBot();
+    ChanceBot rand = ChanceBot.getInstance();
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
 //    ObservaBoxing obs1;
 //    ObservaBoxing obs2;
