@@ -16,7 +16,7 @@ public class Match implements Runnable {
     private  GameTimer roundTimer;
     private int[] score;
     private ChanceBot chance = ChanceBot.getInstance();
-    private AudioPlayer audio = AudioPlayer.getInstance();
+    private AudioPlayer audio = new AudioPlayer();
     private HurtBox hurt = HurtBox.getInstance();
     private Boxer winner;
 

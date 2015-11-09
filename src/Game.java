@@ -30,6 +30,7 @@ public class Game implements Runnable {
 //    ObservaBoxing obs2;
 
     boolean round_in_Play = true;
+    AudioPlayer bell = new AudioPlayer();
 
 
     public String getTimer() {
@@ -70,13 +71,12 @@ public class Game implements Runnable {
 
                 if(timer.elapsedTime()>len){
                     round_in_Play = false;
-                    AudioPlayer bell =  AudioPlayer.getInstance();
+
                     bell.bellSound();
                     bell.bellSound();
 
                 }else if (timer.elapsedTime()<1){
 
-                    AudioPlayer bell =  AudioPlayer.getInstance();
                     bell.bellSound();
 
 

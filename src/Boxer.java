@@ -21,7 +21,6 @@ public class Boxer implements Subject {
 
 
 
-    private AudioPlayer player;
     private ArrayList<Attack> attackList;
     private ArrayList<Block> blockList;
 
@@ -41,6 +40,8 @@ public class Boxer implements Subject {
     public boolean attack = true;
     private boolean didPunch = false;
     private ChanceBot chance = ChanceBot.getInstance();
+    private AudioPlayer player = new AudioPlayer();
+
 
 
     public Boxer() {
@@ -257,7 +258,6 @@ public class Boxer implements Subject {
 
 
     public void checkDidBlock() {
-        AudioPlayer player = AudioPlayer.getInstance();
 
 
         if(didBLock){
@@ -397,16 +397,16 @@ public class Boxer implements Subject {
     }
     }
 
-    public void reset(){
-    fatigue = 0;
-    resetAttacks();
-    resetBlocks();
-    }
-    private void resetAttacks(){
-        for(Attack attack : attackList){
-            attack.refresh(strengthScore,agilityScore,accuracy);
-        }
-    }
+//    public void reset(){
+//    fatigue = 0;
+//    resetAttacks();
+//    resetBlocks();
+//    }
+//    private void resetAttacks(){
+//        for(Attack attack : attackList){
+//            attack.refresh(strengthScore,agilityScore,accuracy);
+//        }
+//    }
     private void resetBlocks(){
         for(Block block : blockList){
             block.refresh(strengthScore,agilityScore,accuracy);

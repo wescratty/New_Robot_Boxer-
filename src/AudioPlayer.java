@@ -19,13 +19,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 // Please transition to the API's in AudioComponent.h.
 
 public class AudioPlayer implements LineListener {
-    private static AudioPlayer ourInstance = new AudioPlayer();
+//    private static AudioPlayer ourInstance = new AudioPlayer();
+//
+//    public static AudioPlayer getInstance() {
+//        return ourInstance;
+//    }
 
-    public static AudioPlayer getInstance() {
-        return ourInstance;
-    }
-
-    private AudioPlayer() {
+    public AudioPlayer() {
     }
 
 

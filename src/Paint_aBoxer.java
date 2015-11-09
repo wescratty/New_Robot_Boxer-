@@ -145,7 +145,7 @@ public class Paint_aBoxer extends JPanel {
         for(Point i : rSplat){    //(String i : data)
 
 
-            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(rSize.get(j)), Integer.parseInt(rSize.get(j)), 0, 360);
+            g.drawArc((int)i.X(),(int)i.Y(), Integer.parseInt(rSize.get(j)), Integer.parseInt(rSize.get(j)), 0, 360);
 //            g.drawRect((int)i.X(),(int)i.Y(), Integer.parseInt(rSize.get(j)), Integer.parseInt(rSize.get(j)));
             j++;
 
@@ -156,7 +156,7 @@ public class Paint_aBoxer extends JPanel {
         for(Point i : bSplat){    //(String i : data)
 
 //            g.drawRect((int) i.X(), (int) i.Y(), Integer.parseInt(bSize.get(j)), Integer.parseInt(bSize.get(j)));
-            g.fillArc((int)i.X(),(int)i.Y(), Integer.parseInt(bSize.get(j)), Integer.parseInt(bSize.get(j)), 0, 360);
+            g.drawArc((int)i.X(),(int)i.Y(), Integer.parseInt(bSize.get(j)), Integer.parseInt(bSize.get(j)), 0, 360);
             j++;
 
 
