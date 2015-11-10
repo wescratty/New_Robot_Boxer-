@@ -80,13 +80,8 @@ public class MainPanel extends JPanel {
                 b2LabelPanel.add(titleLabArray.get(i));
                 b2LabelPanel.add(labArray.get(i));
             }
-
         }
-//        for (int i = 4; i < 8; i++) {
-//            b2LabelPanel.add(titleLabArray.get(i));
-//            b2LabelPanel.add(labArray.get(i));
-//
-//        }
+
 
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
         b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));

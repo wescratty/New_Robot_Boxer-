@@ -16,20 +16,20 @@ public class Dialog {
     }
 
 //depriciated?
-    public String getBoxerStats(){
-        String infoString;
-        Object[] possibilities = {"10", "20", "30","40", "50", "60", "70","80", "90", "100"};
-        infoString = (String)JOptionPane.showInputDialog(null,"Select Speed:","Boxer Stats",JOptionPane.PLAIN_MESSAGE,
-                null,possibilities,"10");
-
-
-        infoString =infoString+","+(String)getStat("Select Strength:", "Boxer Stats", possibilities);
-
-
-        System.out.println("Boxer Stats: " + infoString);
-
-        return infoString;
-    }
+//    public String getBoxerStats(){
+//        String infoString;
+//        Object[] possibilities = {"10", "20", "30","40", "50", "60", "70","80", "90", "100"};
+//        infoString = (String)JOptionPane.showInputDialog(null,"Select Speed:","Boxer Stats",JOptionPane.PLAIN_MESSAGE,
+//                null,possibilities,"10");
+//
+//
+//        infoString =infoString+","+(String)getStat("Select Strength:", "Boxer Stats", possibilities);
+//
+//
+//        System.out.println("Boxer Stats: " + infoString);
+//
+//        return infoString;
+//    }
 
     /**
      * Method for generating a dialogue box with a drop down

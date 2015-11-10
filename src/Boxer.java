@@ -28,6 +28,7 @@ public class Boxer implements Subject {
 
     private Point desiredLocation = new Point(x, y);
     private Point thisBoxerLocation = new Point(x, y);
+    private Boxer otherBoxer;
 
     private String boxerID;
 
@@ -126,10 +127,11 @@ public class Boxer implements Subject {
 
     }
 
-    public void setOtherBoxerLoc(Boxer otherBoxer) {
+    public void setOtherBoxer(Boxer otherBoxer) {
 
         _otherBoxer.setX(otherBoxer.getX());
         _otherBoxer.setY(otherBoxer.getY());
+        this.otherBoxer = otherBoxer;
 
     }
 
@@ -261,6 +263,7 @@ public class Boxer implements Subject {
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));
+//            takeDamage(otherBoxer.getPunchPower());
             //TODO make sleeptime reflect punch strength
 
 
@@ -393,7 +396,7 @@ public class Boxer implements Subject {
     }
     private void resetAttacks(){
         for(Attack attack : attackList){
-            attack.refresh(strengthScore,agilityScore,accuracy);
+            attack.refresh(strengthScore, agilityScore,accuracy);
         }
     }
     private void resetBlocks(){
