@@ -46,6 +46,7 @@ public class Boxer implements Subject {
     private ChanceBot chance = ChanceBot.getInstance();
     private AudioPlayer player = new AudioPlayer();
     private HurtBox hurtBox = HurtBox.getInstance();
+    private MainPanel mp = MainPanel.getInstance();
 
 
 
@@ -192,7 +193,12 @@ public class Boxer implements Subject {
     public void notifyObserverOfPunch() {
 
         // Cycle through all observers and notifies them
+
+        //todo not sure if this is what you were thinking------------------
         Attack a = getAttack();
+        a.setAttackName(a.getAttackName());
+        mp.setSplash(a.getAttackName());
+
 
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
@@ -217,8 +223,9 @@ public class Boxer implements Subject {
     }
 
     public void upDateLabels(){
-        MainPanel mp = MainPanel.getInstance();
-        mp.setLables(getStats(),getid(),this.otherBoxer.getStats(),this.otherBoxer.getid());
+
+        mp.setLables(getStats(), getid(), this.otherBoxer.getStats(),this.otherBoxer.getid());
+
     }
 
 

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 
@@ -27,6 +28,7 @@ public class MainPanel extends JPanel {
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
     GameTimer dt = GameTimer.getInstance();
+    String padding = "              ";
 
 
 
@@ -39,8 +41,11 @@ public class MainPanel extends JPanel {
         JPanel subPanel = new JPanel();
 
         time = new JLabel("Time left in bought: ");
+        time.setBorder(new EmptyBorder(10, 10, 10, 10));
         timer = new JLabel("5:00");
+        timer.setBorder(new EmptyBorder(10, 10, 10, 10));
         splash = new JLabel("client message");
+        splash.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         titleLabArray.add(p1Exp = new JLabel(" P1 Exp: "));
         titleLabArray.add(p1Strenght = new JLabel(" P1 Strength: "));
@@ -72,6 +77,7 @@ public class MainPanel extends JPanel {
 
 
         for (int i = 0; i < titleLabArray.size(); i++) {
+            titleLabArray.get(i).setBorder(new EmptyBorder(10, 10, 10, 10));
             if(i<titleLabArray.size()/2) {
                 b1LabelPanel.add(titleLabArray.get(i));
                 b1LabelPanel.add(labArray.get(i));
@@ -90,6 +96,8 @@ public class MainPanel extends JPanel {
 //        b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         b2LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.blue));
 
+
+        gameLabelPanel.setLayout(new BoxLayout(gameLabelPanel, BoxLayout.PAGE_AXIS));
         gameLabelPanel.add(time);
         gameLabelPanel.add(timer);
         gameLabelPanel.add(splash);
@@ -144,9 +152,9 @@ public class MainPanel extends JPanel {
         try {
             for(int i=0; i<labArray.size(); i++){
                 if(i<(labArray.size()/2)) {
-                    labArray.get(i).setText(inputArrayB1[i]);
+                    labArray.get(i).setText(padding+inputArrayB1[i]);
                 }else{
-                    labArray.get(i).setText(inputArrayB2[i - labArray.size()/2]);
+                    labArray.get(i).setText(padding+inputArrayB2[i - labArray.size()/2]);
                 }
             }
 
@@ -156,11 +164,14 @@ public class MainPanel extends JPanel {
         }
 
 //        timer .setText(Double.toString(dt.elapsedTime()));
-        splash.setText(" Round 1");
+
     }
 
     public void setTime(){
-        timer .setText(Double.toString(dt.clockTime()));
+        timer .setText(padding + Double.toString(dt.clockTime()));
+    }
+    public void setSplash(String sp){
+        splash.setText(sp);
     }
 
 }
