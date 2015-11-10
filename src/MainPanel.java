@@ -22,9 +22,10 @@ public class MainPanel extends JPanel {
     //todo find a home for this
 
 
-      JLabel strenghtLblP1, speedLblP1, accuracyLblP1, reachLblP1, strenghtLblP2, speedLblP2, accuracyLblP2, reachLblP2, time, timer, splash,p1Strenght,p1Speed,P1Accuracy,p1Reach,p2Strenght,p2Speed,P2Accuracy,p2Reach;
+      JLabel expLbP1, strenghtLblP1, agilityLblP1, accuracyLblP1, reachLblP1, fatigueLbP1, expLbP2, strenghtLblP2, agilityLblP2, accuracyLblP2, reachLblP2,fatigueLbP2,  time, timer, splash,
+              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue;
 
-
+    //""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
 
@@ -42,35 +43,50 @@ public class MainPanel extends JPanel {
         timer = new JLabel("5:00");
         splash = new JLabel("client message");
 
+        titleLabArray.add(p1Exp = new JLabel(" P1 Exp: "));
         titleLabArray.add(p1Strenght = new JLabel(" P1 Strength: "));
-        titleLabArray.add(p1Speed = new JLabel(" P1 Speed: "));
+        titleLabArray.add(p1Agile = new JLabel(" P1 Agility: "));
         titleLabArray.add(P1Accuracy = new JLabel(" P1 Accuracy: "));
         titleLabArray.add(p1Reach = new JLabel(" P1 Reach: "));
+        titleLabArray.add(p1Fatigue = new JLabel(" P1 Fatigue: "));
+
+        titleLabArray.add(p2Exp = new JLabel(" P2 Exp: "));
         titleLabArray.add(p2Strenght = new JLabel(" P2 Strength: "));
-        titleLabArray.add(p2Speed = new JLabel(" P2 Speed: "));
+        titleLabArray.add(p2Agile = new JLabel(" P2 Agility: "));
         titleLabArray.add(P2Accuracy = new JLabel(" P2 Accuracy: "));
         titleLabArray.add(p2Reach = new JLabel(" P2 Reach: "));
+        titleLabArray.add(p2Fatigue = new JLabel(" P2 Fatigue: "));
 
+        labArray.add(expLbP1 = new JLabel("  0   "));
         labArray.add(strenghtLblP1 = new JLabel("  0   "));
-        labArray.add(speedLblP1 = new JLabel("  0  "));
+        labArray.add(agilityLblP1 = new JLabel("  0  "));
         labArray.add(accuracyLblP1 = new JLabel("  0   "));
         labArray.add(reachLblP1 = new JLabel("   0   "));
+        labArray.add(fatigueLbP1 = new JLabel("   0   "));
+
+        labArray.add(expLbP2 = new JLabel("  0   "));
         labArray.add(strenghtLblP2 = new JLabel("  0   "));
-        labArray.add(speedLblP2 = new JLabel("  0  "));
+        labArray.add(agilityLblP2 = new JLabel("  0  "));
         labArray.add(accuracyLblP2 = new JLabel("   0   "));
         labArray.add(reachLblP2 = new JLabel("   0   "));
+        labArray.add(fatigueLbP2 = new JLabel("   0   "));
 
 
-        for (int i = 0; i < 4; i++) {
-            b1LabelPanel.add(titleLabArray.get(i));
-            b1LabelPanel.add(labArray.get(i));
+        for (int i = 0; i < titleLabArray.size(); i++) {
+            if(i<titleLabArray.size()/2) {
+                b1LabelPanel.add(titleLabArray.get(i));
+                b1LabelPanel.add(labArray.get(i));
+            }else{
+                b2LabelPanel.add(titleLabArray.get(i));
+                b2LabelPanel.add(labArray.get(i));
+            }
 
         }
-        for (int i = 4; i < 8; i++) {
-            b2LabelPanel.add(titleLabArray.get(i));
-            b2LabelPanel.add(labArray.get(i));
-
-        }
+//        for (int i = 4; i < 8; i++) {
+//            b2LabelPanel.add(titleLabArray.get(i));
+//            b2LabelPanel.add(labArray.get(i));
+//
+//        }
 
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
         b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -117,16 +133,16 @@ public class MainPanel extends JPanel {
         String inputs_b2= _boxer2.getStats();
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
+
         try {
-
-            for(int i=0; i<4; i++){
-                labArray.get(i).setText(inputArrayB1[i+1]);//""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
+            for(int i=0; i<labArray.size(); i++){
+                if(i<(labArray.size()/2)) {
+                    labArray.get(i).setText(inputArrayB1[i]);
+                }else{
+                    labArray.get(i).setText(inputArrayB2[i - labArray.size()/2]);
+                }
             }
 
-            for(int i=4; i<8; i++){
-
-                labArray.get(i).setText(inputArrayB2[i-3]);
-            }
 
         }catch (Exception e){
             System.out.println(e.toString());

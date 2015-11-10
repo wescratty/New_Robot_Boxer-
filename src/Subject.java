@@ -12,10 +12,5 @@ public interface Subject {
     void setSentMessage();
     void notifyObserverOfPunch();
     void checkDidBlock();
-//    boolean observerCheckDidBLock();
-
-
-
-
 
 }

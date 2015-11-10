@@ -1,8 +1,6 @@
 /**
  * Created by wescratty on 10/31/15.
  */
-//public interface ObservaBoxing {
-
 
 // Represents each Observer that is monitoring changes in the subject
 
@@ -24,8 +22,6 @@ public class ObservaBoxing implements Observer {
     private Subject boxer;
 
     public ObservaBoxing(Subject boxer){
-
-
 
         this.boxer = boxer;
 

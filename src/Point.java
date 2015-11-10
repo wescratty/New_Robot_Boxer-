@@ -36,8 +36,10 @@ public class Point {
 
     }
 
-
-
+    /**
+     *
+     * @return
+     */
     public String toString(){
         return "("+ this.x+","+this.y+")";
     }
