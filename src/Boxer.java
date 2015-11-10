@@ -388,7 +388,7 @@ public class Boxer implements Subject {
 
     public void reset(){
     fatigue = 0;
-    resetAttacks();
+//    resetAttacks();
     resetBlocks();
     }
     private void resetAttacks(){
