@@ -81,13 +81,14 @@ public class MainPanel extends JPanel {
             }
         }
 
-        b1LabelPanel.setBackground(Color.RED);
+        b1LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
-        b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+//        b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-        b2LabelPanel.setBackground(Color.BLUE);
+//        b2LabelPanel.setBackground(Color.BLUE);
         b2LabelPanel.setLayout(new BoxLayout(b2LabelPanel, BoxLayout.PAGE_AXIS));
-        b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+//        b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        b2LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.blue));
 
         gameLabelPanel.add(time);
         gameLabelPanel.add(timer);
