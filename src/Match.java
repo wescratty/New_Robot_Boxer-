@@ -35,7 +35,7 @@ public class Match implements Runnable {
         String result;
         int boxerWinner = 255;
 
-        while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==55) {
+        while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==255) {
         // todo do all the damage stuff no idea how to get to it
             Attack attack = null;
             Block block = null;
@@ -45,7 +45,7 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
 
         if (checkTKO(damage)){
-
+            boxerWinner = attacker;
         }else if(checkDown(boxers[defender].getFatigue())){
              int countResult = count(boxers[defender].getFatigue());
                 if( countResult > 0){
