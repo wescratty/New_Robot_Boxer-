@@ -28,7 +28,7 @@ public class Boxer implements Subject {
 
     private Point desiredLocation = new Point(x, y);
     private Point thisBoxerLocation = new Point(x, y);
-    private Boxer otherBoxer;
+    public Boxer otherBoxer;
 
     private String boxerID;
 
@@ -52,6 +52,7 @@ public class Boxer implements Subject {
         agilityScore = INTITALSTATS;
         accuracy = INTITALSTATS;
         reach = INTITALSTATS;
+
     }
 
 
@@ -119,6 +120,7 @@ public class Boxer implements Subject {
 
     }
 
+//    notifyObserverOfMove()
 
     public void checkIfAttack() {
         if (attack) {
@@ -129,10 +131,15 @@ public class Boxer implements Subject {
 
     public void setOtherBoxer(Boxer otherBoxer) {
 
+
+        this.otherBoxer = otherBoxer;
+        upDateLabels();
+
+    }
+
+    public void upDateOtherBoxerLoc(){
         _otherBoxer.setX(otherBoxer.getX());
         _otherBoxer.setY(otherBoxer.getY());
-        this.otherBoxer = otherBoxer;
-
     }
 
     public void setSentMessage() {
@@ -184,6 +191,24 @@ public class Boxer implements Subject {
         }
     }
 
+    public void notifyObserverOfMove() {
+
+        // Cycle through all observers and notifies them
+
+        for (Observer observer : observers) {
+            if (observer.getObserverId() != this.bNum) {
+
+                observer.notifyPunch();
+            }
+
+        }
+    }
+
+    public void upDateLabels(){
+        MainPanel mp = MainPanel.getInstance();
+        mp.setLables(getStats(),this.otherBoxer.getStats());
+    }
+
 
     public void notifyObserver() {
 
@@ -231,6 +256,7 @@ public class Boxer implements Subject {
             observerCheckDidBLock();  // see if blocked
         }
 
+        upDateLabels();
     }
 
     public boolean getDidPunch() {

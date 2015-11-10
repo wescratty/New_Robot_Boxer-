@@ -121,12 +121,15 @@ public class MainPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public void setLables(String time,Boxer _boxer1, Boxer _boxer2){
+    public void setLables(String _boxer1, String _boxer2){
 
-        String inputs_b1= _boxer1.getStats();
+        String inputs_b1= _boxer1;
         String[] inputArrayB1 = inputs_b1.split("\\|");
-        String inputs_b2= _boxer2.getStats();
+        String inputs_b2= _boxer2;
         String[] inputArrayB2 = inputs_b2.split("\\|");
+
+        DownTimer dt = DownTimer.getInstance();
+
 
 
         try {
@@ -143,7 +146,7 @@ public class MainPanel extends JPanel {
             System.out.println(e.toString());
         }
 
-        timer .setText(time);
+        timer .setText(Double.toString(dt.elapsedTime()));
         splash.setText(" Round 1");
     }
 

@@ -57,8 +57,8 @@ public class Game implements Runnable {
         boxers[0].register(obs2);
         boxers[1].register(obs1);
 
-//        _boxer1.setOtherBoxer(boxers[1]);
-//        _boxer2.setOtherBoxer(boxers[0]);
+        _boxer1.setOtherBoxer(boxers[1]);
+        _boxer2.setOtherBoxer(boxers[0]);
 
 
 //        Runnable game = new Game(boxers[0],_boxer2);
@@ -124,12 +124,15 @@ public class Game implements Runnable {
 
 
                 }else {
-                    MainPanel mp = MainPanel.getInstance();
-                    mp.setLables(Double.toString(len-timer.elapsedTime()), _boxer1,_boxer2);
+//                    MainPanel mp = MainPanel.getInstance();
+//                    mp.setLables(Double.toString(len-timer.elapsedTime()), _boxer1,_boxer2);
                     pb.revalidate();
                     pb.repaint();
-                    boxers[0].setOtherBoxer(boxers[1]);
-                    boxers[1].setOtherBoxer(boxers[0]);
+//                    boxers[0].setOtherBoxer(boxers[1]);
+//                    boxers[1].setOtherBoxer(boxers[0]);
+                    boxers[0].upDateOtherBoxerLoc();
+                    boxers[1].upDateOtherBoxerLoc();
+
                     boxers[0].move();
                     boxers[1].move();
                     try {
