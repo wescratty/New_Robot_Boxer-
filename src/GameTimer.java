@@ -36,6 +36,10 @@ public class GameTimer {
      */
     public double elapsedTime() {
         long now = System.currentTimeMillis();
+        return ((now - start) /1000);
+    }
+    public double clockTime() {
+        long now = System.currentTimeMillis();
         return _roundTime - ((now - start) /1000);
     }
 }

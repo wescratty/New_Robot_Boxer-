@@ -97,7 +97,6 @@ public class Game implements Runnable {
 
 
     public void  run(){
-//        timer.Stopwatch();
         int len = 60;
 
 

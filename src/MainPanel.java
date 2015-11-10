@@ -152,7 +152,7 @@ public class MainPanel extends JPanel {
     }
 
     public void setTime(){
-        timer .setText(Double.toString(dt.elapsedTime()));
+        timer .setText(Double.toString(dt.clockTime()));
     }
 
 }
