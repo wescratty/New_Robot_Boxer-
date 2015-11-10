@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Boxer implements Subject {
     //final for setting the boxers intital stats for all abilities
     final int INTITALSTATS = 10;
-    final int INITAILREACH = 70;
+    final int INITAILREACH = 80;
     private int id;
     private int bNum;
     private int fatigue;

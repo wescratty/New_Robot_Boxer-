@@ -90,10 +90,6 @@ public class StatDialogue {
                 pointsUsed += detaRange * RANGECOST;
                 unusedPoints -= pointsUsed;
                 range = newRange;
-//                //TODO fix min range
-//                if (range<90) {
-//                    range = 90;
-//                }
             }
         }
         String resultString = null;
