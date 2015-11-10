@@ -11,6 +11,7 @@ public class Match implements Runnable {
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
+    private final long ROUNDRESETTME = 10;
     private int totalRounds;
     private Boxer[] boxers;
     private DownTimer timer;
@@ -38,7 +39,9 @@ public class Match implements Runnable {
         String result;
         //TODO fix boxer winner, needs to return 0 or 1
         int boxerWinner = 2;
-
+        for (Boxer boxer: boxers){
+            boxer.reset();
+        }
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
         // todo do all the damage stuff no idea how to get to it
             Attack attack = null;
@@ -104,7 +107,11 @@ public class Match implements Runnable {
         while (Math.max(score[0],score[1])<= totalRounds/2){
             int winner = Bout();
             score[winner]+=1;
+            try {
+                wait(ROUNDRESETTME);
+            } catch (InterruptedException e) {
 
+            }
         }
         if (score[0]>totalRounds/2){
             winner = boxers[0];
