@@ -126,13 +126,17 @@ public class MainPanel extends JPanel {
 
 
         Runnable game = new Game(_boxer1,_boxer2);
+        Runnable mathch = new Match(3,_boxer1,_boxer2);
 
 
         Thread paintThread = new Thread(game);
+        Thread matchThread = new Thread(game);
         Thread boxer1Thread = new Thread(game);
         int b1Identifier = System.identityHashCode(boxer1Thread);
         Thread boxer2Thread = new Thread(game);
         int b2Identifier = System.identityHashCode(boxer2Thread);
+
+
 
 
         _boxer1.setid(b1Identifier,1);
@@ -143,6 +147,7 @@ public class MainPanel extends JPanel {
         boxer1Thread.start();
         boxer2Thread.start();
         paintThread.start();
+        matchThread.start();
 
         // TODO join threads
 //        try {

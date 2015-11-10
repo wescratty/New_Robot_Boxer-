@@ -13,8 +13,6 @@ public class Game implements Runnable {
         return ourInstance;
     }
 
-//    private Game() {
-//    }
 
 
     // Match currentBout;
