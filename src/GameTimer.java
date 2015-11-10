@@ -14,6 +14,7 @@ public class GameTimer {
     }
 
     private long start = 0;
+    int _roundTime = 0;
 
 
 
@@ -21,8 +22,10 @@ public class GameTimer {
     /**
      * Initializes a new stopwatch.
      */
-    public void Stopwatch() {
+    public void Stopwatch(int roundTime) {
+
         start = System.currentTimeMillis();
+        _roundTime = roundTime;
     }
 
 
@@ -33,6 +36,6 @@ public class GameTimer {
      */
     public double elapsedTime() {
         long now = System.currentTimeMillis();
-        return (now - start) /1000;
+        return _roundTime - ((now - start) /1000);
     }
 }

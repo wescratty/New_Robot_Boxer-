@@ -17,6 +17,7 @@ public class Match implements Runnable {
     private  GameTimer roundTimer;
     private int[] score;
     private ChanceBot chance = ChanceBot.getInstance();
+    private Game game = Game.getInstance();
     private AudioPlayer audio = new AudioPlayer();
     private HurtBox hurt = HurtBox.getInstance();
     private Boxer winner;
@@ -27,17 +28,18 @@ public class Match implements Runnable {
         this.boxers[0] =boxer1;
         this.boxers[1] = boxer2;
         this.roundTimer = GameTimer.getInstance();
+
     }
         //todo this needs to handle the fight loop will probably need wes to help
         // should return which boxer won the round
     public int  Bout(){
-        roundTimer.Stopwatch();
+        roundTimer.Stopwatch(ROUNDDURATION);
         audio.bellSound();
         String result;
         //TODO fix boxer winner, needs to return 0 or 1
-        int boxerWinner = 0;
+        int boxerWinner = 2;
 
-        while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==255) {
+        while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
         // todo do all the damage stuff no idea how to get to it
             Attack attack = null;
             Block block = null;
@@ -59,8 +61,8 @@ public class Match implements Runnable {
 
         }
 
-        audio.bellSound();
-        audio.bellSound();
+        game.setRoundInPlay(false);//TODO dont know if this is what you want here
+
         return boxerWinner;
     }
 
@@ -95,9 +97,10 @@ public class Match implements Runnable {
 
     @Override
     public void run() {
-        score = new int[2];
+        score = new int[3];
         score[0] = 0;
         score[1] = 0;
+        score[2] = 0;//todo temp fix
         while (Math.max(score[0],score[1])<= totalRounds/2){
             int winner = Bout();
             score[winner]+=1;

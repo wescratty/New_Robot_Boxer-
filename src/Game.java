@@ -150,7 +150,7 @@ public class Game implements Runnable {
 
 
     }
-    public void SetRoundInPlay(boolean annoynce){
+    public void setRoundInPlay(boolean annoynce){
         round_in_Play = annoynce;
     }
 
