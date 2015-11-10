@@ -122,11 +122,21 @@ public class MainPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public void setLables(String _boxer1, String _boxer2){
+    public void setLables(String _boxer1, int b1Id, String _boxer2, int b2Id){
 
-        String inputs_b1= _boxer1;
+        String inputs_b1;
+        String inputs_b2;
+
+        if(b1Id<b2Id){
+             inputs_b1= _boxer1;
+             inputs_b2= _boxer2;
+        }else{
+             inputs_b1= _boxer2;
+             inputs_b2= _boxer1;
+        }
+
         String[] inputArrayB1 = inputs_b1.split("\\|");
-        String inputs_b2= _boxer2;
+
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
 

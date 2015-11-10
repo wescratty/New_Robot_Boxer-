@@ -41,8 +41,11 @@ public class Boxer implements Subject {
     public boolean didBLock = false;
     public boolean attack = true;
     private boolean didPunch = false;
+
+    private Attack incomingAttack;
     private ChanceBot chance = ChanceBot.getInstance();
     private AudioPlayer player = new AudioPlayer();
+    private HurtBox hurtBox = HurtBox.getInstance();
 
 
 
@@ -148,8 +151,10 @@ public class Boxer implements Subject {
         _otherBoxer.setY(otherBoxer.getY());
     }
 
-    public void setSentMessage() {
+    public void setSentMessage(Attack a) {
         sentMessage = true;
+        incomingAttack = a;
+        //todo do something with this attack from other boxer
 
     }
     public void setExp(int exp) {
@@ -187,11 +192,12 @@ public class Boxer implements Subject {
     public void notifyObserverOfPunch() {
 
         // Cycle through all observers and notifies them
+        Attack a = getAttack();
 
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
 
-                observer.notifyPunch();
+                observer.notifyPunch(a);
             }
 
         }
@@ -204,7 +210,7 @@ public class Boxer implements Subject {
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
 
-                observer.notifyPunch();
+//                observer.todo();
             }
 
         }
@@ -212,7 +218,7 @@ public class Boxer implements Subject {
 
     public void upDateLabels(){
         MainPanel mp = MainPanel.getInstance();
-        mp.setLables(getStats(),this.otherBoxer.getStats());
+        mp.setLables(getStats(),getid(),this.otherBoxer.getStats(),this.otherBoxer.getid());
     }
 
 
@@ -262,7 +268,7 @@ public class Boxer implements Subject {
             observerCheckDidBLock();  // see if blocked
         }
 
-        upDateLabels();
+//        upDateLabels();
     }
 
     public boolean getDidPunch() {

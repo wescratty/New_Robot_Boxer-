@@ -7,12 +7,13 @@ public interface Observer {
 
     //    HurtBox calculation;
     boolean  notifyRange();
-    boolean  notifyPunch();
+    void  notifyPunch(Attack a);
 
 
-    int notifyDamage();
+    void notifyDamage();
     int calculateDamage();
     int getObserverId();
     void observerCheckDidBLock();
+
 
 }

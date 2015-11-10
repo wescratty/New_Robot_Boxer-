@@ -43,7 +43,7 @@ public class ObservaBoxing implements Observer {
 
     public void update() {
 
-        this.boxer.setSentMessage();
+        this.boxer.upDateLabels();
 
     }
 
@@ -53,13 +53,15 @@ public class ObservaBoxing implements Observer {
         return true;
 
     }
-    public boolean  notifyPunch(){
-        this.boxer.setSentMessage();
-        return true;
+    public void  notifyPunch(Attack a){
+        this.boxer.setSentMessage(a);
+
     }
 
-    public int notifyDamage(){
-        return 0;
+    public void notifyDamage(){
+//        HurtBox hb = HurtBox.getInstance();
+//       this.boxer.takeDamage(hb.calculateDamage());
+
 
     }
     public int  calculateDamage(){
