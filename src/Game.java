@@ -29,6 +29,7 @@ public class Game implements Runnable {
 
     ChanceBot rand = ChanceBot.getInstance();
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
+    MainPanel mp = MainPanel.getInstance();
 //    ObservaBoxing obs1;
 //    ObservaBoxing obs2;
 
@@ -36,9 +37,9 @@ public class Game implements Runnable {
     AudioPlayer bell = new AudioPlayer();
 
 
-    public String getTimer() {
-        return (Double.toString(timer.elapsedTime()));
-    }
+//    public String getTimer() {
+//        return (Double.toString(timer.elapsedTime()));
+//    }
 
 
     protected Game(){}
@@ -96,7 +97,7 @@ public class Game implements Runnable {
 
 
     public void  run(){
-        timer.Stopwatch();
+//        timer.Stopwatch();
         int len = 60;
 
 
@@ -112,20 +113,19 @@ public class Game implements Runnable {
 
 
 
-                if(timer.elapsedTime()>len){
-                    round_in_Play = false;
-
-                    bell.bellSound();
-                    bell.bellSound();
-
-                }else if (timer.elapsedTime()<1){
-
-                    bell.bellSound();
-
-
-                }else {
-//                    MainPanel mp = MainPanel.getInstance();
-//                    mp.setLables(Double.toString(len-timer.elapsedTime()), _boxer1,_boxer2);
+//                if(timer.elapsedTime()>len){
+//                    round_in_Play = false;
+//
+//                    bell.bellSound();
+//                    bell.bellSound();
+//
+//                }else if (timer.elapsedTime()<1){
+//
+//                    bell.bellSound();
+//
+//
+//                }else {
+                    mp.setTime();
                     pb.revalidate();
                     pb.repaint();
 //                    boxers[0].setOtherBoxer(boxers[1]);
@@ -139,7 +139,7 @@ public class Game implements Runnable {
                         Thread.sleep(10);
 
                     } catch (Exception e) {
-                    }
+//                    }
                 }
 
 
@@ -149,6 +149,9 @@ public class Game implements Runnable {
 
 
 
+    }
+    public void SetRoundInPlay(boolean annoynce){
+        round_in_Play = annoynce;
     }
 
 

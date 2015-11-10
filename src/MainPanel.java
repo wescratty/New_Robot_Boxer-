@@ -28,6 +28,7 @@ public class MainPanel extends JPanel {
     //""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
+    GameTimer dt = GameTimer.getInstance();
 
 
 
@@ -128,7 +129,7 @@ public class MainPanel extends JPanel {
         String inputs_b2= _boxer2;
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
-        GameTimer dt = GameTimer.getInstance();
+
 
 
 
@@ -146,8 +147,12 @@ public class MainPanel extends JPanel {
             System.out.println(e.toString());
         }
 
-        timer .setText(Double.toString(dt.elapsedTime()));
+//        timer .setText(Double.toString(dt.elapsedTime()));
         splash.setText(" Round 1");
+    }
+
+    public void setTime(){
+        timer .setText(Double.toString(dt.elapsedTime()));
     }
 
 }

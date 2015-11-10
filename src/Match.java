@@ -6,7 +6,8 @@ public class Match implements Runnable {
     private final int COUNTDELAY = 10;
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
-    private final int ROUNDDURATION = 300;
+    //TODO changed round durration from 300 for testing
+    private final int ROUNDDURATION = 20;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -33,7 +34,8 @@ public class Match implements Runnable {
         roundTimer.Stopwatch();
         audio.bellSound();
         String result;
-        int boxerWinner = 255;
+        //TODO fix boxer winner, needs to return 0 or 1
+        int boxerWinner = 0;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==255) {
         // todo do all the damage stuff no idea how to get to it
@@ -57,6 +59,8 @@ public class Match implements Runnable {
 
         }
 
+        audio.bellSound();
+        audio.bellSound();
         return boxerWinner;
     }
 
