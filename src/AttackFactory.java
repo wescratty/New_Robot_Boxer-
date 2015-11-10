@@ -12,7 +12,7 @@ public class AttackFactory {
      */
     public Attack create(String inputs){
         //parse String
-        String[] inputArray = inputs.split("|");
+        String[] inputArray = inputs.split("\\|");
         //get Attack Type
         //perform creation based on attack type
         if (inputArray[1].compareTo("Heavy")==0){
