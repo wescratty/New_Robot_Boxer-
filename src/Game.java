@@ -70,7 +70,7 @@ public class Game implements Runnable {
         Thread matchThread = new Thread(new Match(3,boxers[0],boxers[1]));
         Thread boxer1Thread = new Thread(game);
         Thread boxer2Thread = new Thread(game);
-        
+
         int b1Identifier = System.identityHashCode(boxer1Thread);
         int b2Identifier = System.identityHashCode(boxer2Thread);
 
