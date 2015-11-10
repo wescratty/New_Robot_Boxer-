@@ -59,14 +59,17 @@ public class ObservaBoxing implements Observer {
     }
 
     public void notifyDamage(){
-//        HurtBox hb = HurtBox.getInstance();
-//       this.boxer.takeDamage(hb.calculateDamage());
+
 
 
     }
     public int  calculateDamage(){
-        return 0;
-
+        //need to get attack and block for this
+        Attack attack = null;
+        Block block = null;
+        HurtBox hb = HurtBox.getInstance();
+        int damage =  Integer.parseInt(hb.calculateDamage(attack, block));
+        return damage;
 
     }
     public int  getObserverId(){
