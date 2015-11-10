@@ -94,11 +94,11 @@ public class Match implements Runnable {
         score = new int[2];
         score[0] = 0;
         score[1] = 0;
-//        while (Math.max(score[0],score[1])<= totalRounds/2){
-//            int winner = Bout();
-//            score[winner]+=1;
-//
-//        }
+        while (Math.max(score[0],score[1])<= totalRounds/2){
+            int winner = Bout();
+            score[winner]+=1;
+
+        }
         if (score[0]>totalRounds/2){
             winner = boxers[0];
         }else{
