@@ -20,10 +20,7 @@ public class MainPanel extends JPanel {
 
     }
     //todo find a home for this
-    BoxerDirector builder = new BoxerDirector();
 
-    Boxer _boxer1 = builder.build(100, "Player 1");
-    Boxer _boxer2 = builder.build(100, "Player 2");
 
       JLabel strenghtLblP1, speedLblP1, accuracyLblP1, reachLblP1, strenghtLblP2, speedLblP2, accuracyLblP2, reachLblP2, time, timer, splash,p1Strenght,p1Speed,P1Accuracy,p1Reach,p2Strenght,p2Speed,P2Accuracy,p2Reach;
 
@@ -34,7 +31,6 @@ public class MainPanel extends JPanel {
 
 
     protected void makeMain() {
-
 
 
         JPanel b1LabelPanel = new JPanel();
@@ -65,13 +61,12 @@ public class MainPanel extends JPanel {
         labArray.add(reachLblP2 = new JLabel("   0   "));
 
 
-
-        for(int i=0; i<4; i++){
+        for (int i = 0; i < 4; i++) {
             b1LabelPanel.add(titleLabArray.get(i));
             b1LabelPanel.add(labArray.get(i));
 
         }
-        for(int i=4; i<8; i++){
+        for (int i = 4; i < 8; i++) {
             b2LabelPanel.add(titleLabArray.get(i));
             b2LabelPanel.add(labArray.get(i));
 
@@ -105,60 +100,8 @@ public class MainPanel extends JPanel {
 
         add(subPanel, BorderLayout.SOUTH);
 
-        create();
-
-    }
-
-
-    public void create(){
-//        Dialog boxerStats = Dialog.getInstance();
-//        String b1Sts = boxerStats.getBoxerStats();
-
-
-        ObservaBoxing obs1 = new ObservaBoxing(_boxer1);
-        ObservaBoxing obs2 = new ObservaBoxing(_boxer2);
-
-        _boxer1.register(obs2);
-        _boxer2.register(obs1);
-
-//        _boxer1.setOtherBoxerLoc(_boxer2);
-//        _boxer2.setOtherBoxerLoc(_boxer1);
-
-
-        Runnable game = new Game(_boxer1,_boxer2);
-        Runnable mathch = new Match(3,_boxer1,_boxer2);
-
-
-        Thread paintThread = new Thread(game);
-        Thread matchThread = new Thread(game);
-        Thread boxer1Thread = new Thread(game);
-        int b1Identifier = System.identityHashCode(boxer1Thread);
-        Thread boxer2Thread = new Thread(game);
-        int b2Identifier = System.identityHashCode(boxer2Thread);
-
-
-
-
-        _boxer1.setid(b1Identifier,1);
-        _boxer2.setid(b2Identifier, 2);
-        System.out.print(_boxer1.getid());
-
-
-        boxer1Thread.start();
-        boxer2Thread.start();
-        paintThread.start();
-        matchThread.start();
-
-        // TODO join threads
-//        try {
-//            boxer1Thread.join();
-//            boxer2Thread.join();
-//        }catch(Exception e){}
-
-
-        //TODO +create() pushImageState(String state)<<no idea on formatting yet>>
-
-
+        Game game = Game.getInstance();
+        game.start();
 
     }
 
@@ -167,9 +110,7 @@ public class MainPanel extends JPanel {
         super.paintComponent(g);
     }
 
-    public void setLables(String time){
-
-
+    public void setLables(String time,Boxer _boxer1, Boxer _boxer2){
 
         String inputs_b1= _boxer1.getStats();
         String[] inputArrayB1 = inputs_b1.split("\\|");
@@ -191,15 +132,8 @@ public class MainPanel extends JPanel {
             System.out.println(e.toString());
         }
 
-
-
-
         timer .setText(time);
         splash.setText(" Round 1");
-
-
-
-
     }
 
 }
