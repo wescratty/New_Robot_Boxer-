@@ -47,19 +47,19 @@ public class MainPanel extends JPanel {
         splash = new JLabel("client message");
         splash.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        titleLabArray.add(p1Exp = new JLabel(" P1 Exp: "));
-        titleLabArray.add(p1Strenght = new JLabel(" P1 Strength: "));
-        titleLabArray.add(p1Agile = new JLabel(" P1 Agility: "));
-        titleLabArray.add(P1Accuracy = new JLabel(" P1 Accuracy: "));
-        titleLabArray.add(p1Reach = new JLabel(" P1 Reach: "));
-        titleLabArray.add(p1Fatigue = new JLabel(" P1 Fatigue: "));
+        titleLabArray.add(p1Exp = new JLabel("  Experience: "));
+        titleLabArray.add(p1Strenght = new JLabel("  Strength: "));
+        titleLabArray.add(p1Agile = new JLabel("  Agility: "));
+        titleLabArray.add(P1Accuracy = new JLabel("  Accuracy: "));
+        titleLabArray.add(p1Reach = new JLabel("  Reach: "));
+        titleLabArray.add(p1Fatigue = new JLabel("  Fatigue: "));
 
-        titleLabArray.add(p2Exp = new JLabel(" P2 Exp: "));
-        titleLabArray.add(p2Strenght = new JLabel(" P2 Strength: "));
-        titleLabArray.add(p2Agile = new JLabel(" P2 Agility: "));
+        titleLabArray.add(p2Exp = new JLabel(" Experience: "));
+        titleLabArray.add(p2Strenght = new JLabel("  Strength: "));
+        titleLabArray.add(p2Agile = new JLabel("  Agility: "));
         titleLabArray.add(P2Accuracy = new JLabel(" P2 Accuracy: "));
-        titleLabArray.add(p2Reach = new JLabel(" P2 Reach: "));
-        titleLabArray.add(p2Fatigue = new JLabel(" P2 Fatigue: "));
+        titleLabArray.add(p2Reach = new JLabel("  Reach: "));
+        titleLabArray.add(p2Fatigue = new JLabel("  Fatigue: "));
 
         labArray.add(expLbP1 = new JLabel("  0   "));
         labArray.add(strenghtLblP1 = new JLabel("  0   "));
