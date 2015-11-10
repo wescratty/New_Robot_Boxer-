@@ -128,7 +128,7 @@ public class MainPanel extends JPanel {
         String inputs_b2= _boxer2;
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
-        DownTimer dt = DownTimer.getInstance();
+        GameTimer dt = GameTimer.getInstance();
 
 
 

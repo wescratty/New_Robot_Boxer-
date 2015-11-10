@@ -18,6 +18,7 @@ public class Boxer implements Subject {
     private int punchTime = 1000;
     private int punchedTime = 0;
     private int x, y = 0;
+    private int stepSize = 10;
 
 
 
@@ -66,7 +67,7 @@ public class Boxer implements Subject {
         if (_otherBoxer.X() == thisBoxerLocation.X() && _otherBoxer.Y() == thisBoxerLocation.Y()) {
             choice = 2;
         }
-        if (dist < 80 && choice == 0) {
+        if (dist < reach && choice == 0) {
 
             punch();
         } else if (choice == 1) {
@@ -81,6 +82,9 @@ public class Boxer implements Subject {
             desiredLocation = _otherBoxer;
 
         }
+
+        //TODO thinking this should be here once we get fatigue working
+//        if (desiredLocation !=thisBoxerLocation){move();}
 
         checkForPunch();
         checkIfAttack();
@@ -97,7 +101,7 @@ public class Boxer implements Subject {
 
         double dist = distance(thisBoxerLocation, _otherBoxer);
 
-        if (dist < 100 && attack) {
+        if (dist < reach && attack) {
 
             attack = false;
             desiredLocation = thisBoxerLocation;
@@ -106,17 +110,19 @@ public class Boxer implements Subject {
 
 
         if (desiredLocation.X() > x) {
-            x = x + 10;
+            x = x + stepSize;
         } else if (desiredLocation.X() < x) {
-            x = x - 10;
+            x = x - stepSize;
         }
         if (desiredLocation.Y() > y) {
-            y = y + 10;
+            y = y + stepSize;
         } else if (desiredLocation.Y() < y) {
-            y = y - 10;
+            y = y - stepSize;
 
         }
+
         sleepTime(50);
+//        sleepTime(fatigue);??TODO
 
     }
 
