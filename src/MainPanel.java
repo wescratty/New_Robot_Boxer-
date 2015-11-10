@@ -98,8 +98,8 @@ public class MainPanel extends JPanel {
         gameLabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
         subPanel.setLayout(new BorderLayout());
-        subPanel.add(b1LabelPanel, BorderLayout.EAST);
-        subPanel.add(b2LabelPanel, BorderLayout.WEST);
+        subPanel.add(b1LabelPanel, BorderLayout.NORTH);
+        subPanel.add(b2LabelPanel, BorderLayout.SOUTH);
         subPanel.add(gameLabelPanel, BorderLayout.CENTER);
         subPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
@@ -110,7 +110,7 @@ public class MainPanel extends JPanel {
         Paint_aBoxer paintBoxers = Paint_aBoxer.getInstance();
         add(paintBoxers);
 
-        add(subPanel, BorderLayout.SOUTH);
+        add(subPanel, BorderLayout.EAST);
 
         Game game = Game.getInstance();
         game.start();

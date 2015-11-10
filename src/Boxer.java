@@ -263,7 +263,7 @@ public class Boxer implements Subject {
         //TODO make sleeptime reflect punch strangth
         sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));  // wait
 
-        if (distance(thisBoxerLocation, _otherBoxer) < 80) {
+        if (distance(thisBoxerLocation, _otherBoxer) < reach) {
             didPunch = true;
             observerCheckDidBLock();  // see if blocked
         }
@@ -290,9 +290,9 @@ public class Boxer implements Subject {
     public void checkDidBlock() {
 
 
-        if(didBLock){
+        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,getBlock())));
 
-//            System.out.println(id+" blocked punch");
+        if(didBLock){
             player.blockSound();
             didBLock = false;
         }else{
@@ -301,7 +301,6 @@ public class Boxer implements Subject {
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));
-//            takeDamage(otherBoxer.getPunchPower());
             //TODO make sleeptime reflect punch strength
 
 
