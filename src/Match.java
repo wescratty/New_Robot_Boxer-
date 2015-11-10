@@ -45,7 +45,7 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
 
         if (checkTKO(damage)){
-
+            boxerWinner = attacker;
         }else if(checkDown(boxers[defender].getFatigue())){
              int countResult = count(boxers[defender].getFatigue());
                 if( countResult > 0){
