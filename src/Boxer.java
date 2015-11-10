@@ -300,7 +300,7 @@ public class Boxer implements Subject {
 //            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
-            sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));
+            sleepTime(chance.getRandomAttackDelay(punchedTime+fatigue));
             //TODO make sleeptime reflect punch strength
 
 
