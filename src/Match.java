@@ -104,19 +104,14 @@ public class Match implements Runnable {
         score[0] = 0;
         score[1] = 0;
         score[2] = 0;//todo temp fix
-        while (Math.max(score[0],score[1])<= totalRounds/2){
+        while (Math.max(score[0],score[1])<= totalRounds/2) {
             int winner = Bout();
-            score[winner]+=1;
-            try {
-                wait(ROUNDRESETTME);
-            } catch (InterruptedException e) {
-
-            }
+            score[winner] += 1;
         }
         if (score[0]>totalRounds/2){
-            winner = boxers[0];
+            this.winner = boxers[0];
         }else{
-            winner = boxers[1];
+            this.winner = boxers[1];
         }
 
     }
