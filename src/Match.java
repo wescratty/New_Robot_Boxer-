@@ -64,10 +64,11 @@ public class Match implements Runnable {
 
             int defender;
             Attack attack = this.currentAttack;
-            Block block = this.currentBlock;
+            Block block =this.currentBlock;
             int attacker = this.attackerId;
-            if (attacker == 0){
+            if (attacker==0){
                 defender = 1;
+
             }else {
                 defender = 0;
             }
@@ -75,28 +76,31 @@ public class Match implements Runnable {
 
 
 
-//            String damageString = hurt.calculateDamage(attack, block);
-//            int damage = Integer.parseInt(damageString);
-//
-//            if (checkTKO(damage)){
-//                boxerWinner = attacker;
-//            }else if(checkDown(boxers[defender].getFatigue())){
-//                int countResult = count(boxers[defender].getFatigue());
-//                if( countResult > 0){
-//                    boxers[defender].setFatigue(countResult);
-//                }else {
-//                    boxerWinner = attacker;
-//                }
-//            }
+            String damageString = hurt.calculateDamage(attack, block);
+            int damage = Integer.parseInt(damageString);
 
-            boxerWinner = checkDamage(attack,block,attacker,defender);//todo ok to delete above right?
+            if (checkTKO(damage)){
+                boxerWinner = attacker;
+            }else if(checkDown(boxers[defender].getFatigue())){
+                int countResult = count(boxers[defender].getFatigue());
+                if( countResult > 0){
+                    boxers[defender].setFatigue(countResult);
+                }else {
+                    boxerWinner = attacker;
+                }
+            }
+
+            boxerWinner = checkDamage(attack,block,attacker,defender);
+
+
         }
+
 
         updateRoundEndInfo();
 
         return boxerWinner;
     }
-    private int checkDamage(Attack attack, Block block, int attackerIDX, int defenderIDX){
+    private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
         int boxerWinner = 2;
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
@@ -117,9 +121,9 @@ public class Match implements Runnable {
                 System.out.println("Attacker " +attackerIDX);
             }
         }
-
         return  boxerWinner;
     }
+
 
 
 
@@ -172,9 +176,10 @@ public class Match implements Runnable {
         }else{
             this.winner = boxers[1];
         }
-        game.setGameOn(false);//TODO dont know if this is what you want here
-    }
 
+        game.setGameOn(false);//TODO dont know if this is what you want here
+
+    }
     public String getWinner(){
         return winner.getBoxerID();
     }
@@ -189,12 +194,10 @@ public class Match implements Runnable {
         mp.setRound(Integer.toString(getCurrentRound()));
 
     }
-
     private void setSplash(String st){
         mp.setSplash(st);
 
     }
-
     private void updateRoundEndInfo(){
         mp.setSplash("Round " + getCurrentRound()+" is over");
         game.setRoundInPlay(false);
@@ -210,4 +213,6 @@ public class Match implements Runnable {
         this.currentBlock = b;
 
     }
+
+
 }
