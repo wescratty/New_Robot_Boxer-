@@ -40,6 +40,6 @@ public class GameTimer {
     }
     public double clockTime() {
         long now = System.currentTimeMillis();
-        return _roundTime - ((now - start) /1000);
+        return (_roundTime-1) - ((now - start) /1000);
     }
 }

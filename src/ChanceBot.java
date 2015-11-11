@@ -33,6 +33,7 @@ public class ChanceBot {
     }
     public int getRandomAttackDelay(int delay){
         return random.nextInt(delay)+delay/2;
+        // todo I had an error that said delay was negative called from boxer.
 
     }
     public int getRandomChoice(int choices){

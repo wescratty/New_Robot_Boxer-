@@ -139,11 +139,11 @@ public class Game implements Runnable {
 
 
     }
-    public void setRoundInPlay(boolean announce){
-        round_in_Play = announce;
+    public void setRoundInPlay(boolean update){
+        round_in_Play = update;
     }
-    public void setGameOn(boolean announce){
-        gameOn = announce;
+    public void setGameOn(boolean update){
+        gameOn = update;
     }
 
 

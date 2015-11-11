@@ -12,6 +12,7 @@ public class Match implements Runnable {
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
     private final long ROUNDRESETTME = 10;//todo 10000?
+    private int currentRound = 0;
     private int totalRounds;
     private Boxer[] boxers;
     private DownTimer timer;
@@ -21,6 +22,7 @@ public class Match implements Runnable {
     private Game game = Game.getInstance();
     private AudioPlayer audio = new AudioPlayer();
     private HurtBox hurt = HurtBox.getInstance();
+    private MainPanel mp = MainPanel.getInstance();
     private Boxer winner;
 
     public Match(int totalRounds, Boxer boxer1, Boxer boxer2) {
@@ -34,9 +36,8 @@ public class Match implements Runnable {
     //todo this needs to handle the fight loop will probably need wes to help
     // should return which boxer won the round
     public int  Bout(){
-        game.setRoundInPlay(true);//TODO dont know if this is what you want here
-        roundTimer.Stopwatch(ROUNDDURATION);
-        audio.bellSound();
+        updateRoundStartInfo();
+
         String result;
         //TODO fix boxer winner, needs to return 0 or 1
         int boxerWinner = 2;
@@ -65,7 +66,8 @@ public class Match implements Runnable {
 
         }
 
-        game.setRoundInPlay(false);//TODO dont know if this is what you want here
+
+        updateRoundEndInfo();
 
         return boxerWinner;
     }
@@ -105,11 +107,12 @@ public class Match implements Runnable {
         score[0] = 0;
         score[1] = 0;
         score[2] = 0;//todo temp fix
-        while (Math.max(score[0],score[1])<= totalRounds/2) {
+        while (Math.max(score[0], score[1])<= totalRounds/2) {
+
             int winner = Bout();
             score[winner] += 1;
             try {
-                Thread.sleep(10000);
+                Thread.sleep(5000);  //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
             }catch (Exception e){}
         }
         if (score[0]>totalRounds/2){
@@ -123,5 +126,29 @@ public class Match implements Runnable {
     }
     public String getWinner(){
         return winner.getBoxerID();
+    }
+    public int getCurrentRound(){ return currentRound;}
+
+    public void updateRoundStartInfo(){
+        currentRound++;
+        game.setRoundInPlay(true);//TODO dont know if this is what you want here
+        roundTimer.Stopwatch(ROUNDDURATION);
+        audio.startBell();
+        setSplash("Round " + getCurrentRound());
+        mp.setRound(Integer.toString(getCurrentRound()));
+
+    }
+    private void setSplash(String st){
+        mp.setSplash(st);
+
+    }
+    private void updateRoundEndInfo(){
+        mp.setSplash("Round " + getCurrentRound()+" is over");
+        game.setRoundInPlay(false);
+        audio.endBell();
+
+        //todo make rounds won label for each boxer in mp and update
+
+
     }
 }

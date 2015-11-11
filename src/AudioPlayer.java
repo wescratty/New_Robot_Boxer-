@@ -30,7 +30,7 @@ public class AudioPlayer implements LineListener {
 
 
     boolean playCompleted;
-    public void playSound(String audioFilePath){
+    private void playSound(String audioFilePath){
 
         File audioFile = new File(audioFilePath);
 
@@ -52,7 +52,7 @@ public class AudioPlayer implements LineListener {
             while (!playCompleted) {
                 // wait for the playback completes
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
@@ -82,7 +82,11 @@ public class AudioPlayer implements LineListener {
         playSound("/Users/wescratty/GitHub/javaRepos/javaRepo/New_Robot_Boxer/block.wav");
     }
 
-    public void bellSound(){
+    public void startBell(){
+        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
+    }
+    public void endBell(){
+        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
         playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
     }
 

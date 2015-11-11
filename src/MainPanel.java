@@ -22,7 +22,7 @@ public class MainPanel extends JPanel {
     }
 
       JLabel expLbP1, strenghtLblP1, agilityLblP1, accuracyLblP1, reachLblP1, fatigueLbP1, expLbP2, strenghtLblP2, agilityLblP2, accuracyLblP2, reachLblP2,fatigueLbP2,  time, timer, splash,
-              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue;
+              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl;
 
     //""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
@@ -42,6 +42,10 @@ public class MainPanel extends JPanel {
 
         time = new JLabel("Time left in bought: ");
         time.setBorder(new EmptyBorder(10, 10, 10, 10));
+        roundLbl = new JLabel("Round: ");
+        roundLbl.setBorder(new EmptyBorder(10, 10, 10, 10));
+        roundNumLbl = new JLabel(padding+"0");
+        roundNumLbl.setBorder(new EmptyBorder(10, 10, 10, 10));
         timer = new JLabel("5:00");
         timer.setBorder(new EmptyBorder(10, 10, 10, 10));
         splash = new JLabel("client message");
@@ -100,6 +104,8 @@ public class MainPanel extends JPanel {
         gameLabelPanel.setLayout(new BoxLayout(gameLabelPanel, BoxLayout.PAGE_AXIS));
         gameLabelPanel.add(time);
         gameLabelPanel.add(timer);
+        gameLabelPanel.add(roundLbl);
+        gameLabelPanel.add(roundNumLbl);
         gameLabelPanel.add(splash);
         gameLabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
@@ -146,9 +152,6 @@ public class MainPanel extends JPanel {
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
 
-
-
-
         try {
             for(int i=0; i<labArray.size(); i++){
                 if(i<(labArray.size()/2)) {
@@ -172,6 +175,9 @@ public class MainPanel extends JPanel {
     }
     public void setSplash(String sp){
         splash.setText(sp);
+    }
+    public void setRound(String rd){
+        roundNumLbl.setText(padding+rd);
     }
 
 }
