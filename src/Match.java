@@ -50,19 +50,7 @@ public class Match implements Runnable {
             Block block = null;
             int attacker = 0;  //todo need to get attacker index somehow:: can you get it through boxer? What if they are both attacking
             int defender =1;
-            String damageString = hurt.calculateDamage(attack, block);
-            int damage = Integer.parseInt(damageString);
-
-            if (checkTKO(damage)){
-                boxerWinner = attacker;
-            }else if(checkDown(boxers[defender].getFatigue())){
-                int countResult = count(boxers[defender].getFatigue());
-                if( countResult > 0){
-                    boxers[defender].setFatigue(countResult);
-                }else {
-                    boxerWinner = attacker;
-                }
-            }
+            boxerWinner = checkDamage(attack,block,attacker,defender);
 
         }
 
@@ -71,6 +59,25 @@ public class Match implements Runnable {
 
         return boxerWinner;
     }
+    private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
+        int boxerWinner = 2;
+        String damageString = hurt.calculateDamage(attack, block);
+        int damage = Integer.parseInt(damageString);
+
+        if (checkTKO(damage)){
+            boxerWinner = attackerIDX;
+        }else if(checkDown(boxers[defenderIDX].getFatigue())){
+            int countResult = count(boxers[defenderIDX].getFatigue());
+            if( countResult > 0){
+                boxers[defenderIDX].setFatigue(countResult);
+            }else {
+                boxerWinner = attackerIDX;
+            }
+        }
+        return  boxerWinner;
+    }
+
+
 
     private boolean checkTKO(int damage){
         return damage > TKOTHESHOLD;
