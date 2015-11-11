@@ -50,6 +50,8 @@ public class Match implements Runnable {
             Block block = null;
             int attacker = 0;  //todo need to get attacker index somehow:: can you get it through boxer? What if they are both attacking
             int defender =1;
+            System.out.println(boxers[0].getAttack());
+            System.out.println(boxers[0].getBlock());
             String damageString = hurt.calculateDamage(attack, block);
             int damage = Integer.parseInt(damageString);
 
