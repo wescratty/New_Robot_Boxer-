@@ -15,6 +15,7 @@ public class Boxer implements Subject {
     private int agilityScore;
     private int accuracy;
     private int reach;
+    //these must be positive nonzero
     private int punchTime = 1000;
     private int punchedTime = 50;
     private int x, y = 0;
