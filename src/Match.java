@@ -7,11 +7,11 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 20;
+    private final int ROUNDDURATION = 10;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
-    private final long ROUNDRESETTME = 10;
+    private final long ROUNDRESETTME = 10;//todo 10000?
     private int totalRounds;
     private Boxer[] boxers;
     private DownTimer timer;
@@ -31,9 +31,10 @@ public class Match implements Runnable {
         this.roundTimer = GameTimer.getInstance();
 
     }
-        //todo this needs to handle the fight loop will probably need wes to help
-        // should return which boxer won the round
+    //todo this needs to handle the fight loop will probably need wes to help
+    // should return which boxer won the round
     public int  Bout(){
+        game.setRoundInPlay(true);//TODO dont know if this is what you want here
         roundTimer.Stopwatch(ROUNDDURATION);
         audio.bellSound();
         String result;
@@ -43,24 +44,24 @@ public class Match implements Runnable {
             boxer.reset();
         }
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
-        // todo do all the damage stuff no idea how to get to it
+            // todo do all the damage stuff no idea how to get to it
             Attack attack = null;
             Block block = null;
-            int attacker = 0;  // need to get attacker index somehow
+            int attacker = 0;  //todo need to get attacker index somehow:: can you get it through boxer? What if they are both attacking
             int defender =1;
-        String damageString = hurt.calculateDamage(attack, block);
-        int damage = Integer.parseInt(damageString);
+            String damageString = hurt.calculateDamage(attack, block);
+            int damage = Integer.parseInt(damageString);
 
-        if (checkTKO(damage)){
-            boxerWinner = attacker;
-        }else if(checkDown(boxers[defender].getFatigue())){
-             int countResult = count(boxers[defender].getFatigue());
-                if( countResult > 0){
-                boxers[defender].setFatigue(countResult);
-            }else {
+            if (checkTKO(damage)){
                 boxerWinner = attacker;
-        }
-        }
+            }else if(checkDown(boxers[defender].getFatigue())){
+                int countResult = count(boxers[defender].getFatigue());
+                if( countResult > 0){
+                    boxers[defender].setFatigue(countResult);
+                }else {
+                    boxerWinner = attacker;
+                }
+            }
 
         }
 
@@ -107,12 +108,17 @@ public class Match implements Runnable {
         while (Math.max(score[0],score[1])<= totalRounds/2) {
             int winner = Bout();
             score[winner] += 1;
+            try {
+                Thread.sleep(10000);
+            }catch (Exception e){}
         }
         if (score[0]>totalRounds/2){
             this.winner = boxers[0];
         }else{
             this.winner = boxers[1];
         }
+
+        game.setGameOn(false);//TODO dont know if this is what you want here
 
     }
     public String getWinner(){

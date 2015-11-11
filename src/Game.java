@@ -18,7 +18,7 @@ public class Game implements Runnable {
     // Match currentBout;
     // experienceCap:int
 //    gui:GUI
-    GameTimer timer = GameTimer.getInstance();
+
     //    Observer watcher;
     // boxerBuilder:Director
     BoxerDirector builder = new BoxerDirector();
@@ -34,12 +34,8 @@ public class Game implements Runnable {
 //    ObservaBoxing obs2;
 
     boolean round_in_Play = true;
-    AudioPlayer bell = new AudioPlayer();
+    boolean gameOn = true;
 
-
-//    public String getTimer() {
-//        return (Double.toString(timer.elapsedTime()));
-//    }
 
 
     protected Game(){}
@@ -76,8 +72,8 @@ public class Game implements Runnable {
         int b2Identifier = System.identityHashCode(boxer2Thread);
 
 
-        boxers[0].setid(b1Identifier, 1);
-        boxers[1].setid(b2Identifier, 2);
+        boxers[0].setid(b1Identifier, 0);
+        boxers[1].setid(b2Identifier, 1);
 
         boxer1Thread.start();
         boxer2Thread.start();
@@ -88,8 +84,10 @@ public class Game implements Runnable {
 //        try {
 //            boxer1Thread.join();
 //            boxer2Thread.join();
+//            paintThread.join();
+//            matchThread.join();
 //        }catch(Exception e){}
-
+//
 
         //TODO +create() pushImageState(String state)<<no idea on formatting yet>>
 
@@ -97,33 +95,19 @@ public class Game implements Runnable {
 
 
     public void  run(){
-        int len = 60;
 
 
-        while(round_in_Play){
+        while(gameOn) {
+            System.out.println("start");
+            while (round_in_Play) {
 
-            // get thread to see if b1 or b2 boxer
-            if (System.identityHashCode(Thread.currentThread())==boxers[1].getid()){
-                boxers[1].selectMove();
-            }else if (System.identityHashCode(Thread.currentThread())==boxers[0].getid()){
-                boxers[0].selectMove();
-            }else {
+                // get thread to see if b1 or b2 boxer
+                if (System.identityHashCode(Thread.currentThread()) == boxers[1].getid()) {
+                    boxers[1].selectMove();
+                } else if (System.identityHashCode(Thread.currentThread()) == boxers[0].getid()) {
+                    boxers[0].selectMove();
+                } else {
 
-
-
-
-//                if(timer.elapsedTime()>len){
-//                    round_in_Play = false;
-//
-//                    bell.bellSound();
-//                    bell.bellSound();
-//
-//                }else if (timer.elapsedTime()<1){
-//
-//                    bell.bellSound();
-//
-//
-//                }else {
                     mp.setTime();
                     pb.revalidate();
                     pb.repaint();
@@ -138,19 +122,28 @@ public class Game implements Runnable {
                         Thread.sleep(10);
 
                     } catch (Exception e) {
-//                    }
+                    }
                 }
-
-
             }
+            while (!round_in_Play) {
 
+                try {
+                    wait();
+
+                } catch (Exception e) {
+                }
+            }
+            System.out.println("left wait");
         }
 
 
 
     }
-    public void setRoundInPlay(boolean annoynce){
-        round_in_Play = annoynce;
+    public void setRoundInPlay(boolean announce){
+        round_in_Play = announce;
+    }
+    public void setGameOn(boolean announce){
+        gameOn = announce;
     }
 
 
