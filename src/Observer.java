@@ -7,7 +7,7 @@ public interface Observer {
 
     //    HurtBox calculation;
     boolean  notifyRange();
-    void  notifyPunch(Attack a);
+    void  notifyPunch(Attack a,int attackerID);
 
 
     void notifyDamage();

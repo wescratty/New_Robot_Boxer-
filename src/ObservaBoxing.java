@@ -20,6 +20,7 @@ public class ObservaBoxing implements Observer {
     // Will hold reference to the StockGrabber object
 
     private Subject boxer;
+    private Match match = Match.getInstance();
 
     public ObservaBoxing(Subject boxer){
 
@@ -53,8 +54,9 @@ public class ObservaBoxing implements Observer {
         return true;
 
     }
-    public void  notifyPunch(Attack a){
-        this.boxer.setSentMessage(a);
+    public void  notifyPunch(Attack a, int attackerId){
+        Block b =this.boxer.setSentMessage(a);
+        match.setCurrentAttack(attackerId,a,b);
 
     }
 

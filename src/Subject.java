@@ -9,7 +9,7 @@ public interface Subject {
     void unregister(Observer o);
 
     void notifyObserver();
-    void setSentMessage(Attack a);
+    Block setSentMessage(Attack a);
     void notifyObserverOfPunch();
     void checkDidBlock();
     void upDateLabels();

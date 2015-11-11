@@ -76,6 +76,7 @@ public class Boxer implements Subject {
 
             punch();
         } else if (choice == 1) {
+            //todo rest();
         } else if (choice == 2) {
             attack = false;
             changeLocation();
@@ -153,9 +154,10 @@ public class Boxer implements Subject {
         _otherBoxer.setY(otherBoxer.getY());
     }
 
-    public void setSentMessage(Attack a) {
+    public Block setSentMessage(Attack a) {
         sentMessage = true;
         incomingAttack = a;
+        return  getBlock();
         //todo do something with this attack from other boxer
 
     }
@@ -204,7 +206,7 @@ public class Boxer implements Subject {
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
 
-                observer.notifyPunch(a);
+                observer.notifyPunch(a,this.bNum);
             }
 
         }
@@ -305,7 +307,6 @@ public class Boxer implements Subject {
             didBLock = false;
         }else{
 
-//            System.out.println(id+" got Punched");
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay(punchedTime+fatigue));

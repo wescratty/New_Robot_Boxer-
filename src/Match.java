@@ -2,6 +2,17 @@
  * Created by Brian Trethewey on 11/8/15.
  */
 public class Match implements Runnable {
+
+    private static Match ourInstance = new Match();
+
+    public static Match getInstance() {
+        return ourInstance;
+    }
+
+    protected Match(){
+
+    }
+
     private final int TKOTHESHOLD = 150;
     private final int COUNTDELAY = 10;
     private final int COUNTTOLERANCE = 2;
@@ -24,6 +35,9 @@ public class Match implements Runnable {
     private HurtBox hurt = HurtBox.getInstance();
     private MainPanel mp = MainPanel.getInstance();
     private Boxer winner;
+    private int attackerId;
+    private Attack currentAttack;
+    private Block currentBlock;
 
     public Match(int totalRounds, Boxer boxer1, Boxer boxer2) {
         this.totalRounds = totalRounds;
@@ -46,12 +60,22 @@ public class Match implements Runnable {
         }
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
             // todo do all the damage stuff no idea how to get to it
-            Attack attack = null;
-            Block block = null;
-            int attacker = 0;  //todo need to get attacker index somehow:: can you get it through boxer? What if they are both attacking
-            int defender =1;
 
-           
+
+            int defender;
+            Attack attack = this.currentAttack;
+            Block block =this.currentBlock;
+            int attacker = this.attackerId;
+            if (attacker==0){
+                defender = 1;
+
+            }else {
+                defender = 0;
+            }
+
+
+
+
             String damageString = hurt.calculateDamage(attack, block);
             int damage = Integer.parseInt(damageString);
 
@@ -175,4 +199,13 @@ public class Match implements Runnable {
 
 
     }
+
+    public void  setCurrentAttack(int attackerId,Attack a,Block b){
+        this.attackerId = attackerId;
+        this.currentAttack = a;
+        this.currentBlock = b;
+
+    }
+
+
 }
