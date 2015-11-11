@@ -48,7 +48,7 @@ public class Boxer implements Subject {
     private Attack incomingAttack;
     private ChanceBot chance = ChanceBot.getInstance();
     private AudioPlayer player = new AudioPlayer();
-    private HurtBox hurtBox = HurtBox.getInstance();
+//    private HurtBox hurtBox = HurtBox.getInstance();
     private MainPanel mp = MainPanel.getInstance();
 
 
@@ -303,8 +303,8 @@ public class Boxer implements Subject {
     public void checkDidBlock() {
 
 
-        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,currentBlock)));
-
+//        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,currentBlock)));
+//todo-----------------------------------------------------------------------------------------------------
 
         if(didBLock){
             player.blockSound();
