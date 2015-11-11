@@ -18,7 +18,7 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 10;
+    private final int ROUNDDURATION = 15;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -105,6 +105,11 @@ public class Match implements Runnable {
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
 
+
+        //todo seems like we need something like this
+//        boxers[defenderIDX].takeDamage(Integer.parseInt(hurt.calculateDamage(attack,block)));
+
+
         if (checkTKO(damage)){
             boxerWinner = attackerIDX;
         }else if(checkDown(boxers[defenderIDX].getFatigue())){
@@ -113,6 +118,7 @@ public class Match implements Runnable {
                 boxers[defenderIDX].setFatigue(countResult);
             }else {
                 boxerWinner = attackerIDX;
+                System.out.println("Attacker " +attackerIDX);
             }
         }
         return  boxerWinner;
