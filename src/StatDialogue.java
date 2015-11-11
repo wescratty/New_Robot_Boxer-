@@ -16,7 +16,7 @@ public class StatDialogue {
     public String getStats(int unusedPoints, String currentStats,String boxerID){
         //set default values
         pointsUsed= 0;
-        int currentPoints = unusedPoints;
+        int startingPoints = unusedPoints;
         int strength = 0;
         int speed = 0;
         int accuracy = 0;
@@ -46,7 +46,7 @@ public class StatDialogue {
         }else {
             int deltaStrength = newStrength - strength;
             pointsUsed += deltaStrength * STRCOST;
-            unusedPoints -= pointsUsed;
+            unusedPoints = startingPoints -pointsUsed;
             strength = newStrength;
         }
 
@@ -60,7 +60,7 @@ public class StatDialogue {
             } else {
                 int deltaSpeed = newSpeed - speed;
                 pointsUsed += deltaSpeed * SPEEDCOST;
-                unusedPoints -= pointsUsed;
+                unusedPoints = startingPoints -pointsUsed;
                 speed = newSpeed;
             }
         }
@@ -74,7 +74,7 @@ public class StatDialogue {
             }else {
                 int deltaAccuracy = newAccuracy - accuracy;
                 pointsUsed += deltaAccuracy * ACCURACYCOST;
-                unusedPoints -= pointsUsed;
+                unusedPoints = startingPoints -pointsUsed;
                 accuracy = newAccuracy;
             }
         }
@@ -88,7 +88,7 @@ public class StatDialogue {
             } else {
                 int detaRange = newRange - range;
                 pointsUsed += detaRange * RANGECOST;
-                unusedPoints -= pointsUsed;
+                unusedPoints = startingPoints -pointsUsed;
                 range = newRange;
             }
         }
