@@ -21,6 +21,8 @@ public class Boxer implements Subject {
     private int x, y = 0;
     private int stepSize = 10;
 
+    private Block currentBlock;
+
 
 
     private ArrayList<Attack> attackList;
@@ -157,7 +159,8 @@ public class Boxer implements Subject {
     public Block setSentMessage(Attack a) {
         sentMessage = true;
         incomingAttack = a;
-        return  getBlock();
+        this.currentBlock = getBlock();
+        return  this.currentBlock;
         //todo do something with this attack from other boxer
 
     }
@@ -300,7 +303,8 @@ public class Boxer implements Subject {
     public void checkDidBlock() {
 
 
-        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,getBlock())));
+        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,currentBlock)));
+
 
         if(didBLock){
             player.blockSound();
