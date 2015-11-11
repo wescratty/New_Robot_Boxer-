@@ -64,7 +64,7 @@ public class Match implements Runnable {
 
             int defender;
             Attack attack = this.currentAttack;
-            Block block =this.currentBlock;
+            Block block = this.currentBlock;
             int attacker = this.attackerId;
             if (attacker==0){
                 defender = 1;
@@ -76,21 +76,21 @@ public class Match implements Runnable {
 
 
 
-            String damageString = hurt.calculateDamage(attack, block);
-            int damage = Integer.parseInt(damageString);
+//            String damageString = hurt.calculateDamage(attack, block);
+//            int damage = Integer.parseInt(damageString);
+//
+//            if (checkTKO(damage)){
+//                boxerWinner = attacker;
+//            }else if(checkDown(boxers[defender].getFatigue())){
+//                int countResult = count(boxers[defender].getFatigue());
+//                if( countResult > 0){
+//                    boxers[defender].setFatigue(countResult);
+//                }else {
+//                    boxerWinner = attacker;
+//                }
+//            }
 
-            if (checkTKO(damage)){
-                boxerWinner = attacker;
-            }else if(checkDown(boxers[defender].getFatigue())){
-                int countResult = count(boxers[defender].getFatigue());
-                if( countResult > 0){
-                    boxers[defender].setFatigue(countResult);
-                }else {
-                    boxerWinner = attacker;
-                }
-            }
-
-            boxerWinner = checkDamage(attack,block,attacker,defender);
+            boxerWinner = checkDamage(attack,block,attacker,defender);//todo ok to delete above right?
 
 
         }
@@ -100,7 +100,7 @@ public class Match implements Runnable {
 
         return boxerWinner;
     }
-    private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
+    private int checkDamage(Attack attack, Block block, int attackerIDX, int defenderIDX){
         int boxerWinner = 2;
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
@@ -115,6 +115,7 @@ public class Match implements Runnable {
                 boxerWinner = attackerIDX;
             }
         }
+
         return  boxerWinner;
     }
 
@@ -158,6 +159,7 @@ public class Match implements Runnable {
         while (Math.max(score[0], score[1])<= totalRounds/2) {
 
             int winner = Bout();
+            System.out.println(" boxerWinner  "+ winner);
             score[winner] += 1;
             try {
                 Thread.sleep(5000);  //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
@@ -207,7 +209,7 @@ public class Match implements Runnable {
 
     }
 
-   
+
 
 
 }
