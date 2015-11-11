@@ -106,8 +106,9 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
 
 
-        //todo seems like we need something like this
-//        boxers[defenderIDX].takeDamage(Integer.parseInt(hurt.calculateDamage(attack,block)));
+        //todo seems like we need something like this  exactally like that
+
+        boxers[defenderIDX].takeDamage(Integer.parseInt(hurt.calculateDamage(attack,block)));
 
 
         if (checkTKO(damage)){
