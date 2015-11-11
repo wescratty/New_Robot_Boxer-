@@ -96,6 +96,7 @@ public class Boxer implements Subject {
 
         checkForPunch();
         checkIfAttack();
+        notifyObserver();
 
         return 0;
     }
@@ -244,7 +245,6 @@ public class Boxer implements Subject {
 
                 observer.update();
             }
-
         }
     }
 

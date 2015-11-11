@@ -18,7 +18,7 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 1500;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 10;
+    private final int ROUNDDURATION = 60;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -66,9 +66,8 @@ public class Match implements Runnable {
             Attack attack = this.currentAttack;
             Block block = this.currentBlock;
             int attacker = this.attackerId;
-            if (attacker==0){
+            if (attacker == 0){
                 defender = 1;
-
             }else {
                 defender = 0;
             }
@@ -91,10 +90,7 @@ public class Match implements Runnable {
 //            }
 
             boxerWinner = checkDamage(attack,block,attacker,defender);//todo ok to delete above right?
-
-
         }
-
 
         updateRoundEndInfo();
 
@@ -170,10 +166,9 @@ public class Match implements Runnable {
         }else{
             this.winner = boxers[1];
         }
-
         game.setGameOn(false);//TODO dont know if this is what you want here
-
     }
+
     public String getWinner(){
         return winner.getBoxerID();
     }
@@ -188,17 +183,18 @@ public class Match implements Runnable {
         mp.setRound(Integer.toString(getCurrentRound()));
 
     }
+
     private void setSplash(String st){
         mp.setSplash(st);
 
     }
+
     private void updateRoundEndInfo(){
         mp.setSplash("Round " + getCurrentRound()+" is over");
         game.setRoundInPlay(false);
         audio.endBell();
 
         //todo make rounds won label for each boxer in mp and update
-
 
     }
 
@@ -208,8 +204,4 @@ public class Match implements Runnable {
         this.currentBlock = b;
 
     }
-
-
-
-
 }
