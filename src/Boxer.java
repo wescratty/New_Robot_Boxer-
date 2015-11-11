@@ -404,9 +404,11 @@ public class Boxer implements Subject {
     }
 
     public void takeDamage(int damage){
-        fatigue += damage;
-        updateAttacks(fatigue);
-        updateBlock(fatigue);
+        if (damage>= 0){
+            fatigue += damage;
+            updateAttacks(fatigue);
+            updateBlock(fatigue);
+        }
     }
 
 
