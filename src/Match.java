@@ -2,17 +2,6 @@
  * Created by Brian Trethewey on 11/8/15.
  */
 public class Match implements Runnable {
-
-    private static Match ourInstance = new Match();
-
-    public static Match getInstance() {
-        return ourInstance;
-    }
-
-    protected Match(){
-
-    }
-
     private final int TKOTHESHOLD = 150;
     private final int COUNTDELAY = 10;
     private final int COUNTTOLERANCE = 2;
@@ -22,7 +11,7 @@ public class Match implements Runnable {
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
-    private final long ROUNDRESETTME = 10;//todo 10000?
+    private final long ROUNDRESETTME = 5000;
     private int currentRound = 0;
     private int totalRounds;
     private Boxer[] boxers;
@@ -60,8 +49,6 @@ public class Match implements Runnable {
         }
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
             // todo do all the damage stuff no idea how to get to it
-
-
             int defender;
             Attack attack = this.currentAttack;
             Block block =this.currentBlock;
@@ -76,22 +63,8 @@ public class Match implements Runnable {
 
 
 
-            String damageString = hurt.calculateDamage(attack, block);
-            int damage = Integer.parseInt(damageString);
-
-            if (checkTKO(damage)){
-                boxerWinner = attacker;
-            }else if(checkDown(boxers[defender].getFatigue())){
-                int countResult = count(boxers[defender].getFatigue());
-                if( countResult > 0){
-                    boxers[defender].setFatigue(countResult);
-                }else {
-                    boxerWinner = attacker;
-                }
-            }
 
             boxerWinner = checkDamage(attack,block,attacker,defender);
-
 
         }
 
@@ -160,7 +133,7 @@ public class Match implements Runnable {
             int winner = Bout();
             score[winner] += 1;
             try {
-                Thread.sleep(5000);  //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
+                Thread.sleep(ROUNDRESETTME); //Yes that's why i made it a static //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
             }catch (Exception e){}
         }
         if (score[0]>totalRounds/2){
@@ -190,22 +163,22 @@ public class Match implements Runnable {
         mp.setSplash(st);
 
     }
-    private void updateRoundEndInfo(){
-        mp.setSplash("Round " + getCurrentRound()+" is over");
+    private void updateRoundEndInfo() {
+        mp.setSplash("Round " + getCurrentRound() + " is over");
         game.setRoundInPlay(false);
         audio.endBell();
 
         //todo make rounds won label for each boxer in mp and update
-
-
     }
 
-    public void  setCurrentAttack(int attackerId,Attack a,Block b){
-        this.attackerId = attackerId;
-        this.currentAttack = a;
-        this.currentBlock = b;
+        public void  setCurrentAttack(int attackerId,Attack a,Block b){
+            this.attackerId = attackerId;
+            this.currentAttack = a;
+            this.currentBlock = b;
 
-    }
+        }
+
+
 
 
 }
