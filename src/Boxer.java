@@ -16,7 +16,7 @@ public class Boxer implements Subject {
     private int accuracy;
     private int reach;
     private int punchTime = 1000;
-    private int punchedTime = 0;
+    private int punchedTime = 50;
     private int x, y = 0;
     private int stepSize = 10;
 
