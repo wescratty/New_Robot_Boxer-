@@ -98,7 +98,7 @@ public class Game implements Runnable {
 
 
         while(gameOn) {
-            System.out.println("start");
+
             while (round_in_Play) {
 
                 // get thread to see if b1 or b2 boxer
@@ -133,7 +133,7 @@ public class Game implements Runnable {
                 } catch (Exception e) {
                 }
             }
-            System.out.println("left wait");
+
         }
 
 
