@@ -414,6 +414,8 @@ public class Boxer implements Subject {
             fatigue += damage;
             updateAttacks(fatigue);
             updateBlock(fatigue);
+            //todo add observer call for damage??
+
         }
     }
 
