@@ -16,7 +16,7 @@ public class Match implements Runnable {
     private final int TKOTHESHOLD = 150;
     private final int COUNTDELAY = 10;
     private final int COUNTTOLERANCE = 2;
-    private final int DOWNTHRESHOLD = 1500;
+    private final int DOWNTHRESHOLD = 150;//todo  always going in to count, needs something
     //TODO changed round durration from 300 for testing
     private final int ROUNDDURATION = 15;
     private final int HEALRATE = 50;
@@ -45,12 +45,14 @@ public class Match implements Runnable {
         this.boxers[0] =boxer1;
         this.boxers[1] = boxer2;
         this.roundTimer = GameTimer.getInstance();
+        this.timer = DownTimer.getInstance();
 
     }
     //todo this needs to handle the fight loop will probably need wes to help
     // should return which boxer won the round
     public int  Bout(){
         updateRoundStartInfo();
+        System.out.println("Start round");
 
         String result;
         //TODO fix boxer winner, needs to return 0 or 1
@@ -75,22 +77,22 @@ public class Match implements Runnable {
 
 
 
+////todo this is all in checkDamage *******
+//            String damageString = hurt.calculateDamage(attack, block);
+//            int damage = Integer.parseInt(damageString);
+//
+//            if (checkTKO(damage)){
+//                boxerWinner = attacker;//todo this gets over ridden below *******
+//            }else if(checkDown(boxers[defender].getFatigue())){
+//                int countResult = count(boxers[defender].getFatigue());
+//                if( countResult > 0){
+//                    boxers[defender].setFatigue(countResult);
+//                }else {
+//                    boxerWinner = attacker;//todo this gets over ridden below *******
+//                }
+//            }
 
-            String damageString = hurt.calculateDamage(attack, block);
-            int damage = Integer.parseInt(damageString);
-
-            if (checkTKO(damage)){
-                boxerWinner = attacker;
-            }else if(checkDown(boxers[defender].getFatigue())){
-                int countResult = count(boxers[defender].getFatigue());
-                if( countResult > 0){
-                    boxers[defender].setFatigue(countResult);
-                }else {
-                    boxerWinner = attacker;
-                }
-            }
-
-            boxerWinner = checkDamage(attack,block,attacker,defender);
+            boxerWinner = checkDamage(attack,block,attacker,defender); //todo *******
 
 
         }
@@ -132,8 +134,7 @@ public class Match implements Runnable {
         return damage > TKOTHESHOLD;
     }
 
-    private boolean checkDown(int fatigue){
-        return fatigue > DOWNTHRESHOLD;
+    private boolean checkDown(int fatigue){return fatigue > DOWNTHRESHOLD;
     }
 
     private int count(int fatigue){
@@ -141,6 +142,7 @@ public class Match implements Runnable {
         int counter = 1;
         int fatigueValue = fatigue;
         while(timer.elapsedTime()<COUNTDELAY*10){
+//            System.out.println(" in count");
             if (timer.elapsedTime() > (counter*COUNTDELAY)-COUNTTOLERANCE){
                 fatigueValue =  fatigue -counter * HEALRATE;
                 int upTolerance = (int)Math.round(DOWNTHRESHOLD*Math.max(chance.getChance()+MINUPPERCENT,MAXUPPERCENT));
@@ -190,6 +192,7 @@ public class Match implements Runnable {
         currentRound++;
         game.setRoundInPlay(true);//TODO dont know if this is what you want here
         roundTimer.Stopwatch(ROUNDDURATION);
+        timer.Stopwatch();
         audio.startBell();
         setSplash("Round " + getCurrentRound());
         mp.setRound(Integer.toString(getCurrentRound()));
