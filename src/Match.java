@@ -108,7 +108,7 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
 
 
-        //todo seems like we need something like this  exactally like that
+        //todo seems like we need something like this  //exactally like that
 
         boxers[defenderIDX].takeDamage(Integer.parseInt(hurt.calculateDamage(attack,block)));
 
@@ -171,7 +171,7 @@ public class Match implements Runnable {
             System.out.println(" boxerWinner  "+ winner);
             score[winner] += 1;
             try {
-                Thread.sleep(5000);  //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
+                Thread.sleep(ROUNDRESETTME);  //todo this is here to give pause after each round IS this what ROUNDRESETTME is for
             }catch (Exception e){}
         }
         if (score[0]>totalRounds/2){
