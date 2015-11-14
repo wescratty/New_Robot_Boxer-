@@ -166,7 +166,7 @@ public class Match implements Runnable {
         score[1] = 0;
         score[2] = 0;//todo temp fix
         while (Math.max(score[0], score[1])<= totalRounds/2) {
-
+            //todo i think logic to have them fight has to be here
             int winner = Bout();
             System.out.println(" boxerWinner  "+ winner);
             score[winner] += 1;
