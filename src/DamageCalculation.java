@@ -5,7 +5,7 @@
 public abstract class DamageCalculation {
 
 
-    private DamageCalculation successor = null;
+    protected DamageCalculation successor = null;
 
 
     //setter
