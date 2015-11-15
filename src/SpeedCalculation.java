@@ -1,10 +1,9 @@
 /**
  * Created by Brian Trethewey on 11/5/15.
  */
-//todo This Class
 public class SpeedCalculation extends DamageCalculation {
-    final int HEAVYATTACKCOEFFICIENT = 3;
-    final int FASTATTACKCOEFFIENCT = 20;
+    final double HEAVYATTACKCOEFFICIENT = .10;
+    final int FASTATTACKCOEFFIENCT = 2;
     @Override
     public String execute(Attack attack, Block block, int damage) {
         int newDamage = 0;
@@ -12,9 +11,9 @@ public class SpeedCalculation extends DamageCalculation {
         String speedString = attackStats.split("\\|")[1];
         int speed = Integer.parseInt(speedString);
         if (damage == 0){
-            newDamage = speed * HEAVYATTACKCOEFFICIENT;
+            newDamage = speed * FASTATTACKCOEFFIENCT;
         }else{
-            newDamage = damage *(1+speed/FASTATTACKCOEFFIENCT);
+            newDamage = (int)Math.round(damage *(1+(speed*HEAVYATTACKCOEFFICIENT)));
         }
         return successor.execute(attack,block, newDamage);
     }

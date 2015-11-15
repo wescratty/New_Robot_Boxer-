@@ -4,7 +4,7 @@
 public class StrengthCalculation extends DamageCalculation {
 
     final int HEAVYATTACKCOEFFICIENT = 3;
-    final int FASTATTACKCOEFFIENCT = 20;
+    final double FASTATTACKCOEFFIENCT = 0.05;
     @Override
     public String execute(Attack attack, Block block, int damage) {
         int newDamage = 0;
@@ -14,7 +14,7 @@ public class StrengthCalculation extends DamageCalculation {
         if (damage == 0){
             newDamage = strength * HEAVYATTACKCOEFFICIENT;
         }else{
-            newDamage = damage *(1+strength/FASTATTACKCOEFFIENCT);
+            newDamage = (int)Math.round(damage *(1+(strength*FASTATTACKCOEFFIENCT)));
         }
         return successor.execute(attack,block, newDamage);
     }
