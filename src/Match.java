@@ -54,12 +54,12 @@ public class Match implements Runnable {
         updateRoundStartInfo();
         System.out.println("Start round");
 
-        String result;
         //TODO fix boxer winner, needs to return 0 or 1
         int boxerWinner = 2;
         for (Boxer boxer: boxers){
             boxer.reset();
         }
+        updateRoundStartInfo();
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
             // todo do all the damage stuff no idea how to get to it
 
@@ -91,9 +91,14 @@ public class Match implements Runnable {
 //                    boxerWinner = attacker;//todo this gets over ridden below *******
 //                }
 //            }
-
-            boxerWinner = checkDamage(attack,block,attacker,defender); //todo *******
-
+            if (attack !=null) {
+                System.out.print(currentAttack.getStats()+"::"+currentAttack.getAttackName()+":::"+attacker);
+                boxerWinner = checkDamage(attack, block, attacker, defender);
+                attack = null;
+                block= null;
+                attacker = 2;
+                defender = 2;
+            }
 
         }
 
@@ -109,9 +114,10 @@ public class Match implements Runnable {
 
 
         //todo seems like we need something like this  //exactally like that
-
-        boxers[defenderIDX].takeDamage(Integer.parseInt(hurt.calculateDamage(attack,block)));
-
+        System.out.print(boxers[defenderIDX].getFatigue());
+        System.out.print(damage);
+        boxers[defenderIDX].takeDamage(damage);
+        System.out.print(boxers[defenderIDX].getFatigue());
 
         if (checkTKO(damage)){
             boxerWinner = attackerIDX;
@@ -134,15 +140,17 @@ public class Match implements Runnable {
         return damage > TKOTHESHOLD;
     }
 
-    private boolean checkDown(int fatigue){return fatigue > DOWNTHRESHOLD;
+    private boolean checkDown(int fatigue){
+        return fatigue > DOWNTHRESHOLD;
     }
 
     private int count(int fatigue){
         boolean isUp = false;
         int counter = 1;
         int fatigueValue = fatigue;
+        timer.Stopwatch();
         while(timer.elapsedTime()<COUNTDELAY*10){
-//            System.out.println(" in count");
+            System.out.println(" in count");
             if (timer.elapsedTime() > (counter*COUNTDELAY)-COUNTTOLERANCE){
                 fatigueValue =  fatigue -counter * HEALRATE;
                 int upTolerance = (int)Math.round(DOWNTHRESHOLD*Math.max(chance.getChance()+MINUPPERCENT,MAXUPPERCENT));
@@ -192,7 +200,6 @@ public class Match implements Runnable {
         currentRound++;
         game.setRoundInPlay(true);//TODO dont know if this is what you want here
         roundTimer.Stopwatch(ROUNDDURATION);
-        timer.Stopwatch();
         audio.startBell();
         setSplash("Round " + getCurrentRound());
         mp.setRound(Integer.toString(getCurrentRound()));
