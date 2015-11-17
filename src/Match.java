@@ -54,7 +54,7 @@ public class Match implements Runnable {
         updateRoundStartInfo();
         System.out.println("Start round");
 
-        String result;
+       // String result;
         //TODO fix boxer winner, needs to return 0 or 1
         int boxerWinner = 2;
         for (Boxer boxer: boxers){
@@ -134,7 +134,9 @@ public class Match implements Runnable {
         return damage > TKOTHESHOLD;
     }
 
-    private boolean checkDown(int fatigue){return fatigue > DOWNTHRESHOLD;
+    private boolean checkDown(int fatigue){
+        System.out.println(fatigue > DOWNTHRESHOLD);
+        return fatigue > DOWNTHRESHOLD;
     }
 
     private int count(int fatigue){
