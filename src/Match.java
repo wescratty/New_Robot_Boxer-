@@ -77,21 +77,6 @@ public class Match implements Runnable {
             }
 
 
-
-////todo this is all in checkDamage *******
-//            String damageString = hurt.calculateDamage(attack, block);
-//            int damage = Integer.parseInt(damageString);
-//
-//            if (checkTKO(damage)){
-//                boxerWinner = attacker;//todo this gets over ridden below *******
-//            }else if(checkDown(boxers[defender].getFatigue())){
-//                int countResult = count(boxers[defender].getFatigue());
-//                if( countResult > 0){
-//                    boxers[defender].setFatigue(countResult);
-//                }else {
-//                    boxerWinner = attacker;//todo this gets over ridden below *******
-//                }
-//            }
             if (attack !=null) {
                 System.out.print(currentAttack.getStats()+"::"+currentAttack.getAttackName()+":::"+attacker);
                 boxerWinner = checkDamage(attack, block, attacker, defender);
@@ -191,7 +176,7 @@ public class Match implements Runnable {
             this.winner = boxers[1];
         }
 
-        game.setGameOn(false);//TODO dont know if this is what you want here
+//        game.setGameOn(false);//TODO dont know if this is what you want here
 
     }
     public String getWinner(){
