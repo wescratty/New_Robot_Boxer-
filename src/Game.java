@@ -27,13 +27,15 @@ public class Game implements Runnable {
     Boxer _boxer2 = builder.build(100, "Player 2");
     Boxer[] boxers = new Boxer[2];
 
-    ChanceBot rand = ChanceBot.getInstance();
+
+//    ChanceBot rand = ChanceBot.getInstance();
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
     MainPanel mp = MainPanel.getInstance();
+    Match match = Match.getInstance();
 //    ObservaBoxing obs1;
 //    ObservaBoxing obs2;
 
-    boolean round_in_Play = true;
+    boolean round_in_Play = false;
     boolean gameOn = true;
 
 
@@ -62,11 +64,15 @@ public class Game implements Runnable {
 //        Runnable match = new Match(3,boxers[0],boxers[1]);
 
 
+
+
         Game game = Game.getInstance();
         Thread paintThread = new Thread(game);
-        Thread matchThread = new Thread(new Match(3,boxers[0],boxers[1]));
+        Thread matchThread = new Thread(match);
         Thread boxer1Thread = new Thread(game);
         Thread boxer2Thread = new Thread(game);
+
+        match.match(3,boxers[0],boxers[1]);
 
         int b1Identifier = System.identityHashCode(boxer1Thread);
         int b2Identifier = System.identityHashCode(boxer2Thread);

@@ -156,15 +156,44 @@ public class Paint_aBoxer extends JPanel {
 
         // Boxer 1
         g.setColor(Color.BLUE);
-        g.fillArc(b_1x, b_1y, 50, 50, 0, fullCirc);
-        g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 30, 30, 0, fullCirc);
-        g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), 30, 30, 0, fullCirc);
+        if(_boxer1.getThisBoxerDown()){
 
-        // Boxer 1
+
+            g.fillArc(b_1x, b_1y, 50, 10, 0, fullCirc);
+            g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 100, 10, 0, fullCirc);
+            g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), 100, 10, 0, fullCirc);
+
+        }else{
+
+
+            g.fillArc(b_1x, b_1y, 50, 50, 0, fullCirc);
+            g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), 30, 30, 0, fullCirc);
+            g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), 30, 30, 0, fullCirc);
+        }
+
+
+
+        // Boxer 2
         g.setColor(Color.RED);
-        g.fillArc(b_2x, b_2y, 50, 50, 0, fullCirc);
-        g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 30, 30, 0, fullCirc);
-        g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 30, 30, 0, fullCirc);
+        if(_boxer2.getThisBoxerDown()){
+
+
+            g.fillArc(b_2x, b_2y, 50, 10, 0, fullCirc);
+            g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 100, 10, 0, fullCirc);
+            g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 100, 10, 0, fullCirc);
+
+        }else{
+
+
+            g.fillArc(b_2x, b_2y, 50, 50, 0, fullCirc);
+            g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), 30, 30, 0, fullCirc);
+            g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), 30, 30, 0, fullCirc);
+        }
+
+
+
+
+
 
 
 

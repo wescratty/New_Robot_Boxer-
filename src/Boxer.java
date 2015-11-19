@@ -44,6 +44,8 @@ public class Boxer implements Subject {
     public boolean didBLock = false;
     public boolean attack = true;
     private boolean didPunch = false;
+    private boolean apponentDown = false;
+    private boolean boxerDown = false;
 
     private Attack incomingAttack;
     private ChanceBot chance = ChanceBot.getInstance();
@@ -71,14 +73,18 @@ public class Boxer implements Subject {
         int choiceCount = 4;
         int choice = chance.getRandomChoice(choiceCount);
 
-        if (_otherBoxer.X() == thisBoxerLocation.X() && _otherBoxer.Y() == thisBoxerLocation.Y()) {
+        if (sameSpot()||apponentDown) {
             choice = 2;
+        }
+        if(boxerDown){
+            choice = 1;
         }
         if (dist < reach && choice == 0) {
 
             punch();
         } else if (choice == 1) {
-            //todo rest();
+            //todo rest() make sleep time proportional;
+            sleepTime(2000);
         } else if (choice == 2) {
             attack = false;
             changeLocation();
@@ -99,6 +105,25 @@ public class Boxer implements Subject {
         notifyObserver();
 
         return 0;
+    }
+
+    public  void setApponentDown(boolean update){
+        this.apponentDown = update;
+        System.out.println(" apponentDown");
+    }
+
+    public  void setThisBoxerDown(boolean update){
+        this.boxerDown = update;
+        System.out.println(" ThisBoxerDownDown");
+    }
+
+    public  boolean getThisBoxerDown(){
+         return this.boxerDown;
+
+    }
+
+    private boolean sameSpot(){
+        return _otherBoxer.X() == thisBoxerLocation.X() && _otherBoxer.Y() == thisBoxerLocation.Y();
     }
 
     private void changeLocation() {
@@ -123,12 +148,15 @@ public class Boxer implements Subject {
         } else if (desiredLocation.X() < x) {
             x = x - stepSize;
         }
+
         if (desiredLocation.Y() > y) {
             y = y + stepSize;
         } else if (desiredLocation.Y() < y) {
             y = y - stepSize;
 
         }
+
+//        if(apponentDown) sleepTime(1000);
 
         sleepTime(50);
 //        sleepTime(fatigue);??TODO
@@ -203,8 +231,9 @@ public class Boxer implements Subject {
 
         //todo not sure if this is what you were thinking------------------
         Attack a = getAttack();
+//        System.out.println("attack1:  "+a.getAttackName());
         a.setAttackName(a.getAttackName());
-        mp.setSplash(a.getAttackName());
+//        mp.setSplash(a.getAttackName());
 
 
         for (Observer observer : observers) {

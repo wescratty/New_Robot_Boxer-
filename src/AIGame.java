@@ -24,6 +24,7 @@ public class AIGame implements Runnable {
 
     private boolean isRunning = true;
 
+    private Match match = Match.getInstance();
 
     public AIGame(){
         builder = new BoxerDirector();
@@ -35,7 +36,7 @@ public class AIGame implements Runnable {
 
         while (isRunning){
             aiBoxer =  builder.buildAI(currentpoints);
-            currentBout = new Match(rounds, playerBoxer, aiBoxer);
+            currentBout.match(rounds, playerBoxer, aiBoxer);
             currentBout.run();
             String winner =  currentBout.getWinner();
             if(playerBoxer.getBoxerID() == winner){

@@ -21,6 +21,7 @@ public class ObservaBoxing implements Observer {
 
     private Subject boxer;
     private Match match = Match.getInstance();
+    private MainPanel mp = MainPanel.getInstance();
 
     public ObservaBoxing(Subject boxer){
 
@@ -57,6 +58,9 @@ public class ObservaBoxing implements Observer {
     public void  notifyPunch(Attack a, int attackerId){
         Block b =this.boxer.setSentMessage(a);
         match.setCurrentAttack(attackerId,a,b);
+        mp.setSplash(a.getAttackName());
+
+
 
     }
 
