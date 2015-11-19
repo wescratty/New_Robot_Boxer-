@@ -131,35 +131,39 @@ public class Boxer implements Subject {
     }
 
     public void move() {
-        thisBoxerLocation.setPoint(x, y);
 
-        double dist = distance(thisBoxerLocation, _otherBoxer);
+        if(!boxerDown) {
+            thisBoxerLocation.setPoint(x, y);
 
-        if (dist < reach && attack) {
+            double dist = distance(thisBoxerLocation, _otherBoxer);
 
-            attack = false;
-            desiredLocation = thisBoxerLocation;
+            if (dist < reach && attack) {
 
-        }
+                attack = false;
+                desiredLocation = thisBoxerLocation;
+
+            }
 
 
-        if (desiredLocation.X() > x) {
-            x = x + stepSize;
-        } else if (desiredLocation.X() < x) {
-            x = x - stepSize;
-        }
+            if (desiredLocation.X() > x) {
+                x = x + stepSize;
+            } else if (desiredLocation.X() < x) {
+                x = x - stepSize;
+            }
 
-        if (desiredLocation.Y() > y) {
-            y = y + stepSize;
-        } else if (desiredLocation.Y() < y) {
-            y = y - stepSize;
+            if (desiredLocation.Y() > y) {
+                y = y + stepSize;
+            } else if (desiredLocation.Y() < y) {
+                y = y - stepSize;
 
-        }
+            }
 
 //        if(apponentDown) sleepTime(1000);
 
-        sleepTime(50);
+            sleepTime(50);
 //        sleepTime(fatigue);??TODO
+
+        }
 
     }
 

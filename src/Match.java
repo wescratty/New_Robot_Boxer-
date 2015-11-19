@@ -62,6 +62,7 @@ public class Match implements Runnable {
         }
 
         updateRoundStartInfo();
+
         int defender;
         Attack attack;
         Block block;
@@ -100,7 +101,8 @@ public class Match implements Runnable {
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
 
-        boxers[defenderIDX].takeDamage(damage);
+        boxers[defenderIDX].takeDamage(damage*10);// todo: added *10 for testing
+        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
             boxerWinner = attackerIDX;
@@ -140,7 +142,7 @@ public class Match implements Runnable {
         int counter = 1;
         int fatigueValue = fatigue;
         downTimer.Stopwatch();
-        while(downTimer.elapsedTime()<COUNTDELAY/5){  //removed *10
+        while(downTimer.elapsedTime()<COUNTDELAY){
 
             if (downTimer.elapsedTime() > (counter*COUNTDELAY)-COUNTTOLERANCE){
                 fatigueValue =  fatigue -counter * HEALRATE;
