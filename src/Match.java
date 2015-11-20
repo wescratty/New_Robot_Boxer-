@@ -70,9 +70,11 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
+            System.out.println("attack4:  "+this.currentAttack.getAttackName());
 
-            if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
+            if(this.newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
 
+                System.out.println("newAttack: " );
                 attack = this.currentAttack;
                 block = this.currentBlock;
                 attacker = this.attackerId;
@@ -87,9 +89,11 @@ public class Match implements Runnable {
                     boxerWinner = checkDamage(attack, block, attacker, defender);
                 }
 
-                this.newAttack = false;
+                newAttack = false;
 
+                boxers[attackerId].notifyObserver();
             }
+
         }
 
         updateRoundEndInfo();
@@ -102,11 +106,11 @@ public class Match implements Runnable {
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
 
-        System.out.println("damage: " + damage * 100);
-        setSplash("damage: " + damage * 100);
+        System.out.println("damage: " + damage );
+        setSplash("damage: " + damage );
 
-        boxers[defenderIDX].takeDamage(damage * 100);// todo: added *10 for testing
-        boxers[defenderIDX].notifyObserver();
+        boxers[defenderIDX].takeDamage(damage );// todo: added *10 for testing
+//        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
             System.out.println("TKO by: "+ attackerIDX);
@@ -230,5 +234,6 @@ public class Match implements Runnable {
         this.currentAttack = a;
         this.currentBlock = b;
         this.newAttack = true;
+        System.out.println("attack3:  "+a.getAttackName());
     }
 }

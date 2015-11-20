@@ -241,7 +241,7 @@ public class Boxer implements Subject {
 
         //todo not sure if this is what you were thinking------------------
         Attack a = getAttack();
-//        System.out.println("attack1:  "+a.getAttackName());
+        System.out.println("attack1:  "+a.getAttackName());
         a.setAttackName(a.getAttackName());
 //        mp.setSplash(a.getAttackName());
 
