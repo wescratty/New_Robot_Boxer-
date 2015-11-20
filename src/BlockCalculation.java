@@ -32,7 +32,7 @@ public class BlockCalculation extends DamageCalculation {
             blockAmount =(int)Math.round (speed * FASTATTACKSPEEDCOEEFICIENT);
             blockAmount*=strength*FASTATTACKSTRENGTHCOEFFIENCT;
         }
-        newDamage = damage - blockAmount;
+        newDamage = Math.min(damage - blockAmount,0);
         return successor.execute(attack,block,newDamage);
     }
 }
