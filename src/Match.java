@@ -141,9 +141,12 @@ public class Match implements Runnable {
         boolean isUp = false;
         int counter = 1;
         int fatigueValue = fatigue;
-        downTimer.Stopwatch();
-        while(downTimer.elapsedTime()<COUNTDELAY){
 
+        downTimer.Stopwatch();
+        while(downTimer.elapsedTime()<COUNTDELAY*10){
+            if (roundTimer.clockTime() <=0){
+                return 0;
+            }
             if (downTimer.elapsedTime() > (counter*COUNTDELAY)-COUNTTOLERANCE){
                 fatigueValue =  fatigue -counter * HEALRATE;
                 int upTolerance = (int)Math.round(DOWNTHRESHOLD*Math.max(chance.getChance()+MINUPPERCENT,MAXUPPERCENT));

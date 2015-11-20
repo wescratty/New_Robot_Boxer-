@@ -95,7 +95,7 @@ public class Paint_aBoxer extends JPanel {
             _b_2Right =  _b_1;
 
             if(!_b1block) {
-                
+
                 bSplat.add(_b_1);
                 bSize.add(Integer.toString(spatterSize));
             }
