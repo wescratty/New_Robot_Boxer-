@@ -23,7 +23,7 @@ public class BlockCalculation extends DamageCalculation {
         int strength = Integer.parseInt(blockArray[0]);
 
         int speed = Integer.parseInt(blockArray[1]);
-        int accuracy = Integer.parseInt(blockArray[3]);
+        int accuracy = Integer.parseInt(blockArray[2]);
 
         if (attackType.compareTo("Heavy")==0){
             blockAmount = (int)Math.round(strength * HEAVYATTACKSTRENGHTCOEFFICIENT);
