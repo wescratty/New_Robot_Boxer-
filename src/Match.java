@@ -70,9 +70,17 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
-            System.out.println("attack4:  "+this.currentAttack.getAttackName());
+//            System.out.println("attack4:  "+this.currentAttack.getAttackName());
+            while (!newAttack) {
 
-            if(this.newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
+                try {
+                    wait();
+
+                } catch (Exception e) {
+                }
+            }
+
+            if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
 
                 System.out.println("newAttack: " );
                 attack = this.currentAttack;
@@ -234,6 +242,6 @@ public class Match implements Runnable {
         this.currentAttack = a;
         this.currentBlock = b;
         this.newAttack = true;
-        System.out.println("attack3:  "+a.getAttackName());
+//        System.out.println("attack3:  "+a.getAttackName());
     }
 }
