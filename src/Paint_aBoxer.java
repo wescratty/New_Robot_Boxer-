@@ -29,6 +29,10 @@ public class Paint_aBoxer extends JPanel {
     ArrayList<String> rSize = new ArrayList<String>();
 
 
+    private boolean b1_first = true;
+    private boolean b2_first = true;
+    List<Point> b_1gloves;
+    List<Point> b_2gloves;
     public Paint_aBoxer(){
     }
 
@@ -41,7 +45,7 @@ public class Paint_aBoxer extends JPanel {
     protected void paintComponent (Graphics g){
         super.paintComponent(g);
 
-        List<Point> gloves;
+
 
         double gw = getWidth();
         double factor = gw/889;
@@ -72,15 +76,23 @@ public class Paint_aBoxer extends JPanel {
         _b_1 = new Point(b_1x,b_1y);
         _b_2 = new Point(b_2x,b_2y);
 
-        gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, newR,_b1block);
+        if(b1_first) {
+            b_1gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, newR,_b1block);
+        }
 
-        _b_1Left = gloves.get(0);
-        _b_1Right = gloves.get(1);
 
-        gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, newR,_b2block);
+        _b_1Left = b_1gloves.get(0);
+        _b_1Right = b_1gloves.get(1);
 
-        _b_2Left = gloves.get(0);
-        _b_2Right = gloves.get(1);
+
+        if(b2_first) {
+            b_2gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, newR,_b2block);
+        }
+
+
+
+        _b_2Left = b_2gloves.get(0);
+        _b_2Right = b_2gloves.get(1);
 
         if(_boxer1.getDidPunch()){
             _b_1Right =  _b_2;
@@ -194,12 +206,16 @@ public class Paint_aBoxer extends JPanel {
         g.setColor(Color.BLUE);
         if(_boxer1.getThisBoxerDown()){
 
-            g.fillArc(b_1x, b_1y, hedSze*2, hedSze/2, 0, fullCirc);
-            g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), glvSze*2, glvSze/5, 0, fullCirc);
-            g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), glvSze*2, glvSze/5, 0, fullCirc);
+
+                b1_first = false;
+
+                g.fillArc(b_1x, b_1y, hedSze * 2, hedSze / 2, 0, fullCirc);
+                g.fillArc((int) _b_1Left.X(), (int) _b_1Left.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+                g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+
 
         }else{
-
+            b1_first = true;
 
             g.fillArc(b_1x, b_1y, hedSze, hedSze, 0, fullCirc);
             g.fillArc((int)_b_1Left.X(),(int)_b_1Left.Y(), glvSze, glvSze, 0, fullCirc);
@@ -212,17 +228,19 @@ public class Paint_aBoxer extends JPanel {
         g.setColor(Color.RED);
         if(_boxer2.getThisBoxerDown()){
 
+                b2_first = false;
 
-            g.fillArc(b_2x, b_2y, hedSze*2, hedSze/2, 0, fullCirc);
-            g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), glvSze*2, glvSze/5, 0, fullCirc);
-            g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), glvSze*2, glvSze/5, 0, fullCirc);
+                g.fillArc(b_2x, b_2y, hedSze * 2, hedSze / 2, 0, fullCirc);
+                g.fillArc((int) _b_2Left.X(), (int) _b_2Left.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+                g.fillArc((int) _b_2Right.X(), (int) _b_2Right.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+
 
         }else{
 
-
+            b2_first = true;
             g.fillArc(b_2x, b_2y, hedSze, hedSze, 0, fullCirc);
             g.fillArc((int)_b_2Left.X(),(int)_b_2Left.Y(), glvSze, glvSze, 0, fullCirc);
-            g.fillArc((int)_b_2Right.X(),(int)_b_2Right.Y(), glvSze, glvSze, 0, fullCirc);
+            g.fillArc((int) _b_2Right.X(), (int) _b_2Right.Y(), glvSze, glvSze, 0, fullCirc);
         }
 
 }

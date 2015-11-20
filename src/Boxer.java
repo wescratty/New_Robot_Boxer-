@@ -98,11 +98,11 @@ public class Boxer implements Subject {
         }
 
         //TODO thinking this should be here once we get fatigue working
-//        if (desiredLocation !=thisBoxerLocation){move();}
+        if (desiredLocation !=thisBoxerLocation){move();}
 
         checkForPunch();
         checkIfAttack();
-        notifyObserver();
+//        notifyObserver();
 
         return 0;
     }
@@ -158,7 +158,13 @@ public class Boxer implements Subject {
 
             }
 
-//        if(apponentDown) sleepTime(1000);
+        if(apponentDown){
+            stepSize = 1;
+//            sleepTime(1000);
+        }else{
+            stepSize = 10;
+
+        }
 
             sleepTime(50);
 //        sleepTime(fatigue);??TODO
@@ -480,6 +486,8 @@ public class Boxer implements Subject {
     fatigue = 0;
     resetAttacks();
     resetBlocks();
+        this.boxerDown = false;
+        this.apponentDown = false;
     }
     private void resetAttacks(){
         for(Attack attack : attackList){

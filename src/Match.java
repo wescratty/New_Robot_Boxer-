@@ -18,7 +18,7 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 150;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 30;
+    private final int ROUNDDURATION = 60;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -59,6 +59,7 @@ public class Match implements Runnable {
         int boxerWinner = 2;
         for (Boxer boxer: boxers){
             boxer.reset();
+
         }
 
         updateRoundStartInfo();
@@ -101,10 +102,14 @@ public class Match implements Runnable {
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
 
-        boxers[defenderIDX].takeDamage(damage*10);// todo: added *10 for testing
+        System.out.println("damage: " + damage * 100);
+        setSplash("damage: " + damage * 100);
+
+        boxers[defenderIDX].takeDamage(damage * 100);// todo: added *10 for testing
         boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
+            System.out.println("TKO by: "+ attackerIDX);
             boxerWinner = attackerIDX;
 
         }else if(checkDown(boxers[defenderIDX].getFatigue())){
@@ -175,7 +180,7 @@ public class Match implements Runnable {
         while (Math.max(score[0], score[1])<= totalRounds/2) {
             //todo i think logic to have them fight has to be here
             int winner = Bout();
-            System.out.println(" boxerWinner  "+ winner);
+            System.out.println(" boxerWinner from run  "+ winner);
             score[winner] += 1;
             try {
                 Thread.sleep(ROUNDRESETTME);
@@ -201,7 +206,7 @@ public class Match implements Runnable {
         currentRound++;
         game.setRoundInPlay(true);
         roundTimer.Stopwatch(ROUNDDURATION);
-        audio.startBell();
+//        audio.startBell();
         setSplash("Round " + getCurrentRound());
         mp.setRound(Integer.toString(getCurrentRound()));
 
@@ -213,9 +218,9 @@ public class Match implements Runnable {
     }
 
     private void updateRoundEndInfo(){
-        mp.setSplash("Round " + getCurrentRound()+" is over");
+        mp.setSplash("Round " + getCurrentRound() + " is over");
         game.setRoundInPlay(false);
-        audio.endBell();
+//        audio.endBell();
 
         //todo make rounds won label for each boxer in mp and update
     }
