@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Boxer implements Subject {
     //final for setting the boxers intital stats for all abilities
     final int INTITALSTATS = 10;
+    final int INITIALACCURACY = 30;
     final int INITAILREACH = 80;
     private int id;
     private int bNum;
@@ -60,7 +61,7 @@ public class Boxer implements Subject {
         observers = new ArrayList<Observer>();
         strengthScore = INTITALSTATS;
         agilityScore = INTITALSTATS;
-        accuracy = INTITALSTATS;
+        accuracy = INITIALACCURACY;
         reach = INITAILREACH;
 
     }
@@ -491,7 +492,7 @@ public class Boxer implements Subject {
     }
     private void resetAttacks(){
         for(Attack attack : attackList){
-            attack.refresh(strengthScore, agilityScore,accuracy);
+            attack.refresh(strengthScore, agilityScore, accuracy);
         }
     }
     private void resetBlocks(){

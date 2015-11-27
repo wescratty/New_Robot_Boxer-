@@ -4,23 +4,26 @@
 
 public class SimpleAttack extends Attack {
     //constants
-    final double ACCURACYCORRECTION = 0.5;
+    final int ACCURACYCORRECTION = 2;
 
     //Stat Variables
     private int strength;
     private int speed;
     private int accuracy;
     private int fatigue;
-
+    private int hitcoutner;
 
     @Override
     public void update(int fatigue) {
-    double deltaFatigue = fatigue - this.fatigue;
-    double percentReduction = deltaFatigue/fatigue;
-    strength = (int)(strength* percentReduction);
-    speed = (int)(speed* percentReduction);
-    accuracy = (int)(accuracy * (percentReduction*ACCURACYCORRECTION));
-        this.fatigue = fatigue;
+        double deltaFatigue = fatigue - this.fatigue;
+        if (deltaFatigue > this.fatigue) {
+            hitcoutner++;
+            strength --;
+            speed --;
+            if (hitcoutner%ACCURACYCORRECTION ==0)
+                accuracy --;
+            this.fatigue = fatigue;
+        }
     }
 
     @Override
@@ -29,6 +32,7 @@ public class SimpleAttack extends Attack {
     this.speed = speed;
     this.accuracy = accuracy;
     fatigue = 0;
+    hitcoutner = 0;
     }
 
     public String getStats()

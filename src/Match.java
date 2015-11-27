@@ -111,7 +111,7 @@ public class Match implements Runnable {
 
     private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
         int boxerWinner = 2;
-        String damageString = hurt.calculateDamage(attack, block);
+        String damageString = hurt.calculateDamage(attack, block, 0);
         int damage = Integer.parseInt(damageString);
 
         System.out.println("damage: " + damage );
@@ -176,9 +176,7 @@ public class Match implements Runnable {
                 }
                 counter++;
             }
-            if(roundTimer.elapsedTime()< ROUNDDURATION){
-//               todo  needs to stop clock but allow other stuff
-            }
+
         }
         return 0;
     }
@@ -190,7 +188,6 @@ public class Match implements Runnable {
         score[1] = 0;
         score[2] = 0;
         while (Math.max(score[0], score[1])<= totalRounds/2) {
-            //todo i think logic to have them fight has to be here
             int winner = Bout();
             System.out.println(" boxerWinner from run  "+ winner);
             score[winner] += 1;
