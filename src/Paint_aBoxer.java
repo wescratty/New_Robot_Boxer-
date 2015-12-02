@@ -210,8 +210,8 @@ public class Paint_aBoxer extends JPanel {
                 b1_first = false;
 
                 g.fillArc(b_1x, b_1y, hedSze * 2, hedSze / 2, 0, fullCirc);
-                g.fillArc((int) _b_1Left.X(), (int) _b_1Left.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
-                g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+                g.fillArc((int) _b_1Left.X(), (int) _b_1Left.Y(), glvSze * 2, glvSze / 2, 0, fullCirc);
+                g.fillArc((int) _b_1Right.X(), (int) _b_1Right.Y(), glvSze * 2, glvSze / 2, 0, fullCirc);
 
 
         }else{
@@ -231,8 +231,8 @@ public class Paint_aBoxer extends JPanel {
                 b2_first = false;
 
                 g.fillArc(b_2x, b_2y, hedSze * 2, hedSze / 2, 0, fullCirc);
-                g.fillArc((int) _b_2Left.X(), (int) _b_2Left.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
-                g.fillArc((int) _b_2Right.X(), (int) _b_2Right.Y(), glvSze * 2, glvSze / 5, 0, fullCirc);
+                g.fillArc((int) _b_2Left.X(), (int) _b_2Left.Y(), glvSze * 2, glvSze / 2, 0, fullCirc);
+                g.fillArc((int) _b_2Right.X(), (int) _b_2Right.Y(), glvSze * 2, glvSze / 2, 0, fullCirc);
 
 
         }else{

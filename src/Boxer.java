@@ -44,7 +44,7 @@ public class Boxer implements Subject {
     public boolean didBLock = false;
     public boolean attack = true;
     private boolean didPunch = false;
-    private boolean apponentDown = false;
+    private boolean OpponentDown = false;
     private boolean boxerDown = false;
 
     private Attack incomingAttack;
@@ -73,7 +73,7 @@ public class Boxer implements Subject {
         int choiceCount = 4;
         int choice = chance.getRandomChoice(choiceCount);
 
-        if (sameSpot()||apponentDown) {
+        if (sameSpot()|| OpponentDown) {
             choice = 2;
         }
         if(boxerDown){
@@ -107,9 +107,9 @@ public class Boxer implements Subject {
         return 0;
     }
 
-    public  void setApponentDown(boolean update){
-        this.apponentDown = update;
-        System.out.println(" apponentDown");
+    public  void setOpponentDown(boolean update){
+        this.OpponentDown = update;
+        System.out.println(" opponent Down");
     }
 
     public  void setThisBoxerDown(boolean update){
@@ -131,6 +131,15 @@ public class Boxer implements Subject {
     }
 
     public void move() {
+
+//        while (boxerDown) {
+//
+//            try {
+//                wait();
+//
+//            } catch (Exception e) {
+//            }
+//        }
 
         if(!boxerDown) {
             thisBoxerLocation.setPoint(x, y);
@@ -158,7 +167,7 @@ public class Boxer implements Subject {
 
             }
 
-        if(apponentDown){
+        if(OpponentDown){
             stepSize = 1;
 //            sleepTime(1000);
         }else{
@@ -487,7 +496,7 @@ public class Boxer implements Subject {
     resetAttacks();
     resetBlocks();
         this.boxerDown = false;
-        this.apponentDown = false;
+        this.OpponentDown = false;
     }
     private void resetAttacks(){
         for(Attack attack : attackList){

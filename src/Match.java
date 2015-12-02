@@ -70,7 +70,6 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
-//            System.out.println("attack4:  "+this.currentAttack.getAttackName());
             while (!newAttack) {
 
                 try {
@@ -82,6 +81,7 @@ public class Match implements Runnable {
 
             if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
 
+                newAttack = false;
                 System.out.println("newAttack: " );
                 attack = this.currentAttack;
                 block = this.currentBlock;
@@ -97,7 +97,7 @@ public class Match implements Runnable {
                     boxerWinner = checkDamage(attack, block, attacker, defender);
                 }
 
-                newAttack = false;
+
 
                 boxers[attackerId].notifyObserver();
             }
@@ -113,11 +113,12 @@ public class Match implements Runnable {
         int boxerWinner = 2;
         String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
+        int amplify = 3;
 
-        System.out.println("damage: " + damage );
-        setSplash("damage: " + damage );
+        System.out.println("damage: " + damage *amplify);
+        setSplash("damage: " + damage*amplify );
 
-        boxers[defenderIDX].takeDamage(damage );// todo: added *10 for testing
+        boxers[defenderIDX].takeDamage(damage *amplify);// todo: added *10 for testing
 //        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
@@ -126,7 +127,7 @@ public class Match implements Runnable {
 
         }else if(checkDown(boxers[defenderIDX].getFatigue())){
             boxers[defenderIDX].setThisBoxerDown(true);
-            boxers[attackerIDX].setApponentDown(true);
+            boxers[attackerIDX].setOpponentDown(true);
             setSplash("Boxer "+defenderIDX+" Down!");
             int countResult = count(boxers[defenderIDX].getFatigue());
             System.out.println("countResult: " +countResult);
@@ -134,7 +135,7 @@ public class Match implements Runnable {
             if( countResult > 0){
                 boxers[defenderIDX].setFatigue(countResult);
                 boxers[defenderIDX].setThisBoxerDown(false);
-                boxers[attackerIDX].setApponentDown(false);
+                boxers[attackerIDX].setOpponentDown(false);
 
             }else {
                 boxerWinner = attackerIDX;
@@ -218,9 +219,10 @@ public class Match implements Runnable {
         currentRound++;
         game.setRoundInPlay(true);
         roundTimer.Stopwatch(ROUNDDURATION);
-//        audio.startBell();
+
         setSplash("Round " + getCurrentRound());
         mp.setRound(Integer.toString(getCurrentRound()));
+        audio.startBell();
 
     }
 
@@ -232,7 +234,7 @@ public class Match implements Runnable {
     private void updateRoundEndInfo(){
         mp.setSplash("Round " + getCurrentRound() + " is over");
         game.setRoundInPlay(false);
-//        audio.endBell();
+        audio.endBell();
 
         //todo make rounds won label for each boxer in mp and update
     }
