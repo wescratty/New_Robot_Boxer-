@@ -3,7 +3,7 @@
  */
 public class SimpleBlock implements Block {
     //constants
-    final double ACCURACYCORRECTION = 0.5;
+    final int ACCURACYCORRECTION = 2;
 
     //attributes
     private int strength;
@@ -11,17 +11,21 @@ public class SimpleBlock implements Block {
     private int accuracy;
     private int fatigue;
     private int timing;
+    private int hitcoutner = 0;
 
     //methods
 
     @Override
     public void update(int fatigue) {
         double deltaFatigue = fatigue - this.fatigue;
-        double percentReduction = deltaFatigue/fatigue;
-        strength = (int)(strength* percentReduction);
-        speed = (int)(speed* percentReduction);
-        accuracy = (int)(accuracy * (percentReduction*ACCURACYCORRECTION));
-        this.fatigue = fatigue;
+        if (deltaFatigue > this.fatigue) {
+            hitcoutner++;
+            strength --;
+            speed --;
+            if (hitcoutner%ACCURACYCORRECTION ==0)
+            accuracy --;
+            this.fatigue = fatigue;
+        }
     }
 
     @Override
@@ -30,6 +34,7 @@ public class SimpleBlock implements Block {
         this.speed = speed;
         this.accuracy = accuracy;
         fatigue = 0;
+        hitcoutner = 0;
     }
 
     public String getStats()
