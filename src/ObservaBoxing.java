@@ -17,7 +17,7 @@ public class ObservaBoxing implements Observer {
 
     private int observerID;
 
-    // Will hold reference to the StockGrabber object
+    // Will hold reference to object
 
     private Subject boxer;
     private Match match = Match.getInstance();

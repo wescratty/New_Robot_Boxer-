@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Created by wescratty on 10/31/15.
  */
 public class Boxer implements Subject {
-    //final for setting the boxers intital stats for all abilities
+    //final for setting the boxers initial stats for all abilities
     final int INTITALSTATS = 10;
     final int INITIALACCURACY = 30;
     final int INITAILREACH = 80;
@@ -103,7 +103,6 @@ public class Boxer implements Subject {
 
         checkForPunch();
         checkIfAttack();
-//        notifyObserver();
 
         return 0;
     }
@@ -133,15 +132,6 @@ public class Boxer implements Subject {
 
     public void move() {
 
-//        while (boxerDown) {
-//
-//            try {
-//                wait();
-//
-//            } catch (Exception e) {
-//            }
-//        }
-
         if(!boxerDown) {
             thisBoxerLocation.setPoint(x, y);
 
@@ -170,20 +160,15 @@ public class Boxer implements Subject {
 
         if(OpponentDown){
             stepSize = 1;
-//            sleepTime(1000);
         }else{
             stepSize = 10;
 
         }
-
             sleepTime(50);
-//        sleepTime(fatigue);??TODO
-
         }
 
     }
 
-//    notifyObserverOfMove()
 
     public void checkIfAttack() {
         if (attack) {
@@ -265,18 +250,18 @@ public class Boxer implements Subject {
         }
     }
 
-    public void notifyObserverOfMove() {
-
-        // Cycle through all observers and notifies them
-
-        for (Observer observer : observers) {
-            if (observer.getObserverId() != this.bNum) {
-
-//                observer.todo();
-            }
-
-        }
-    }
+//    public void notifyObserverOfMove() {
+//
+//        // Cycle through all observers and notifies them
+//
+//        for (Observer observer : observers) {
+//            if (observer.getObserverId() != this.bNum) {
+//
+////                observer.todo();
+//            }
+//
+//        }
+//    }
 
     public void upDateLabels(){
 
@@ -330,7 +315,6 @@ public class Boxer implements Subject {
             observerCheckDidBLock();  // see if blocked
         }
 
-//        upDateLabels();
     }
 
     public boolean getDidPunch() {
@@ -363,8 +347,6 @@ public class Boxer implements Subject {
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay(punchedTime+fatigue));
-            //TODO make sleeptime reflect punch strength
-
 
         }
     }

@@ -241,6 +241,5 @@ public class Match implements Runnable {
         this.currentAttack = a;
         this.currentBlock = b;
         this.newAttack = true;
-//        System.out.println("attack3:  "+a.getAttackName());
     }
 }

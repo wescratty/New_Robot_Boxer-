@@ -16,27 +16,15 @@ public class CircleLine {
     }
 
 
-    final double factor = .5;
 
      protected List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius, boolean didBlock) {
 
 
-         Point p3=pointA;
          double baX;
          double baY;
          baX = pointB.Y() - pointA.Y();
          baY = pointB.X() - pointA.X();
          baX =baX*(-1);
-//        if(didBlock){
-//
-//
-//            double m = baY/baX;
-//            int d = 60;
-//            double x_1 = d/Math.sqrt(1+m*m);
-//            double y_1 =  (d*m)/Math.sqrt(1+m*m);
-//             p3.setX((int)x_1);
-//            p3.setY((int)y_1);
-//        }
 
 
         double caX = center.X() - pointA.X();
@@ -49,7 +37,6 @@ public class CircleLine {
 
         double pBy2 = bBy2 / a;
         double q = c / a;
-//         System.out.println(q);
 
         double disc = pBy2 * pBy2 - q;
         if (disc < 0) {
@@ -68,13 +55,8 @@ public class CircleLine {
         Point p2 = new Point(pointA.X() - baX * abScalingFactor2, pointA.Y()
                 - baY * abScalingFactor2);
 
-//         if(didBlock){
-//             return Arrays.asList(p1, p3);
-//
-//         }else {
 
              return Arrays.asList(p1, p2);
-//         }
     }
 
 

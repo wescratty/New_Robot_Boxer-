@@ -24,7 +24,6 @@ public class MainPanel extends JPanel {
       JLabel expLbP1, strenghtLblP1, agilityLblP1, accuracyLblP1, reachLblP1, fatigueLbP1, expLbP2, strenghtLblP2, agilityLblP2, accuracyLblP2, reachLblP2,fatigueLbP2,  time, timer, splash,
               p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl;
 
-    //""+exp+"|"+strengthScore+"|"+agilityScore+"|"+accuracy+"|"+reach+"|"+fatigue;
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
     GameTimer dt = GameTimer.getInstance();
@@ -93,11 +92,8 @@ public class MainPanel extends JPanel {
 
         b1LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
-//        b1LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-//        b2LabelPanel.setBackground(Color.BLUE);
         b2LabelPanel.setLayout(new BoxLayout(b2LabelPanel, BoxLayout.PAGE_AXIS));
-//        b2LabelPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         b2LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.blue));
 
 
@@ -165,8 +161,6 @@ public class MainPanel extends JPanel {
         }catch (Exception e){
             System.out.println(e.toString());
         }
-
-//        timer .setText(Double.toString(dt.elapsedTime()));
 
     }
 
