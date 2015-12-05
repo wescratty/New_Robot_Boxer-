@@ -55,7 +55,7 @@ public class AIGame implements Game, Runnable {
         _boxer2.setOtherBoxer(boxers[0]);
 
 
-        Game game = PVPGame.getInstance();
+        Game game = this;
         Thread paintThread = new Thread(game);
         Thread matchThread = new Thread(match);
         Thread boxer1Thread = new Thread(game);
