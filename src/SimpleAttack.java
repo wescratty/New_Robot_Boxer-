@@ -5,7 +5,7 @@
 public class SimpleAttack extends Attack {
     //constants
     final int ACCURACYCORRECTION = 2;
-
+    final int DAMAGETHRESHOLD = 300;
     //Stat Variables
     private int strength;
     private int speed;
@@ -16,7 +16,7 @@ public class SimpleAttack extends Attack {
     @Override
     public void update(int fatigue) {
         double deltaFatigue = fatigue - this.fatigue;
-        if (deltaFatigue > this.fatigue) {
+        if (deltaFatigue > DAMAGETHRESHOLD) {
             hitcoutner++;
             strength --;
             speed --;
