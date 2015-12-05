@@ -242,4 +242,9 @@ public class Match implements Runnable {
         this.currentBlock = b;
         this.newAttack = true;
     }
+
+    public Match reset(){
+        ourInstance = new Match();
+        return ourInstance;
+    }
 }

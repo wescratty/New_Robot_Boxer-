@@ -22,8 +22,8 @@ public class AIGame implements Game, Runnable {
 
     BoxerDirector builder = new BoxerDirector();
 
-    Boxer _boxer1 = builder.build(100, "Player 1");
-    Boxer _boxer2 = builder.buildAI(100);
+    Boxer _boxer1 = builder.build(currentpoints, "Player 1");
+    Boxer _boxer2 = builder.buildAI(currentpoints);
     Boxer[] boxers = new Boxer[2];
 
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
@@ -54,14 +54,13 @@ public class AIGame implements Game, Runnable {
         _boxer1.setOtherBoxer(boxers[1]);
         _boxer2.setOtherBoxer(boxers[0]);
 
-
+        // todo can we move this lower wes? so we can restart the match threads
         Game game = this;
         Thread paintThread = new Thread(game);
         Thread matchThread = new Thread(match);
         Thread boxer1Thread = new Thread(game);
         Thread boxer2Thread = new Thread(game);
 
-        match.match(3,boxers[0],boxers[1],this);
 
         int b1Identifier = System.identityHashCode(boxer1Thread);
         int b2Identifier = System.identityHashCode(boxer2Thread);
@@ -112,7 +111,21 @@ public class AIGame implements Game, Runnable {
 
                 try {
                     wait();
-
+                    //todo Does this work??
+                    match.match(3,boxers[0],boxers[1],this);
+                    String winner = match.getWinner();
+                    if (winner.compareTo(boxers[0].getBoxerID())==0){
+                        boxers[0].setExp(boxers[0].getExp()+WINEXP);
+                        currentpoints+=LOSEEXP;
+                    }else{
+                         boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
+                         currentpoints+=WINEXP;
+                    }
+                    boxers[0].grow();
+                    boxers[1] = builder.buildAI(currentpoints);
+                    match  = match.reset();
+                    match.match(3,boxers[0],boxers[1],this);
+                    wait();
                 } catch (Exception e) {
                 }
             }
