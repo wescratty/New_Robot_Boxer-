@@ -1,21 +1,10 @@
 /**
- * Created by Brian Trethewey on 11/8/15.
+ * Created by wescratty on 10/31/15.
  */
-public class AIGame implements Game, Runnable {
+public class PVPGame implements Game {
+    private static Game ourInstance = new PVPGame();
 
-    final int STARTINGPOINTS = 100;
-
-    final int WINEXP = 10;
-
-    final int LOSEEXP = 5;
-
-    private int currentpoints = STARTINGPOINTS;
-
-
-    private int rounds = 3;
-    private static AIGame ourInstance = new AIGame();
-
-    public static AIGame getInstance() {
+    public static Game getInstance() {
         return ourInstance;
     }
 
@@ -23,7 +12,7 @@ public class AIGame implements Game, Runnable {
     BoxerDirector builder = new BoxerDirector();
 
     Boxer _boxer1 = builder.build(100, "Player 1");
-    Boxer _boxer2 = builder.buildAI(100);
+    Boxer _boxer2 = builder.build(100, "Player 2");
     Boxer[] boxers = new Boxer[2];
 
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
@@ -35,9 +24,10 @@ public class AIGame implements Game, Runnable {
 
 
 
-    protected AIGame(){}
+    protected PVPGame(){}
 
 
+    @Override
     public void start(){
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
@@ -61,7 +51,7 @@ public class AIGame implements Game, Runnable {
         Thread boxer1Thread = new Thread(game);
         Thread boxer2Thread = new Thread(game);
 
-        match.match(3,boxers[0],boxers[1],this);
+        match.match(3,boxers[0],boxers[1], this);
 
         int b1Identifier = System.identityHashCode(boxer1Thread);
         int b2Identifier = System.identityHashCode(boxer2Thread);
@@ -78,6 +68,7 @@ public class AIGame implements Game, Runnable {
     }
 
 
+    @Override
     public void  run(){
 
 
@@ -122,9 +113,11 @@ public class AIGame implements Game, Runnable {
 
 
     }
+    @Override
     public void setRoundInPlay(boolean update){
         round_in_Play = update;
     }
+    @Override
     public void setGameOn(boolean update){
         gameOn = update;
     }

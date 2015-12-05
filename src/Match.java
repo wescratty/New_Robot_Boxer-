@@ -40,14 +40,14 @@ public class Match implements Runnable {
     private Block currentBlock;
     private boolean newAttack = false;
 
-    public void match(int totalRounds, Boxer boxer1, Boxer boxer2) {
+    public void match(int totalRounds, Boxer boxer1, Boxer boxer2, Game game) {
         this.totalRounds = totalRounds;
         this.boxers = new Boxer[2];
         this.boxers[0] =boxer1;
         this.boxers[1] = boxer2;
         this.roundTimer = GameTimer.getInstance();
         this.downTimer = DownTimer.getInstance();
-        this.game = Game.getInstance();
+        this.game = game;
         this.hurt = HurtBox.getInstance();
         this.mp = MainPanel.getInstance();
         this.audio = new AudioPlayer();
