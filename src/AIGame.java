@@ -10,7 +10,7 @@ public class AIGame implements Game, Runnable {
     final int LOSEEXP = 5;
 
     private int currentpoints = STARTINGPOINTS;
-    private static final Object lock = new Object();
+//    private static final Object lock = new Object();
 
     private int rounds = 3;
     private static AIGame ourInstance = new AIGame();
@@ -38,6 +38,11 @@ public class AIGame implements Game, Runnable {
     ObservaBoxing obs2;
     int b1Identifier;
     int b2Identifier;
+    Thread matchThread ;
+    Thread boxer1Thread ;
+    Thread boxer2Thread;
+    Thread paintThread;
+    Object lock;
 
 
 
@@ -45,36 +50,13 @@ public class AIGame implements Game, Runnable {
 
 
     public void start(){
+        lock = new Object();
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
-
-
         updateNewBoxer();
-        // todo can we move this lower wes? so we can restart the match threads
-        Game game = this;
-        Thread paintThread = new Thread(game);
-        Thread matchThread = new Thread(match);
-        Thread boxer1Thread = new Thread(game);
-        Thread boxer2Thread = new Thread(game);
-
-
-
-         b1Identifier = System.identityHashCode(boxer1Thread);
-         b2Identifier = System.identityHashCode(boxer2Thread);
-
-
+        makeThreads();
         setIdentifier();
-
-        boxer1Thread.start();
-        boxer2Thread.start();
-        paintThread.start();
-        while (!madeOnce) {
-            try {
-                wait();
-            } catch (Exception e) {
-            }
-        }
-        matchThread.start();
+        startThreads();
 
     }
 
@@ -91,7 +73,7 @@ public class AIGame implements Game, Runnable {
                     boxers[1].selectMove();
                 } else if (System.identityHashCode(Thread.currentThread()) == boxers[0].getid()) {
                     boxers[0].selectMove();
-                } else {
+                } else { //paint thread
 
                     mp.setTime();
                     pb.revalidate();
@@ -110,7 +92,7 @@ public class AIGame implements Game, Runnable {
                 }
             }
 
-            while (!round_in_Play) {
+            while (!round_in_Play&&gameOn) {
                 try {
 //                    System.out.println("waiting for round");
                     wait();
@@ -120,6 +102,11 @@ public class AIGame implements Game, Runnable {
                 }
             }
         }
+        try {
+        Thread.currentThread().join();
+        } catch (Exception e) {
+        }
+
     }
 
 
@@ -155,14 +142,16 @@ public class AIGame implements Game, Runnable {
         _boxer1.setOtherBoxer(boxers[1]);
         _boxer2.setOtherBoxer(boxers[0]);
 
-        boxers[0].move();
-        boxers[1].move();
+//        boxers[0].move();
+//        boxers[1].move();
 
     }
 
     public void setUpNewGame(){
+        System.out.println("setUpNewGame");
 
             if (!madeOnce) {
+                System.out.println("first if");
                 synchronized (lock) {
                     if (!madeOnce) {
                         System.out.println("new game");
@@ -189,13 +178,22 @@ public class AIGame implements Game, Runnable {
                         boxers[0].grow();
                         boxers[1] = builder.buildAI(currentpoints);
 
-                        updateNewBoxer();
-                        setIdentifier();
-
                         match = match.reset();
-                        match.match(3, boxers[0], boxers[1], this);
-                        Thread matchThread = new Thread(match);
-                        matchThread.start();
+
+//                        makeThreads();
+//                        setIdentifier();
+//                        updateNewBoxer();
+//                        match.match(3, boxers[0], boxers[1], this);
+//                        startThreads();
+                        madeOnce= false;
+                        gameOn = true;
+                        lock = new Object();
+
+                        updateNewBoxer();
+                        makeThreads();
+                        setIdentifier();
+//                        match.match(3, boxers[0], boxers[1], this);
+                        startThreads();
 
                     }
 
@@ -208,6 +206,38 @@ public class AIGame implements Game, Runnable {
     public void setIdentifier(){
         boxers[0].setid(b1Identifier, 0);
         boxers[1].setid(b2Identifier, 1);
+    }
+
+    public void makeThreads(){
+         matchThread = new Thread(match);
+         boxer1Thread = new Thread(this);
+         boxer2Thread = new Thread(this);
+         paintThread = new Thread(this);
+
+
+
+
+        b1Identifier = System.identityHashCode(boxer1Thread);
+        b2Identifier = System.identityHashCode(boxer2Thread);
+
+
+
+    }
+    private void startThreads(){
+        boxer1Thread.start();
+        boxer2Thread.start();
+        paintThread.start();
+
+        while (!madeOnce) {
+            try {
+                wait();
+            } catch (Exception e) {
+            }
+        }
+        matchThread.start();
+        System.out.println("all threads started");
+
+
     }
 
 

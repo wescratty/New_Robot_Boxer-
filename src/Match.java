@@ -218,7 +218,7 @@ public class Match implements Runnable {
             this.winner = boxers[1];
         }
 
-       // game.setGameOn(false);
+        game.setGameOn(false);
         System.out.println(" GAMEOVER  ");
         game.setUpNewGame();
 
