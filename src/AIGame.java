@@ -10,7 +10,7 @@ public class AIGame implements Game, Runnable {
     final int LOSEEXP = 5;
 
     private int currentpoints = STARTINGPOINTS;
-
+    private static final Object lock = new Object();
 
     private int rounds = 3;
     private static AIGame ourInstance = new AIGame();
@@ -32,6 +32,7 @@ public class AIGame implements Game, Runnable {
 
     boolean round_in_Play = false;
     boolean gameOn = true;
+    boolean madeOnce = false;
 
 
 
@@ -60,6 +61,7 @@ public class AIGame implements Game, Runnable {
         Thread matchThread = new Thread(match);
         Thread boxer1Thread = new Thread(game);
         Thread boxer2Thread = new Thread(game);
+
 
 
         int b1Identifier = System.identityHashCode(boxer1Thread);
@@ -108,38 +110,56 @@ public class AIGame implements Game, Runnable {
                 }
             }
             while (!round_in_Play) {
-                System.out.println("match  "+match.getWinner());
-                if(match.getWinner()==null) {
+//                System.out.println("match  "+match.getWinner());
+                if(madeOnce==false) {
+                    synchronized (lock){
+                        if(madeOnce==false) {
+                            match.match(3, boxers[0], boxers[1], this);
+                            madeOnce = true;
+                        }
 
-                    System.out.println("make match");
-                    match.match(3, boxers[0], boxers[1], this);
-
-                }
-                else {
-
-                    System.out.println("new match");
-                    String winner = match.getWinner();
-                    if (winner.compareTo(boxers[0].getBoxerID())==0){
-                        boxers[0].setExp(boxers[0].getExp()+WINEXP);
-                        currentpoints+=LOSEEXP;
-                    }else{
-                        boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
-                        currentpoints+=WINEXP;
                     }
-                    boxers[0].grow();
-                    boxers[1] = builder.buildAI(currentpoints);
-                    match  = match.reset();
-                    match.match(3, boxers[0], boxers[1], this);
+
+//                    System.out.println("make match");
+//                    match.match(3, boxers[0], boxers[1], this);
 
 
                 }
+                else if (match.getWinner()!=null) {
+                    synchronized (lock){
+                        if(match.getWinner()!=null) {
+                            System.out.println("new match");
+                            String winner = match.getWinner();
+                            if (winner.compareTo(boxers[0].getBoxerID())==0){
+                                boxers[0].setExp(boxers[0].getExp()+WINEXP);
+                                currentpoints+=LOSEEXP;
+                            }else{
+                                boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
+                                currentpoints+=WINEXP;
+                            }
+                            boxers[0].grow();
+                            boxers[1] = builder.buildAI(currentpoints);
+                            match  = match.reset();
+                            match.match(3, boxers[0], boxers[1], this);
+                        }
 
-                try {
-                    wait();
+                    }
 
 
-                } catch (Exception e) {
+
+
+
+                }else{
+                    try {
+                        wait();
+
+
+                    } catch (Exception e) {
+                    }
+
                 }
+
+
             }
             //todo Does this work how do i make this work??
 

@@ -18,7 +18,7 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 150;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 60;
+    private final int ROUNDDURATION = 20;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
