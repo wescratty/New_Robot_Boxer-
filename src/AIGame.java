@@ -111,7 +111,7 @@ public class AIGame implements Game, Runnable {
 
                 try {
                     wait();
-                    //todo Does this work??
+                    //todo Does this work how do i make this work??
                     match.match(3,boxers[0],boxers[1],this);
                     String winner = match.getWinner();
                     if (winner.compareTo(boxers[0].getBoxerID())==0){
@@ -126,6 +126,7 @@ public class AIGame implements Game, Runnable {
                     match  = match.reset();
                     match.match(3,boxers[0],boxers[1],this);
                     wait();
+
                 } catch (Exception e) {
                 }
             }
