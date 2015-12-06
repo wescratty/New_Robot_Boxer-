@@ -9,7 +9,7 @@ public class Boxer implements Subject {
     final int INTITALSTATS = 10;
     final int INITIALACCURACY = 30;
     final int INITAILREACH = 80;
-    private int id;
+    private int id= -1;
     private int bNum;
     private int fatigue;
     private int strengthScore;

@@ -108,28 +108,41 @@ public class AIGame implements Game, Runnable {
                 }
             }
             while (!round_in_Play) {
+                System.out.println("match  "+match.getWinner());
+                if(match.getWinner()==null) {
 
-                try {
-                    wait();
-                    //todo Does this work how do i make this work??
-                    match.match(3,boxers[0],boxers[1],this);
+                    System.out.println("make match");
+                    match.match(3, boxers[0], boxers[1], this);
+
+                }
+                else {
+
+                    System.out.println("new match");
                     String winner = match.getWinner();
                     if (winner.compareTo(boxers[0].getBoxerID())==0){
                         boxers[0].setExp(boxers[0].getExp()+WINEXP);
                         currentpoints+=LOSEEXP;
                     }else{
-                         boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
-                         currentpoints+=WINEXP;
+                        boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
+                        currentpoints+=WINEXP;
                     }
                     boxers[0].grow();
                     boxers[1] = builder.buildAI(currentpoints);
                     match  = match.reset();
-                    match.match(3,boxers[0],boxers[1],this);
+                    match.match(3, boxers[0], boxers[1], this);
+
+
+                }
+
+                try {
                     wait();
+
 
                 } catch (Exception e) {
                 }
             }
+            //todo Does this work how do i make this work??
+
 
         }
 

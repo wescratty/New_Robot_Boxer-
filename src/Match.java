@@ -34,13 +34,15 @@ public class Match implements Runnable {
     private AudioPlayer audio;
     private HurtBox hurt;
     private MainPanel mp;
-    private Boxer winner;
+    private Boxer winner=null;
     private int attackerId;
     private Attack currentAttack;
     private Block currentBlock;
     private boolean newAttack = false;
+    private boolean instantiated = false;
 
     public void match(int totalRounds, Boxer boxer1, Boxer boxer2, Game game) {
+
         this.totalRounds = totalRounds;
         this.boxers = new Boxer[2];
         this.boxers[0] =boxer1;
@@ -51,10 +53,12 @@ public class Match implements Runnable {
         this.hurt = HurtBox.getInstance();
         this.mp = MainPanel.getInstance();
         this.audio = new AudioPlayer();
+        this.instantiated = true;
 
     }
 
     public int  Bout(){
+        updateRoundStartInfo();
 
         int boxerWinner = 2;
         for (Boxer boxer: boxers){
@@ -62,7 +66,7 @@ public class Match implements Runnable {
 
         }
 
-        updateRoundStartInfo();
+
 
         int defender;
         Attack attack;
@@ -208,7 +212,11 @@ public class Match implements Runnable {
     }
 
     public String getWinner(){
-        return winner.getBoxerID();
+        if (winner==null){
+            return null;
+        }else {
+            return winner.getBoxerID();
+        }
     }
     public int getCurrentRound(){ return currentRound;}
 
@@ -223,7 +231,7 @@ public class Match implements Runnable {
 
     }
 
-    private void setSplash(String st){
+    private void setSplash(String st) {
         mp.setSplash(st);
 
     }
@@ -246,5 +254,9 @@ public class Match implements Runnable {
     public Match reset(){
         ourInstance = new Match();
         return ourInstance;
+    }
+
+    public boolean getInstantiated(){
+        return this.instantiated;
     }
 }
