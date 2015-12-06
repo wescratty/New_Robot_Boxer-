@@ -120,7 +120,7 @@ public class MainPanel extends JPanel {
 
         add(subPanel, BorderLayout.EAST);
 
-        game = PVPGame.getInstance();
+        game = AIGame.getInstance();
         game.start();
 
 

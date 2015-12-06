@@ -82,6 +82,7 @@ public class AIGame implements Game, Runnable {
 //>>>>>>> origin/fix_fatigue
         setIdentifier();
         startThreads();
+        
 
     }
 
