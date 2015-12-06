@@ -155,11 +155,9 @@ public class AIGame implements Game, Runnable {
         boxers[0].register(obs2);
         boxers[1].register(obs1);
 
-        _boxer1.setOtherBoxer(boxers[1]);
-        _boxer2.setOtherBoxer(boxers[0]);
+        boxers[0].setOtherBoxer(boxers[1]);
+        boxers[1].setOtherBoxer(boxers[0]);
 
-//        boxers[0].move();
-//        boxers[1].move();
 
     }
 
@@ -193,14 +191,8 @@ public class AIGame implements Game, Runnable {
                         }
                         boxers[0].grow();
                         boxers[1] = builder.buildAI(currentpoints);
-                        boxers[1].setOtherBoxer(boxers[0]);
                         match = match.reset();
 
-//                        makeThreads();
-//                        setIdentifier();
-//                        updateNewBoxer();
-//                        match.match(3, boxers[0], boxers[1], this);
-//                        startThreads();
                         madeOnce= false;
                         gameOn = true;
                         lock = new Object();
@@ -208,7 +200,6 @@ public class AIGame implements Game, Runnable {
                         updateNewBoxer();
                         makeThreads();
                         setIdentifier();
-//                        match.match(3, boxers[0], boxers[1], this);
                         startThreads();
 
                     }
