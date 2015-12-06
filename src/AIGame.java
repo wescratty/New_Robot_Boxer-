@@ -193,6 +193,8 @@ public class AIGame implements Game, Runnable {
                         }
                         boxers[0].grow();
                         boxers[1] = builder.buildAI(currentpoints);
+                        //boxer introductions
+                        boxers[0].setOtherBoxer(boxers[1]);
                         boxers[1].setOtherBoxer(boxers[0]);
                         match = match.reset();
 
