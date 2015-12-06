@@ -254,10 +254,14 @@ public class AIGame implements Game, Runnable {
     public void cleanup(){
         int waitTime = 1000;
         try{
-        matchThread.join(waitTime);
-        boxer1Thread.join(waitTime);
-        boxer2Thread.join(waitTime);
-        paintThread. join(waitTime);
+            if(matchThread != null)
+                matchThread.join(waitTime);
+            if(boxer1Thread != null)
+                boxer1Thread.join(waitTime);
+            if(boxer2Thread != null)
+                boxer2Thread.join(waitTime);
+            if(paintThread != null)
+                paintThread. join(waitTime);
         }catch (InterruptedException e){
             return;
         }
