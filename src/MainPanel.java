@@ -28,7 +28,7 @@ public class MainPanel extends JPanel {
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
     GameTimer dt = GameTimer.getInstance();
     String padding = "              ";
-
+    Game game;
 
 
     protected void makeMain() {
@@ -120,8 +120,9 @@ public class MainPanel extends JPanel {
 
         add(subPanel, BorderLayout.EAST);
 
-        Game game = AIGame.getInstance();
+        game = PVPGame.getInstance();
         game.start();
+
 
     }
 
@@ -173,5 +174,7 @@ public class MainPanel extends JPanel {
     public void setRound(String rd){
         roundNumLbl.setText(padding+rd);
     }
-
+    public void close(){
+        game.cleanup();
+    }
 }

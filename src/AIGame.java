@@ -10,6 +10,11 @@ public class AIGame implements Game, Runnable {
     final int LOSEEXP = 5;
 
     private int currentpoints = STARTINGPOINTS;
+
+    private Thread paintThread;
+    private Thread matchThread;
+    private Thread boxer1Thread;
+    private Thread boxer2Thread;
     private static final Object lock = new Object();
 
     private int rounds = 3;
@@ -52,10 +57,10 @@ public class AIGame implements Game, Runnable {
         updateNewBoxer();
         // todo can we move this lower wes? so we can restart the match threads
         Game game = this;
-        Thread paintThread = new Thread(game);
-        Thread matchThread = new Thread(match);
-        Thread boxer1Thread = new Thread(game);
-        Thread boxer2Thread = new Thread(game);
+        paintThread = new Thread(game);
+        matchThread = new Thread(match);
+        boxer1Thread = new Thread(game);
+        boxer2Thread = new Thread(game);
 
 
 
@@ -210,5 +215,16 @@ public class AIGame implements Game, Runnable {
         boxers[1].setid(b2Identifier, 1);
     }
 
+    public void cleanup(){
+        int waitTime = 1000;
+        try{
+        matchThread.join(waitTime);
+        boxer1Thread.join(waitTime);
+        boxer2Thread.join(waitTime);
+        paintThread. join(waitTime);
+        }catch (InterruptedException e){
+            return;
+        }
+    }
 
 }

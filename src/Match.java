@@ -90,7 +90,10 @@ public class Match implements Runnable {
                 try {
                     wait();
 
-                } catch (Exception e) {
+                } catch (InterruptedException e) {
+                    return boxerWinner;
+                } catch (Exception e){
+
                 }
             }
 
@@ -128,7 +131,7 @@ public class Match implements Runnable {
         int boxerWinner = 2;
         String damageString = hurt.calculateDamage(attack, block, 0);
         int damage = Integer.parseInt(damageString);
-        int amplify = 3;
+        int amplify = 1;
 
         System.out.println("damage: " + damage *amplify);
         setSplash("damage: " + damage*amplify );
@@ -199,6 +202,7 @@ public class Match implements Runnable {
 
     @Override
     public void run() {
+
         System.out.println(" NEWGAME  ");
         score = new int[3];
         score[0] = 0;
