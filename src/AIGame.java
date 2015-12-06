@@ -11,16 +11,6 @@ public class AIGame implements Game, Runnable {
 
     private int currentpoints = STARTINGPOINTS;
 
-//    private static final Object lock = new Object();
-//=======
-//
-//    private Thread paintThread;
-//    private Thread matchThread;
-//    private Thread boxer1Thread;
-//    private Thread boxer2Thread;
-//    private static final Object lock = new Object();
-//>>>>>>> origin/fix_fatigue
-
     private int rounds = 3;
     private static AIGame ourInstance = new AIGame();
 
@@ -203,7 +193,7 @@ public class AIGame implements Game, Runnable {
                         }
                         boxers[0].grow();
                         boxers[1] = builder.buildAI(currentpoints);
-
+                        boxers[1].setOtherBoxer(boxers[0]);
                         match = match.reset();
 
 //                        makeThreads();
