@@ -13,4 +13,6 @@ public interface Game extends Runnable {
 
     boolean getMadeOnce();
 
+    void cleanup();
+
 }

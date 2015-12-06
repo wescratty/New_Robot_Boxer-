@@ -15,6 +15,11 @@ public class PVPGame implements Game {
     Boxer _boxer2 = builder.build(100, "Player 2");
     Boxer[] boxers = new Boxer[2];
 
+    private Thread paintThread;
+    private Thread matchThread;
+    private Thread boxer1Thread;
+    private Thread boxer2Thread;
+
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
     MainPanel mp = MainPanel.getInstance();
     Match match = Match.getInstance();
@@ -47,10 +52,10 @@ public class PVPGame implements Game {
 
 
         Game game = this;
-        Thread paintThread = new Thread(game);
-        Thread matchThread = new Thread(match);
-        Thread boxer1Thread = new Thread(game);
-        Thread boxer2Thread = new Thread(game);
+        paintThread = new Thread(game);
+        matchThread = new Thread(match);
+        boxer1Thread = new Thread(game);
+        boxer2Thread = new Thread(game);
 
         match.match(3,boxers[0],boxers[1], this);
 
@@ -129,7 +134,17 @@ public class PVPGame implements Game {
 
      public void setUpNewGame(){}
 
-
+    public void cleanup(){
+        int waitTime = 1000;
+        try{
+            matchThread.join(waitTime);
+            boxer1Thread.join(waitTime);
+            boxer2Thread.join(waitTime);
+            paintThread. join(waitTime);
+        }catch (InterruptedException e){
+            return;
+        }
+    }
 
 
 }

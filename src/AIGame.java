@@ -10,7 +10,16 @@ public class AIGame implements Game, Runnable {
     final int LOSEEXP = 5;
 
     private int currentpoints = STARTINGPOINTS;
+
 //    private static final Object lock = new Object();
+//=======
+//
+//    private Thread paintThread;
+//    private Thread matchThread;
+//    private Thread boxer1Thread;
+//    private Thread boxer2Thread;
+//    private static final Object lock = new Object();
+//>>>>>>> origin/fix_fatigue
 
     private int rounds = 3;
     private static AIGame ourInstance = new AIGame();
@@ -54,7 +63,23 @@ public class AIGame implements Game, Runnable {
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
         updateNewBoxer();
+
         makeThreads();
+//=======
+//        // todo can we move this lower wes? so we can restart the match threads
+//        Game game = this;
+//        paintThread = new Thread(game);
+//        matchThread = new Thread(match);
+//        boxer1Thread = new Thread(game);
+//        boxer2Thread = new Thread(game);
+//
+//
+//
+//         b1Identifier = System.identityHashCode(boxer1Thread);
+//         b2Identifier = System.identityHashCode(boxer2Thread);
+//
+//
+//>>>>>>> origin/fix_fatigue
         setIdentifier();
         startThreads();
 
@@ -208,6 +233,7 @@ public class AIGame implements Game, Runnable {
         boxers[1].setid(b2Identifier, 1);
     }
 
+
     public void makeThreads(){
          matchThread = new Thread(match);
          boxer1Thread = new Thread(this);
@@ -238,6 +264,19 @@ public class AIGame implements Game, Runnable {
         System.out.println("all threads started");
 
 
+    }
+
+
+    public void cleanup(){
+        int waitTime = 1000;
+        try{
+        matchThread.join(waitTime);
+        boxer1Thread.join(waitTime);
+        boxer2Thread.join(waitTime);
+        paintThread. join(waitTime);
+        }catch (InterruptedException e){
+            return;
+        }
     }
 
 
