@@ -218,6 +218,7 @@ public class AIGame implements Game, Runnable {
 
 
     public void makeThreads(){
+         cleanup();
          matchThread = new Thread(match);
          boxer1Thread = new Thread(this);
          boxer2Thread = new Thread(this);
