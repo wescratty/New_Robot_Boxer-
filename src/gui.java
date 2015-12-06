@@ -21,7 +21,7 @@ public class gui {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(mainFrame,
-                        "Are you sure to close this window?", "Really Closing?",
+                        "Are you sure you would like to close this window?", "Really Closing?",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     main.close();
