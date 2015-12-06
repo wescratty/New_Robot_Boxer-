@@ -71,6 +71,7 @@ public class ObservaBoxing implements Observer {
 
 
     }
+    //never called... to remove
     public int  calculateDamage(){
         //need to get attack and block for this
         Attack attack = null;
