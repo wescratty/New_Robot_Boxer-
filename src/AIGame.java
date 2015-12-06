@@ -34,6 +34,11 @@ public class AIGame implements Game, Runnable {
     boolean gameOn = true;
     boolean madeOnce = false;
 
+    ObservaBoxing obs1;
+    ObservaBoxing obs2;
+    int b1Identifier;
+    int b2Identifier;
+
 
 
     protected AIGame(){}
@@ -42,19 +47,9 @@ public class AIGame implements Game, Runnable {
     public void start(){
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
-        boxers[0].setLoc(200,400);
-        boxers[1].setLoc(600,400);
-        pb.setBoxers(boxers[0], boxers[1]);
 
-        ObservaBoxing obs1 = new ObservaBoxing(boxers[0]);
-        ObservaBoxing obs2 = new ObservaBoxing(boxers[1]);
 
-        boxers[0].register(obs2);
-        boxers[1].register(obs1);
-
-        _boxer1.setOtherBoxer(boxers[1]);
-        _boxer2.setOtherBoxer(boxers[0]);
-
+        updateNewBoxer();
         // todo can we move this lower wes? so we can restart the match threads
         Game game = this;
         Thread paintThread = new Thread(game);
@@ -64,16 +59,21 @@ public class AIGame implements Game, Runnable {
 
 
 
-        int b1Identifier = System.identityHashCode(boxer1Thread);
-        int b2Identifier = System.identityHashCode(boxer2Thread);
+         b1Identifier = System.identityHashCode(boxer1Thread);
+         b2Identifier = System.identityHashCode(boxer2Thread);
 
 
-        boxers[0].setid(b1Identifier, 0);
-        boxers[1].setid(b2Identifier, 1);
+        setIdentifier();
 
         boxer1Thread.start();
         boxer2Thread.start();
         paintThread.start();
+        while (!madeOnce) {
+            try {
+                wait();
+            } catch (Exception e) {
+            }
+        }
         matchThread.start();
 
     }
@@ -81,7 +81,7 @@ public class AIGame implements Game, Runnable {
 
     public void  run(){
 
-
+        setUpNewGame();
         while(gameOn) {
 
             while (round_in_Play) {
@@ -109,66 +109,20 @@ public class AIGame implements Game, Runnable {
                     }
                 }
             }
+
             while (!round_in_Play) {
-//                System.out.println("match  "+match.getWinner());
-                if(madeOnce==false) {
-                    synchronized (lock){
-                        if(madeOnce==false) {
-                            match.match(3, boxers[0], boxers[1], this);
-                            madeOnce = true;
-                        }
-
-                    }
-
-//                    System.out.println("make match");
-//                    match.match(3, boxers[0], boxers[1], this);
+                try {
+//                    System.out.println("waiting for round");
+                    wait();
 
 
+                } catch (Exception e) {
                 }
-                else if (match.getWinner()!=null) {
-                    synchronized (lock){
-                        if(match.getWinner()!=null) {
-                            System.out.println("new match");
-                            String winner = match.getWinner();
-                            if (winner.compareTo(boxers[0].getBoxerID())==0){
-                                boxers[0].setExp(boxers[0].getExp()+WINEXP);
-                                currentpoints+=LOSEEXP;
-                            }else{
-                                boxers[0].setExp(boxers[0].getExp()+LOSEEXP);
-                                currentpoints+=WINEXP;
-                            }
-                            boxers[0].grow();
-                            boxers[1] = builder.buildAI(currentpoints);
-                            match  = match.reset();
-                            match.match(3, boxers[0], boxers[1], this);
-                        }
-
-                    }
-
-
-
-
-
-                }else{
-                    try {
-                        wait();
-
-
-                    } catch (Exception e) {
-                    }
-
-                }
-
-
             }
-            //todo Does this work how do i make this work??
-
-
         }
-
-
-
     }
+
+
     public void setRoundInPlay(boolean update){
         round_in_Play = update;
     }
@@ -176,7 +130,85 @@ public class AIGame implements Game, Runnable {
         gameOn = update;
     }
 
+    public boolean getMadeOnce(){
+        return madeOnce;
+    }
 
+
+//    private void unRegBoxers(){
+//        boxers[0].unregister(obs2);
+//        boxers[1].unregister(obs1);
+//
+//    }
+
+    private void updateNewBoxer(){
+        boxers[0].setLoc(200,400);
+        boxers[1].setLoc(600,400);
+        pb.setBoxers(boxers[0], boxers[1]);
+
+         obs1 = new ObservaBoxing(boxers[0]);
+         obs2 = new ObservaBoxing(boxers[1]);
+
+        boxers[0].register(obs2);
+        boxers[1].register(obs1);
+
+        _boxer1.setOtherBoxer(boxers[1]);
+        _boxer2.setOtherBoxer(boxers[0]);
+
+        boxers[0].move();
+        boxers[1].move();
+
+    }
+
+    public void setUpNewGame(){
+
+            if (!madeOnce) {
+                synchronized (lock) {
+                    if (!madeOnce) {
+                        System.out.println("new game");
+                        match.match(3, boxers[0], boxers[1], this);
+                        madeOnce = true;
+                    }
+
+                }
+
+
+
+            } else if (match.getWinner() != null) {
+                synchronized (lock) {
+                    if (match.getWinner() != null) {
+                        System.out.println("new match");
+                        String winner = match.getWinner();
+                        if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
+                            boxers[0].setExp(boxers[0].getExp() + WINEXP);
+                            currentpoints += LOSEEXP;
+                        } else {
+                            boxers[0].setExp(boxers[0].getExp() + LOSEEXP);
+                            currentpoints += WINEXP;
+                        }
+                        boxers[0].grow();
+                        boxers[1] = builder.buildAI(currentpoints);
+
+                        updateNewBoxer();
+                        setIdentifier();
+
+                        match = match.reset();
+                        match.match(3, boxers[0], boxers[1], this);
+                        Thread matchThread = new Thread(match);
+                        matchThread.start();
+
+                    }
+
+                }
+
+
+            }
+
+    }
+    public void setIdentifier(){
+        boxers[0].setid(b1Identifier, 0);
+        boxers[1].setid(b2Identifier, 1);
+    }
 
 
 }

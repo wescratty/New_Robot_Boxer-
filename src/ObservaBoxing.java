@@ -58,6 +58,7 @@ public class ObservaBoxing implements Observer {
     public void  notifyPunch(Attack a, int attackerId){
 //        System.out.println("attack2:  "+a.getAttackName());
         Block b =this.boxer.setSentMessage(a);
+        match = Match.getInstance();
         match.setCurrentAttack(attackerId, a, b);
         mp.setSplash(a.getAttackName());
 

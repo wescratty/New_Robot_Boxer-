@@ -9,4 +9,8 @@ public interface Game extends Runnable {
     void setRoundInPlay(boolean update);
 
     void setGameOn(boolean update);
+    void setUpNewGame();
+
+    boolean getMadeOnce();
+
 }

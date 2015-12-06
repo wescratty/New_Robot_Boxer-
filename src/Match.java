@@ -54,10 +54,20 @@ public class Match implements Runnable {
         this.mp = MainPanel.getInstance();
         this.audio = new AudioPlayer();
         this.instantiated = true;
+//        this.game.setRoundInPlay(true);
 
     }
 
     public int  Bout(){
+        while (!game.getMadeOnce()) {
+
+            try {
+                wait();
+
+            } catch (Exception e) {
+            }
+        }
+//        makeWait(game.getMadeOnce());
         updateRoundStartInfo();
 
         int boxerWinner = 2;
@@ -74,6 +84,7 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
+//            makeWait(newAttack);
             while (!newAttack) {
 
                 try {
@@ -188,6 +199,7 @@ public class Match implements Runnable {
 
     @Override
     public void run() {
+        System.out.println(" NEWGAME  ");
         score = new int[3];
         score[0] = 0;
         score[1] = 0;
@@ -206,8 +218,9 @@ public class Match implements Runnable {
             this.winner = boxers[1];
         }
 
-        game.setGameOn(false);
+       // game.setGameOn(false);
         System.out.println(" GAMEOVER  ");
+        game.setUpNewGame();
 
     }
 
@@ -258,5 +271,18 @@ public class Match implements Runnable {
 
     public boolean getInstantiated(){
         return this.instantiated;
+    }
+
+    private void makeWait(boolean waitFor){
+        System.out.println("waiting for...");
+        while (!waitFor) {
+
+            try {
+                wait();
+
+            } catch (Exception e) {
+            }
+        }
+
     }
 }

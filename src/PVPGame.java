@@ -21,6 +21,7 @@ public class PVPGame implements Game {
 
     boolean round_in_Play = false;
     boolean gameOn = true;
+    boolean madeOnce = false;
 
 
 
@@ -121,6 +122,12 @@ public class PVPGame implements Game {
     public void setGameOn(boolean update){
         gameOn = update;
     }
+
+    public boolean getMadeOnce(){
+        return madeOnce;
+    }
+
+     public void setUpNewGame(){}
 
 
 

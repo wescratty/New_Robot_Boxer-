@@ -23,6 +23,7 @@ public class BoxerBuilder {
     public Boxer createBoxer(int unusedPoints, String boxerID){
         boxer = new Boxer();
         boxer.setBoxerID(boxerID);
+        boxer.setLoc(200,400);
         pointsUsed =  initiateBoxer(unusedPoints, boxerID);
 
         return boxer;
