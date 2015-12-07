@@ -55,14 +55,6 @@ public class HurtBox {
      * @param block The block Object if the punch has been defended or null if not, this is handled in the chain
      * @return a string containing damage caused and potentially any other data.
      */
-    public String calculateDamage(Attack attack, Block block){
-        int damage = chance.getRandomChoice(50);
-        if(block!=null){
-            damage*= .4;
-        }
-
-        return Integer.toString(damage);
-    }
 
     public String calculateDamage(Attack attack,Block block, int differentiate){
         String type = attack.getAttackType();

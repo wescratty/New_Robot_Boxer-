@@ -335,10 +335,6 @@ public class Boxer implements Subject {
 
     public void checkDidBlock() {
 
-
-//        takeDamage(Integer.parseInt(hurtBox.calculateDamage(incomingAttack,currentBlock)));
-//todo-----------------------------------------------------------------------------------------------------
-
         if(didBLock){
             player.blockSound();
             didBLock = false;
