@@ -22,7 +22,7 @@ public class MainPanel extends JPanel {
     }
 
       JLabel expLbP1, strenghtLblP1, agilityLblP1, accuracyLblP1, reachLblP1, fatigueLbP1, expLbP2, strenghtLblP2, agilityLblP2, accuracyLblP2, reachLblP2,fatigueLbP2,  time, timer, splash,
-              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl;
+              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl,roundsWonp1, roundsWonp2,wonp1,wonp2;
 
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();

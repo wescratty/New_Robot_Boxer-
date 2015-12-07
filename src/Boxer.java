@@ -95,10 +95,13 @@ public class Boxer implements Subject {
 
             attack = true;
             desiredLocation = _otherBoxer;
+            if (dist < reach){
+                punch();
+            }
 
         }
 
-        //TODO thinking this should be here once we get fatigue working
+
         if (desiredLocation !=thisBoxerLocation){move();}
 
         checkForPunch();
@@ -445,7 +448,7 @@ public class Boxer implements Subject {
             fatigue += damage;
             updateAttacks(fatigue);
             updateBlock(fatigue);
-            //todo add observer call for damage??
+            this.notifyObserver();
 
         }
     }

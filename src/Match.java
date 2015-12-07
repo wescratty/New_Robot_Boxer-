@@ -84,8 +84,7 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
-//            makeWait(newAttack);
-            while (!newAttack) {
+            while (!newAttack||(roundTimer.elapsedTime()< ROUNDDURATION)) {
 
                 try {
                     wait();
@@ -117,7 +116,7 @@ public class Match implements Runnable {
 
 
 
-                boxers[attackerId].notifyObserver();
+
             }
 
         }
