@@ -448,13 +448,8 @@ public class Boxer implements Subject {
             fatigue += damage;
             updateAttacks(fatigue);
             updateBlock(fatigue);
-<<<<<<< HEAD
-            this.notifyObserver();
-
-=======
-            //todo add observer call for damage??
             upDateLabels();
->>>>>>> origin/fix_fatigue
+
         }
     }
 
