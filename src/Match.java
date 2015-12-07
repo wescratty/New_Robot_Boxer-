@@ -129,7 +129,7 @@ public class Match implements Runnable {
 
     private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
         int boxerWinner = 2;
-        String damageString = hurt.calculateDamage(attack, block, 0);
+        String damageString = hurt.calculateDamage(attack, block);
         int damage = Integer.parseInt(damageString);
         int amplify = 1;
 

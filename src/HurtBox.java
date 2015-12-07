@@ -56,7 +56,7 @@ public class HurtBox {
      * @return a string containing damage caused and potentially any other data.
      */
 
-    public String calculateDamage(Attack attack,Block block, int differentiate){
+    public String calculateDamage(Attack attack,Block block){
         String type = attack.getAttackType();
         String result;
         if (type.compareTo("Heavy")==0){
