@@ -2,23 +2,27 @@
  * Created by wescratty on 10/31/15.
  */
 public class PVPGame implements Game {
-    private static Game ourInstance = new PVPGame();
+    final int STARTINGPOINTS = 100;
 
-    public static Game getInstance() {
+    final int WINEXP = 10;
+
+    final int LOSEEXP = 5;
+
+    private int currentpoints = STARTINGPOINTS;
+
+    private int rounds = 3;
+    private static PVPGame ourInstance = new PVPGame();
+
+    public static PVPGame getInstance() {
         return ourInstance;
     }
 
 
     BoxerDirector builder = new BoxerDirector();
 
-    Boxer _boxer1 = builder.build(100, "Player 1");
-    Boxer _boxer2 = builder.build(100, "Player 2");
+    Boxer _boxer1 = builder.build(currentpoints, "Player 1");
+    Boxer _boxer2 = builder.build(currentpoints, "Player 2");
     Boxer[] boxers = new Boxer[2];
-
-    private Thread paintThread;
-    private Thread matchThread;
-    private Thread boxer1Thread;
-    private Thread boxer2Thread;
 
     Paint_aBoxer pb = Paint_aBoxer.getInstance();
     MainPanel mp = MainPanel.getInstance();
@@ -28,56 +32,38 @@ public class PVPGame implements Game {
     boolean gameOn = true;
     boolean madeOnce = false;
 
+    ObservaBoxing obs1;
+    ObservaBoxing obs2;
+    int b1Identifier;
+    int b2Identifier;
+    Thread matchThread ;
+    Thread boxer1Thread ;
+    Thread boxer2Thread;
+    Thread paintThread;
+    Object lock;
+
 
 
     protected PVPGame(){}
 
 
-    @Override
     public void start(){
+        lock = new Object();
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
-        boxers[0].setLoc(200,400);
-        boxers[1].setLoc(600,400);
-        pb.setBoxers(boxers[0], boxers[1]);
+        updateNewBoxer();
 
-        ObservaBoxing obs1 = new ObservaBoxing(boxers[0]);
-        ObservaBoxing obs2 = new ObservaBoxing(boxers[1]);
+        makeThreads();
+        setIdentifier();
+        startThreads();
 
-        boxers[0].register(obs2);
-        boxers[1].register(obs1);
-
-        _boxer1.setOtherBoxer(boxers[1]);
-        _boxer2.setOtherBoxer(boxers[0]);
-
-
-        Game game = this;
-        paintThread = new Thread(game);
-        matchThread = new Thread(match);
-        boxer1Thread = new Thread(game);
-        boxer2Thread = new Thread(game);
-
-        match.match(3,boxers[0],boxers[1], this);
-
-        int b1Identifier = System.identityHashCode(boxer1Thread);
-        int b2Identifier = System.identityHashCode(boxer2Thread);
-
-
-        boxers[0].setid(b1Identifier, 0);
-        boxers[1].setid(b2Identifier, 1);
-
-        boxer1Thread.start();
-        boxer2Thread.start();
-        paintThread.start();
-        matchThread.start();
 
     }
 
 
-    @Override
     public void  run(){
 
-
+        setUpNewGame();
         while(gameOn) {
 
             while (round_in_Play) {
@@ -87,7 +73,7 @@ public class PVPGame implements Game {
                     boxers[1].selectMove();
                 } else if (System.identityHashCode(Thread.currentThread()) == boxers[0].getid()) {
                     boxers[0].selectMove();
-                } else {
+                } else { //paint thread
 
                     mp.setTime();
                     pb.revalidate();
@@ -105,25 +91,28 @@ public class PVPGame implements Game {
                     }
                 }
             }
-            while (!round_in_Play) {
 
+            while (!round_in_Play&&gameOn) {
                 try {
+//                    System.out.println("waiting for round");
                     wait();
+
 
                 } catch (Exception e) {
                 }
             }
-
+        }
+        try {
+            Thread.currentThread().join();
+        } catch (Exception e) {
         }
 
-
-
     }
-    @Override
+
+
     public void setRoundInPlay(boolean update){
         round_in_Play = update;
     }
-    @Override
     public void setGameOn(boolean update){
         gameOn = update;
     }
@@ -132,15 +121,131 @@ public class PVPGame implements Game {
         return madeOnce;
     }
 
-     public void setUpNewGame(){}
+
+//    private void unRegBoxers(){
+//        boxers[0].unregister(obs2);
+//        boxers[1].unregister(obs1);
+//
+//    }
+
+    private void updateNewBoxer(){
+        boxers[0].setLoc(200,400);
+        boxers[1].setLoc(600,400);
+        pb.setBoxers(boxers[0], boxers[1]);
+
+        obs1 = new ObservaBoxing(boxers[0]);
+        obs2 = new ObservaBoxing(boxers[1]);
+
+        boxers[0].register(obs2);
+        boxers[1].register(obs1);
+
+        boxers[0].setOtherBoxer(boxers[1]);
+        boxers[1].setOtherBoxer(boxers[0]);
+
+
+    }
+
+    public void setUpNewGame(){
+        System.out.println("setUpNewGame");
+
+        if (!madeOnce) {
+            System.out.println("first if");
+            synchronized (lock) {
+                if (!madeOnce) {
+                    System.out.println("new game");
+                    match.match(3, boxers[0], boxers[1], this);
+                    madeOnce = true;
+                }
+
+            }
+
+
+
+        } else if (match.getWinner() != null) {
+            synchronized (lock) {
+                if (match.getWinner() != null) {
+                    System.out.println("new match");
+                    String winner = match.getWinner();
+                    if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
+                        boxers[0].setExp(boxers[0].getExp() + WINEXP);
+                        currentpoints += LOSEEXP;
+                    } else {
+                        boxers[0].setExp(boxers[0].getExp() + LOSEEXP);
+                        currentpoints += WINEXP;
+                    }
+                    boxers[0].grow();
+                    boxers[1].grow();
+
+                    match = match.reset();
+
+                    madeOnce= false;
+                    gameOn = true;
+                    lock = new Object();
+
+                    updateNewBoxer();
+                    makeThreads();
+                    setIdentifier();
+                    startThreads();
+
+                }
+
+            }
+
+
+        }
+
+    }
+    public void setIdentifier(){
+        boxers[0].setid(b1Identifier, 0);
+        boxers[1].setid(b2Identifier, 1);
+    }
+
+
+    public void makeThreads(){
+        cleanup();
+        matchThread = new Thread(match);
+        boxer1Thread = new Thread(this);
+        boxer2Thread = new Thread(this);
+        paintThread = new Thread(this);
+
+
+
+
+        b1Identifier = System.identityHashCode(boxer1Thread);
+        b2Identifier = System.identityHashCode(boxer2Thread);
+
+
+
+    }
+    private void startThreads(){
+        boxer1Thread.start();
+        boxer2Thread.start();
+        paintThread.start();
+
+        while (!madeOnce) {
+            try {
+                wait();
+            } catch (Exception e) {
+            }
+        }
+        matchThread.start();
+        System.out.println("all threads started");
+
+
+    }
+
 
     public void cleanup(){
         int waitTime = 1000;
         try{
-            matchThread.join(waitTime);
-            boxer1Thread.join(waitTime);
-            boxer2Thread.join(waitTime);
-            paintThread. join(waitTime);
+            if(matchThread != null)
+                matchThread.join(waitTime);
+            if(boxer1Thread != null)
+                boxer1Thread.join(waitTime);
+            if(boxer2Thread != null)
+                boxer2Thread.join(waitTime);
+            if(paintThread != null)
+                paintThread. join(waitTime);
         }catch (InterruptedException e){
             return;
         }
