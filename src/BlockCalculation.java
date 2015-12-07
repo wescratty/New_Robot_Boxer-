@@ -3,10 +3,10 @@
  */
 //todo this class
 public class BlockCalculation extends DamageCalculation {
-    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1;
-    final double HEAVYATTACKSSPEEDCOEFFICENT = 0.15;
-    final double FASTATTACKSTRENGTHCOEFFIENCT = 0.5;
-    final double FASTATTACKSPEEDCOEEFICIENT = 0.10;
+    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1.5;
+    final double HEAVYATTACKSSPEEDCOEFFICENT = 0.25;
+    final double FASTATTACKSTRENGTHCOEFFIENCT = 1;
+    final double FASTATTACKSPEEDCOEEFICIENT = 0.20;
 
     @Override
     public String execute(Attack attack, Block block, int damage) {
