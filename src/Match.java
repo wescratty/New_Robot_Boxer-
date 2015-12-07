@@ -136,7 +136,7 @@ public class Match implements Runnable {
         System.out.println("damage: " + damage *amplify);
         setSplash("damage: " + damage*amplify );
 
-        boxers[defenderIDX].takeDamage(damage *amplify);// todo: added *10 for testing
+        boxers[defenderIDX].takeDamage(damage *amplify);
 //        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
