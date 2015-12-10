@@ -120,7 +120,6 @@ public class MainPanel extends JPanel {
 
         add(subPanel, BorderLayout.EAST);
        int choice =-1;
-        System.out.println(choice);
 
         while(choice==-1) {
             choice =getChoice();
@@ -191,9 +190,10 @@ public class MainPanel extends JPanel {
     }
 
     public int getChoice(){
+        ImageIcon icon = new ImageIcon("src/im.png");
         String[] choices = { "Player VS Player", "Player VS Computer" };
         String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
-                "Choose game type", JOptionPane.QUESTION_MESSAGE, null,
+                "Choose game type", JOptionPane.QUESTION_MESSAGE, icon,
                 choices,
                 choices[0]);
         System.out.println(input);

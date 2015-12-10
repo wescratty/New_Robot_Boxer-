@@ -20,10 +20,11 @@ public class gui {
         mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                ImageIcon icon = new ImageIcon("src/im.png");
                 if (JOptionPane.showConfirmDialog(mainFrame,
                         "Are you sure you would like to close this window?", "Really Closing?",
                         JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                        JOptionPane.QUESTION_MESSAGE,icon) == JOptionPane.YES_OPTION){
                     main.close();
                     System.exit(0);
                 }

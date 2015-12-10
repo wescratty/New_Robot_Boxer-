@@ -83,11 +83,10 @@ public class AudioPlayer implements LineListener {
     }
 
     public void startBell(){
-//        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/endRound.wav");
-    }
+        playSound("src/endRound.wav");    }
     public void endBell(){
         playSound("src/threeBell.wav");
-        //playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
+
     }
 
     public void update(LineEvent event) {
