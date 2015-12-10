@@ -119,14 +119,17 @@ public class MainPanel extends JPanel {
         add(paintBoxers);
 
         add(subPanel, BorderLayout.EAST);
-       int choice =getChoice();
+       int choice =-1;
         System.out.println(choice);
 
-        if (choice==0){
-            game = PVPGame.getInstance();
-        }else{
-            game = AIGame.getInstance();
+        while(choice==-1) {
+            choice =getChoice();
+            if (choice == 0) {
+                game = PVPGame.getInstance();
+            } else if (choice == 1) {
+                game = AIGame.getInstance();
 
+            }
         }
 
 
@@ -196,8 +199,10 @@ public class MainPanel extends JPanel {
         System.out.println(input);
         if (input==("Player VS Computer")){
             return 1;
-        }else{
+        }else if (input==("Player VS Player")){
             return 0;
+        }else{
+            return -1;
         }
 
     }
