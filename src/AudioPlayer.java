@@ -75,18 +75,18 @@ public class AudioPlayer implements LineListener {
 
 
     public void punchSound(){
-       playSound("/Users/wescratty/GitHub/javaRepos/javaRepo/New_Robot_Boxer/punch.wav");
+       playSound("src/punch.wav");
     }
 
     public void blockSound(){
-        playSound("/Users/wescratty/GitHub/javaRepos/javaRepo/New_Robot_Boxer/block.wav");
+        playSound("src/block.wav");
     }
 
     public void startBell(){
 //        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/endRound.wav");
     }
     public void endBell(){
-        playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
+        playSound("src/threeBell.wav");
         //playSound("/Users/wescratty/Git2/JavaRepo/New_Robot_Boxer/threeBell.wav");
     }
 
