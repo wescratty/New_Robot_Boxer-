@@ -84,13 +84,13 @@ public class Match implements Runnable {
         int attacker;
 
         while (roundTimer.elapsedTime()< ROUNDDURATION && boxerWinner==2) {
-            while (!newAttack||(roundTimer.elapsedTime()< ROUNDDURATION)) {
+            while (!newAttack) {
 
                 try {
                     wait();
 
-                } catch (InterruptedException e) {
-                    return boxerWinner;
+//                } catch (InterruptedException e) {
+//                    return boxerWinner;
                 } catch (Exception e){
 
                 }
@@ -159,6 +159,7 @@ public class Match implements Runnable {
                 System.out.println("Attacker " +attackerIDX+" wins!");
             }
         }
+        boxers[0].upDateLabels();
         return  boxerWinner;
     }
 

@@ -445,6 +445,7 @@ public class Boxer implements Subject {
             updateAttacks(fatigue);
             updateBlock(fatigue);
             upDateLabels();
+            System.out.println("fategue "+fatigue);
 
         }
     }

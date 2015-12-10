@@ -3,9 +3,10 @@
  */
 //todo this class
 public class BlockCalculation extends DamageCalculation {
-    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1.25;
+
+    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1;
     final double HEAVYATTACKSSPEEDCOEFFICENT = 0.25;
-    final double FASTATTACKSTRENGTHCOEFFIENCT = 0.6;
+    final double FASTATTACKSTRENGTHCOEFFIENCT = .5;
     final double FASTATTACKSPEEDCOEEFICIENT = 0.20;
 
     @Override

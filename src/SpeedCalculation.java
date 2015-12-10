@@ -3,7 +3,7 @@
  */
 public class SpeedCalculation extends DamageCalculation {
     final double HEAVYATTACKCOEFFICIENT = .10;
-    final int FASTATTACKCOEFFIENCT = 2;
+    final int FASTATTACKCOEFFIENCT = 1;
     @Override
     public String execute(Attack attack, Block block, int damage) {
         int newDamage = 0;

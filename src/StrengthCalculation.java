@@ -3,16 +3,16 @@
  */
 public class StrengthCalculation extends DamageCalculation {
 
-    final int HEAVYATTACKCOEFFICIENT = 3;
+    final double HEAVYATTACKCOEFFICIENT = 1.5;
     final double FASTATTACKCOEFFIENCT = 0.05;
     @Override
     public String execute(Attack attack, Block block, int damage) {
-        int newDamage = 0;
+          int newDamage = 0;
         String attackStats = attack.getStats();
         String strengthString = attackStats.split("\\|")[0];
         int strength = Integer.parseInt(strengthString);
         if (damage == 0){
-            newDamage = strength * HEAVYATTACKCOEFFICIENT;
+            newDamage = (int)Math.round(strength * HEAVYATTACKCOEFFICIENT);
         }else{
             newDamage = (int)Math.round(damage *(1+(strength*FASTATTACKCOEFFIENCT)));
         }
