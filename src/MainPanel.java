@@ -119,8 +119,17 @@ public class MainPanel extends JPanel {
         add(paintBoxers);
 
         add(subPanel, BorderLayout.EAST);
+       int choice =getChoice();
+        System.out.println(choice);
 
-        game = AIGame.getInstance();
+        if (choice==0){
+            game = PVPGame.getInstance();
+        }else{
+            game = AIGame.getInstance();
+
+        }
+
+
         game.start();
 
 
@@ -177,4 +186,20 @@ public class MainPanel extends JPanel {
     public void close(){
         game.cleanup();
     }
+
+    public int getChoice(){
+        String[] choices = { "Player VS Player", "Player VS Computer" };
+        String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+                "Choose game type", JOptionPane.QUESTION_MESSAGE, null,
+                choices,
+                choices[0]);
+        System.out.println(input);
+        if (input==("Player VS Computer")){
+            return 1;
+        }else{
+            return 0;
+        }
+
+    }
+
 }
