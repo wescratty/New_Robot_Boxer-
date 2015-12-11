@@ -24,15 +24,13 @@ public class Boxer implements Subject {
 
     private Block currentBlock;
 
-
-
     private ArrayList<Attack> attackList;
     private ArrayList<Block> blockList;
 
     private Point _otherBoxer = new Point(0, 0);
-
     private Point desiredLocation = new Point(x, y);
     private Point thisBoxerLocation = new Point(x, y);
+
     public Boxer otherBoxer;
 
     private String boxerID;
@@ -51,11 +49,12 @@ public class Boxer implements Subject {
     private Attack incomingAttack;
     private ChanceBot chance = ChanceBot.getInstance();
     private AudioPlayer player = new AudioPlayer();
-//    private HurtBox hurtBox = HurtBox.getInstance();
     private MainPanel mp = MainPanel.getInstance();
 
 
-
+    /**
+     * Constructor
+     */
     public Boxer() {
 
         observers = new ArrayList<Observer>();
@@ -66,13 +65,17 @@ public class Boxer implements Subject {
 
     }
 
-
+    /**
+     * main boxer logic; Randomly decides what to do; move , punch etc.
+     * perhaps could be made into a chain of responsibility. If
+     * @return
+     */
     public int selectMove() {
 
-        checkForPunch();
-        double dist = distance(thisBoxerLocation, _otherBoxer);
+        checkForPunch(); // Watch for incoming punch from opponent
+        double dist = distance(thisBoxerLocation, _otherBoxer); // update location of boxers
         int choiceCount = 4;
-        int choice = chance.getRandomChoice(choiceCount);
+        int choice = chance.getRandomChoice(choiceCount); // get random choice
 
         if (sameSpot()|| OpponentDown) {
             choice = 2;
@@ -81,18 +84,15 @@ public class Boxer implements Subject {
             choice = 1;
         }
         if (dist < reach && choice == 0) {
-
             punch();
         } else if (choice == 1) {
-            //todo rest() make sleep time proportional;
             sleepTime(2000);
+
         } else if (choice == 2) {
             attack = false;
             changeLocation();
 
         } else if (choice == 3) {
-            //TODO change out this if for real attack logic
-
             attack = true;
             desiredLocation = _otherBoxer;
             if (dist < reach){
@@ -102,7 +102,7 @@ public class Boxer implements Subject {
         }
 
 
-        if (desiredLocation !=thisBoxerLocation){move();}
+//        if (desiredLocation !=thisBoxerLocation){move();}
 
         checkForPunch();
         checkIfAttack();
@@ -110,14 +110,16 @@ public class Boxer implements Subject {
         return 0;
     }
 
+    /**
+     * Allows for setting of name sake
+     * @param update
+     */
     public  void setOpponentDown(boolean update){
         this.OpponentDown = update;
-//        System.out.println(" opponent Down");
     }
 
     public  void setThisBoxerDown(boolean update){
         this.boxerDown = update;
-//        System.out.println(" ThisBoxerDownDown");
     }
 
     public  boolean getThisBoxerDown(){
@@ -133,6 +135,9 @@ public class Boxer implements Subject {
         desiredLocation = chance.pickNewLocation();
     }
 
+    /**
+     * Moves boxer closer to desired location
+     */
     public void move() {
 
         if(!boxerDown) {
@@ -146,8 +151,6 @@ public class Boxer implements Subject {
                 desiredLocation = thisBoxerLocation;
 
             }
-
-
             if (desiredLocation.X() > x) {
                 x = x + stepSize;
             } else if (desiredLocation.X() < x) {
@@ -169,10 +172,12 @@ public class Boxer implements Subject {
         }
             sleepTime(50);
         }
-
     }
 
 
+    /**
+     * Check to see if this boxer is attacking, if so seek other boxer
+     */
     public void checkIfAttack() {
         if (attack) {
             desiredLocation = _otherBoxer;
@@ -180,9 +185,11 @@ public class Boxer implements Subject {
 
     }
 
+    /**
+     * Update opponent
+     * @param otherBoxer
+     */
     public void setOtherBoxer(Boxer otherBoxer) {
-
-
         this.otherBoxer = otherBoxer;
         upDateLabels();
 
@@ -193,6 +200,11 @@ public class Boxer implements Subject {
         _otherBoxer.setY(otherBoxer.getY());
     }
 
+    /**
+     *
+     * @param a
+     * @return
+     */
     public Block setSentMessage(Attack a) {
         sentMessage = true;
         incomingAttack = a;
