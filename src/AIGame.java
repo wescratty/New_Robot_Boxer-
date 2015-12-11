@@ -162,13 +162,13 @@ public class AIGame implements Game, Runnable {
     }
 
     public void setUpNewGame(){
-        System.out.println("setUpNewGame");
+//        System.out.println("setUpNewGame");
 
             if (!madeOnce) {
-                System.out.println("first if");
+//                System.out.println("first if");
                 synchronized (lock) {
                     if (!madeOnce) {
-                        System.out.println("new game");
+//                        System.out.println("new game");
                         match.match(3, boxers[0], boxers[1], this);
                         madeOnce = true;
                     }
@@ -180,7 +180,7 @@ public class AIGame implements Game, Runnable {
             } else if (match.getWinner() != null) {
                 synchronized (lock) {
                     if (match.getWinner() != null) {
-                        System.out.println("new match");
+//                        System.out.println("new match");
                         String winner = match.getWinner();
                         if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
                             boxers[0].setExp(boxers[0].getExp() + WINEXP);
@@ -245,7 +245,7 @@ public class AIGame implements Game, Runnable {
             }
         }
         matchThread.start();
-        System.out.println("all threads started");
+//        System.out.println("all threads started");
 
 
     }

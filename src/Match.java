@@ -99,7 +99,7 @@ public class Match implements Runnable {
             if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
 
                 newAttack = false;
-                System.out.println("newAttack: " );
+//                System.out.println("newAttack: " );
                 attack = this.currentAttack;
                 block = this.currentBlock;
                 attacker = this.attackerId;
@@ -132,14 +132,14 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
         int amplify = 1;
 
-        System.out.println("damage: " + damage *amplify);
+//        System.out.println("damage: " + damage *amplify);
         setSplash("damage: " + damage*amplify );
 
         boxers[defenderIDX].takeDamage(damage *amplify);
 //        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
-            System.out.println("TKO by: "+ attackerIDX);
+//            System.out.println("TKO by: "+ attackerIDX);
             boxerWinner = attackerIDX;
 
         }else if(checkDown(boxers[defenderIDX].getFatigue())){
@@ -147,7 +147,7 @@ public class Match implements Runnable {
             boxers[attackerIDX].setOpponentDown(true);
             setSplash("Boxer "+defenderIDX+" Down!");
             int countResult = count(boxers[defenderIDX].getFatigue());
-            System.out.println("countResult: " +countResult);
+//            System.out.println("countResult: " +countResult);
 
             if( countResult > 0){
                 boxers[defenderIDX].setFatigue(countResult);
@@ -156,7 +156,7 @@ public class Match implements Runnable {
 
             }else {
                 boxerWinner = attackerIDX;
-                System.out.println("Attacker " +attackerIDX+" wins!");
+//                System.out.println("Attacker " +attackerIDX+" wins!");
             }
         }
         boxers[0].upDateLabels();

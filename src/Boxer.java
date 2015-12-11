@@ -112,12 +112,12 @@ public class Boxer implements Subject {
 
     public  void setOpponentDown(boolean update){
         this.OpponentDown = update;
-        System.out.println(" opponent Down");
+//        System.out.println(" opponent Down");
     }
 
     public  void setThisBoxerDown(boolean update){
         this.boxerDown = update;
-        System.out.println(" ThisBoxerDownDown");
+//        System.out.println(" ThisBoxerDownDown");
     }
 
     public  boolean getThisBoxerDown(){
@@ -225,7 +225,7 @@ public class Boxer implements Subject {
 
         // Print out message (Have to increment index to match)
 
-        System.out.println("Observer " + (observerIndex + 1) + " deleted");
+//        System.out.println("Observer " + (observerIndex + 1) + " deleted");
 
         // Removes observer from the ArrayList
 
@@ -445,7 +445,7 @@ public class Boxer implements Subject {
             updateAttacks(fatigue);
             updateBlock(fatigue);
             upDateLabels();
-            System.out.println("fategue "+fatigue);
+//            System.out.println("fategue "+fatigue);
 
         }
     }

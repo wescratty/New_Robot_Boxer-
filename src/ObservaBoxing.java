@@ -33,7 +33,7 @@ public class ObservaBoxing implements Observer {
 
         // Message notifies user of new observer
 
-        System.out.println("New Observer " + this.observerID);
+//        System.out.println("New Observer " + this.observerID);
 
         // Add the observer to the Subjects ArrayList
 

@@ -196,7 +196,7 @@ public class MainPanel extends JPanel {
                 "Choose game type", JOptionPane.QUESTION_MESSAGE, icon,
                 choices,
                 choices[0]);
-        System.out.println(input);
+
         if (input==("Player VS Computer")){
             return 1;
         }else if (input==("Player VS Player")){
