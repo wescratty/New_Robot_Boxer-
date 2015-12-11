@@ -2,7 +2,6 @@
  * Created by Brian Trethewey on 11/4/15.
  */
 
-//todo this class
 public class HurtBox {
 
     //singleton stuff
@@ -17,7 +16,9 @@ public class HurtBox {
     private DamageCalculation fastCalculation;
     private ChanceBot chance = ChanceBot.getInstance();
 
-
+    /**
+     * Constructor: creates both chains of responsibility on creation of class
+     */
     public HurtBox(){
         //create heavy calculation chain
         heavyCalculation = new StrengthCalculation();
