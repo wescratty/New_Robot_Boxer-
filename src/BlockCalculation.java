@@ -2,13 +2,16 @@
  * Created by Brian Trethewey on 11/5/15.
  */
 public class BlockCalculation extends DamageCalculation {
-
-    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1;
-    final double HEAVYATTACKSSPEEDCOEFFICENT = 0.25;
-    final double FASTATTACKSTRENGTHCOEFFIENCT = .2;
+    //Variables  for how much each stat effects
+    final double HEAVYATTACKSTRENGHTCOEFFICIENT = 0.60;
+    final double HEAVYATTACKSSPEEDCOEFFICENT = 0.45;
+    final double FASTATTACKSTRENGTHCOEFFIENCT = 0.20;
     final double FASTATTACKSPEEDCOEEFICIENT = 0.50;
 
     @Override
+    /**
+     * Calculate the amount blocked by  the defender of the attack and call next calculation
+     */
     public String execute(Attack attack, Block block, int damage) {
         //if there is no block
         if (block ==null){
