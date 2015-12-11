@@ -1,7 +1,6 @@
 /**
  * Created by Brian Trethewey on 11/5/15.
  */
-//todo this class
 public class BlockCalculation extends DamageCalculation {
 
     final double HEAVYATTACKSTRENGHTCOEFFICIENT = 1;
