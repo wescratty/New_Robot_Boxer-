@@ -3,7 +3,6 @@ import java.util.ArrayList;
 /**
  * Created by Brian Trethewey on 11/4/15.
  */
-//todo this class
 public class AttackBuilder {
     // this is the list of attacks to be returned
     private ArrayList<Attack> attackList;

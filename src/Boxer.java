@@ -474,6 +474,9 @@ public class Boxer implements Subject {
     }
     }
 
+    /**
+     * Resets the boxer in preperation for a new round, this includes undoing any fatigue and any reduction of attack or defence power to attacks or blocks
+     */
     public void reset(){
     fatigue = 0;
     resetAttacks();
@@ -491,6 +494,10 @@ public class Boxer implements Subject {
             block.refresh(strengthScore,agilityScore,accuracy);
         }
     }
+
+    /**
+     * Used to apply experience to the boxer
+     */
       public void grow(){
         StatDialogue dialogue = new StatDialogue();
           int pointsUsed = 0;

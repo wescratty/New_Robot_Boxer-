@@ -76,7 +76,6 @@ public class BoxerBuilder {
         int speed;
         int accuracy;
         int range;
-        //todo create random stats code
         // break input string into arrays
         String[] statsArray = boxer.getStats().split("\\|");
         //parse string results into correct variables
