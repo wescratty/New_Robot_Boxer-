@@ -8,10 +8,15 @@ public class BlockCalculation extends DamageCalculation {
     final double FASTATTACKSTRENGTHCOEFFIENCT = 0.20;
     final double FASTATTACKSPEEDCOEEFICIENT = 0.50;
 
-    @Override
+
     /**
      * Calculate the amount blocked by  the defender of the attack and call next calculation
+     * @param attack the Attack that is being performed
+     * @param block the Block, if any, that is being applied to the attack
+     * @param damage the current damage amount of the attack as calculated
+     * @return the result of the final calculation
      */
+    @Override
     public String execute(Attack attack, Block block, int damage) {
         //if there is no block
         if (block ==null){

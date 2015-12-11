@@ -11,7 +11,7 @@ public abstract class DamageCalculation {
     //setter
 
     /**
-     *
+     *setter
      * @param successor The next Damage Calculation step
      */
 
@@ -23,9 +23,10 @@ public abstract class DamageCalculation {
     //abstract methods will be overwritten to preform task specified by that step
 
     /**
-     *
+     *abstract function defined in all child classes
      * @param attack the Attack that is being performed
-     * @param block the Block, if any, that is being applied to the attack
+     * @param block the Block, if any, that is being applied to the attack\
+     * @param damage the currently calculated damage of the attack
      * @return A String Detailing the results of the damage calculations, String so more than just a value can be returned if desired
      */
     public abstract String execute(Attack attack, Block block, int damage);
