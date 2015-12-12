@@ -18,7 +18,7 @@ public class Match implements Runnable {
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 100;
     //TODO changed round durration from 300 for testing
-    private final int ROUNDDURATION = 30;
+    private final int ROUNDDURATION = 300;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
@@ -58,6 +58,10 @@ public class Match implements Runnable {
 
     }
 
+    /**
+     * this method runs a single fight instance
+     * @return the winner of the bout
+     */
     public int  Bout(){
         while (!game.getMadeOnce()) {
 
@@ -96,7 +100,7 @@ public class Match implements Runnable {
                 }
             }
 
-            if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
+            if(newAttack) {
 
                 newAttack = false;
 //                System.out.println("newAttack: " );
@@ -126,6 +130,14 @@ public class Match implements Runnable {
         return boxerWinner;
     }
 
+    /**
+     * handles the damage calculation for the fight this includes knockout and damage handeling
+     * @param attack the attack being performed
+     * @param block the block(if any) that is being performed
+     * @param attackerIDX identifies the boxer who is performing the attack
+     * @param defenderIDX identifies the boxer who is being attacked
+     * @return returns the index of the boxer who won the bout with that attack, returns 2 if the attack did not result in a bout win
+     */
     private int checkDamage(Attack attack, Block block,int attackerIDX ,int defenderIDX){
         int boxerWinner = 2;
         String damageString = hurt.calculateDamage(attack, block);
@@ -164,14 +176,27 @@ public class Match implements Runnable {
     }
 
 
-
-
+    /**
+     * checks if a technical knock out occured(no chance of getting up)
+     * @param damage how much damage was taken in this attack
+     * @return true if the defender was TKOed
+     */
     private boolean checkTKO(int damage){
         return damage > TKOTHESHOLD;
     }
 
+    /**
+     * checks if the defender was knocked down due to fatigue after teh attack
+     * @param fatigue cumulative amount of damage taken by the boxer in the bout
+     * @return true if the boxer was knocked down
+     */
     private boolean checkDown(int fatigue){return fatigue > DOWNTHRESHOLD;}
 
+    /**
+     * handles the count for a knocked down boxer to decalre a winner
+     * @param fatigue cumulative amount of damage taken by the boxer in the bout
+     * @return new fatigue value of the defending boxer, if 0 the defender did not get up
+     */
     private int count(int fatigue){
 
         boolean isUp = false;
@@ -200,6 +225,9 @@ public class Match implements Runnable {
         return 0;
     }
 
+    /**
+     * this controls the overall match run is an override for the thread ignalling this is the main loop of the thread
+     */
     @Override
     public void run() {
 
@@ -228,6 +256,10 @@ public class Match implements Runnable {
 
     }
 
+    /**
+     * returns the winner of the overall match
+     * @return the winner of the overall match
+     */
     public String getWinner(){
         if (winner==null){
             return null;
@@ -235,8 +267,12 @@ public class Match implements Runnable {
             return winner.getBoxerID();
         }
     }
+
     public int getCurrentRound(){ return currentRound;}
 
+    /**
+     * this sets up the various parameters for the beginning of a bout
+     */
     public void updateRoundStartInfo(){
         currentRound++;
         game.setRoundInPlay(true);
@@ -253,14 +289,22 @@ public class Match implements Runnable {
 
     }
 
+    /**
+     * this handles cleanup of a bout
+     */
     private void updateRoundEndInfo(){
         mp.setSplash("Round " + getCurrentRound() + " is over");
         game.setRoundInPlay(false);
         audio.endBell();
 
-        //todo make rounds won label for each boxer in mp and update
     }
 
+    /**
+     * handled by notifys from the observers to gather the data needed for an attack
+     * @param attackerId the Id of the boxer performing the attack
+     * @param a the attack being performed
+     * @param b the block in response to the attack
+     */
     public void  setCurrentAttack(int attackerId,Attack a,Block b){
         this.attackerId = attackerId;
         this.currentAttack = a;
@@ -268,6 +312,11 @@ public class Match implements Runnable {
         this.newAttack = true;
     }
 
+    /**
+     * creates a new copy of our match this allows for different new isntaces of our match to be created even though it is a singleton.
+     * i do wish this could be cleaner but i have no idea how to get this functionality otherwise
+     * @return our new instance
+     */
     public Match reset(){
         ourInstance = new Match();
         return ourInstance;
@@ -277,16 +326,4 @@ public class Match implements Runnable {
         return this.instantiated;
     }
 
-    private void makeWait(boolean waitFor){
-        System.out.println("waiting for...");
-        while (!waitFor) {
-
-            try {
-                wait();
-
-            } catch (Exception e) {
-            }
-        }
-
-    }
 }

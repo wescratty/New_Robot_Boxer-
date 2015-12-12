@@ -4,7 +4,9 @@
 //todo needs javadoc comments
 
 public class BoxerDirector {
-
+    /**
+     * the buliders for making a boxer object
+     */
     private BoxerBuilder boxerbuilder;
     private AttackBuilder attackBuilder;
     private BlockBuilder blockBuilder;
@@ -17,6 +19,12 @@ public class BoxerDirector {
         blockBuilder = new BlockBuilder();
     }
 
+    /**
+     * creates the boxer object for a player
+     * @param startingPoints number of points the player can spend on their stats
+     * @param boxerID an identifier for the boxer to differentiate players ect.
+     * @return  a boxer object created by the player
+     */
     public Boxer build(int startingPoints, String boxerID){
         this.unusedPoints = startingPoints;
         boxer = boxerbuilder.createBoxer(unusedPoints, boxerID);
@@ -28,6 +36,11 @@ public class BoxerDirector {
         return boxer;
     }
 
+    /**
+     *create a boxer with randomized stats for the AI
+     * @param startingPoints number of points available
+     * @return a boxer object
+     */
     public Boxer buildAI(int startingPoints){
         this.unusedPoints = startingPoints;
         boxer = boxerbuilder.createAIBoxer(unusedPoints);
