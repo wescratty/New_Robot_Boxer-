@@ -70,16 +70,13 @@ public class Match implements Runnable {
             } catch (Exception e) {
             }
         }
-//        makeWait(game.getMadeOnce());
+
         updateRoundStartInfo();
 
         int boxerWinner = 2;
         for (Boxer boxer: boxers){
             boxer.reset();
-
         }
-
-
 
         int defender;
         Attack attack;
@@ -92,17 +89,13 @@ public class Match implements Runnable {
                 try {
                     wait();
 
-//                } catch (InterruptedException e) {
-//                    return boxerWinner;
                 } catch (Exception e){
 
                 }
             }
 
             if(newAttack) {
-
                 newAttack = false;
-//                System.out.println("newAttack: " );
                 attack = this.currentAttack;
                 block = this.currentBlock;
                 attacker = this.attackerId;
@@ -116,16 +109,10 @@ public class Match implements Runnable {
                 if (attack != null) {
                     boxerWinner = checkDamage(attack, block, attacker, defender);
                 }
-
-
-
-
             }
-
         }
 
         updateRoundEndInfo();
-
         return boxerWinner;
     }
 
@@ -143,14 +130,11 @@ public class Match implements Runnable {
         int damage = Integer.parseInt(damageString);
         int amplify = 1;
 
-//        System.out.println("damage: " + damage *amplify);
         setSplash("damage: " + damage*amplify );
 
         boxers[defenderIDX].takeDamage(damage *amplify);
-//        boxers[defenderIDX].notifyObserver();
 
         if (checkTKO(damage)){
-//            System.out.println("TKO by: "+ attackerIDX);
             boxerWinner = attackerIDX;
 
         }else if(checkDown(boxers[defenderIDX].getFatigue())){
@@ -158,7 +142,6 @@ public class Match implements Runnable {
             boxers[attackerIDX].setOpponentDown(true);
             setSplash("Boxer "+defenderIDX+" Down!");
             int countResult = count(boxers[defenderIDX].getFatigue());
-//            System.out.println("countResult: " +countResult);
 
             if( countResult > 0){
                 boxers[defenderIDX].setFatigue(countResult);
@@ -167,7 +150,6 @@ public class Match implements Runnable {
 
             }else {
                 boxerWinner = attackerIDX;
-//                System.out.println("Attacker " +attackerIDX+" wins!");
             }
         }
         boxers[0].upDateLabels();
@@ -212,7 +194,6 @@ public class Match implements Runnable {
                 int upTolerance = (int)Math.round(DOWNTHRESHOLD*Math.max(chance.getChance()+MINUPPERCENT,MAXUPPERCENT));
                 if (fatigueValue>upTolerance){
                     isUp  = true;
-
                 }
                 if (isUp&&chance.getCoinFlip()) {
                     return fatigueValue;
@@ -276,16 +257,13 @@ public class Match implements Runnable {
         currentRound++;
         game.setRoundInPlay(true);
         roundTimer.Stopwatch(ROUNDDURATION);
-
         setSplash("Round " + getCurrentRound());
         mp.setRound(Integer.toString(getCurrentRound()));
         audio.startBell();
-
     }
 
     private void setSplash(String st) {
         mp.setSplash(st);
-
     }
 
     /**
@@ -295,7 +273,6 @@ public class Match implements Runnable {
         mp.setSplash("Round " + getCurrentRound() + " is over");
         game.setRoundInPlay(false);
         audio.endBell();
-
     }
 
     /**
@@ -321,8 +298,8 @@ public class Match implements Runnable {
         return ourInstance;
     }
 
-    public boolean getInstantiated(){
-        return this.instantiated;
-    }
+//    public boolean getInstantiated(){
+//        return this.instantiated;
+//    }
 
 }

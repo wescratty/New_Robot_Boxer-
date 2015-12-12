@@ -138,7 +138,6 @@ public class AIGame implements Game, Runnable {
         boxers[0].setOtherBoxer(boxers[1]);
         boxers[1].setOtherBoxer(boxers[0]);
 
-
     }
 
     /**
@@ -242,6 +241,4 @@ public class AIGame implements Game, Runnable {
             return;
         }
     }
-
-
 }
