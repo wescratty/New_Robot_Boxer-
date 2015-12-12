@@ -5,6 +5,11 @@ import javax.swing.*;
 public class gui {
     static JFrame mainFrame;
     static MainPanel main;
+
+    /**
+     * Main gui set up; set window size etc. also joption pane for shutdown
+     * @param args
+     */
     public static void main(String[] args) {
 
         mainFrame = new JFrame();
