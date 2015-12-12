@@ -6,8 +6,6 @@
 
 public class ObservaBoxing implements Observer {
 
-
-
     // Static used as a counter
 
     private static int observerIDTracker = 0;
@@ -31,10 +29,6 @@ public class ObservaBoxing implements Observer {
 
         this.observerID = ++observerIDTracker;
 
-        // Message notifies user of new observer
-
-//        System.out.println("New Observer " + this.observerID);
-
         // Add the observer to the Subjects ArrayList
 
         boxer.register(this);
@@ -44,55 +38,27 @@ public class ObservaBoxing implements Observer {
     // Called to update all observers
 
     public void update() {
-
         this.boxer.upDateLabels();
-
     }
 
 
-    //    HurtBox calculation;
-    public boolean  notifyRange(){
-        return true;
-
-    }
+    /**
+     * Set match of attack and set gui current attack
+     * @param a Attack
+     * @param attackerId the boxer whom is attacking
+     */
     public void  notifyPunch(Attack a, int attackerId){
-//        System.out.println("attack2:  "+a.getAttackName());
         Block b =this.boxer.setSentMessage(a);
         match = Match.getInstance();
         match.setCurrentAttack(attackerId, a, b);
         mp.setSplash(a.getAttackName());
-
-
-
     }
 
-    public void notifyDamage(){
-
-
-
-    }
-    //never called... to remove
-    public int  calculateDamage(){
-        //need to get attack and block for this
-        Attack attack = null;
-        Block block = null;
-        HurtBox hb = HurtBox.getInstance();
-        int damage =  Integer.parseInt(hb.calculateDamage(attack, block));
-        return damage;
-
-    }
     public int  getObserverId(){
         return this.observerID;
-
-
     }
 
     public void  observerCheckDidBLock(){
          this.boxer.checkDidBlock();
-
     }
-
-
-
-
 }

@@ -3,16 +3,10 @@
  */
 public interface Game extends Runnable {
     void start();
-
     void  run();
-
     void setRoundInPlay(boolean update);
-
     void setGameOn(boolean update);
     void setUpNewGame();
-
     boolean getMadeOnce();
-
     void cleanup();
-
 }

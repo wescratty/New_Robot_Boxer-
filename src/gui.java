@@ -5,6 +5,11 @@ import javax.swing.*;
 public class gui {
     static JFrame mainFrame;
     static MainPanel main;
+
+    /**
+     * Main gui set up; set window size etc. also joption pane for shutdown
+     * @param args
+     */
     public static void main(String[] args) {
 
         mainFrame = new JFrame();
@@ -15,8 +20,6 @@ public class gui {
         mainFrame.setSize(1050, 1000);
         mainFrame.setLocation(200, 200);
         mainFrame.setVisible(true);
-
-
         mainFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -30,6 +33,5 @@ public class gui {
                 }
             }
         });
-
     }
 }

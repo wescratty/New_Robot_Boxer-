@@ -30,9 +30,10 @@ public class MainPanel extends JPanel {
     String padding = "              ";
     Game game;
 
-
+    /**
+     * set up of labels and boarders for boxer stats in main gui
+     */
     protected void makeMain() {
-
 
         JPanel b1LabelPanel = new JPanel();
         JPanel b2LabelPanel = new JPanel();
@@ -121,6 +122,7 @@ public class MainPanel extends JPanel {
         add(subPanel, BorderLayout.EAST);
        int choice =-1;
 
+        // game type selector for PVP and AI games
         while(choice==-1) {
             choice =getChoice();
             if (choice == 0) {
@@ -130,18 +132,24 @@ public class MainPanel extends JPanel {
 
             }
         }
-
-
         game.start();
-
-
     }
 
-
+    /**
+     * Inherited paint method to draw game on panel
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
 
+    /**
+     * Gets stats strings for boxers and sets labels for both boxers
+     * @param _boxer1
+     * @param b1Id
+     * @param _boxer2
+     * @param b2Id
+     */
     public void setLables(String _boxer1, int b1Id, String _boxer2, int b2Id){
 
         String inputs_b1;
@@ -156,9 +164,7 @@ public class MainPanel extends JPanel {
         }
 
         String[] inputArrayB1 = inputs_b1.split("\\|");
-
         String[] inputArrayB2 = inputs_b2.split("\\|");
-
 
         try {
             for(int i=0; i<labArray.size(); i++){
@@ -173,7 +179,6 @@ public class MainPanel extends JPanel {
         }catch (Exception e){
             System.out.println(e.toString());
         }
-
     }
 
     public void setTime(){
@@ -189,6 +194,11 @@ public class MainPanel extends JPanel {
         game.cleanup();
     }
 
+
+    /**
+     * get game type choice from player
+     * @return
+     */
     public int getChoice(){
         ImageIcon icon = new ImageIcon("src/im.png");
         String[] choices = { "Player VS Player", "Player VS Computer" };
