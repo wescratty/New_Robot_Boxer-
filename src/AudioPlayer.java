@@ -16,20 +16,19 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 
-// Please transition to the API's in AudioComponent.h.
-
 public class AudioPlayer implements LineListener {
-//    private static AudioPlayer ourInstance = new AudioPlayer();
-//
-//    public static AudioPlayer getInstance() {
-//        return ourInstance;
-//    }
+
 
     public AudioPlayer() {
     }
 
 
     boolean playCompleted;
+
+    /**
+     * Attempt to run audio player
+     * @param audioFilePath String of audio file path
+     */
     private void playSound(String audioFilePath){
 
         File audioFile = new File(audioFilePath);
@@ -92,12 +91,8 @@ public class AudioPlayer implements LineListener {
     public void update(LineEvent event) {
         LineEvent.Type type = event.getType();
 
-        if (type == LineEvent.Type.START) {
-//            System.out.println("Playback started.");
-
-        } else if (type == LineEvent.Type.STOP) {
+        if (type == LineEvent.Type.STOP) {
             playCompleted = true;
-//            System.out.println("Playback completed.");
         }
 
     }

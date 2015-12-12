@@ -4,16 +4,12 @@
 public class AIGame implements Game, Runnable {
 
     final int STARTINGPOINTS = 100;
-
     final int WINEXP = 10;
-
     final int LOSEEXP = 5;
 
     private int currentpoints = STARTINGPOINTS;
-
     private int rounds = 3;
     private static AIGame ourInstance = new AIGame();
-
     public static AIGame getInstance() {
         return ourInstance;
     }
@@ -47,36 +43,27 @@ public class AIGame implements Game, Runnable {
 
     protected AIGame(){}
 
-
+    /**
+     * loads boxers into array, and goes through start up details
+     */
     public void start(){
-        lock = new Object();
+        lock = new Object(); // for synchronized lock
         boxers[0]=_boxer1;
         boxers[1]=_boxer2;
         updateNewBoxer();
-
         makeThreads();
-//=======
-//        // todo can we move this lower wes? so we can restart the match threads
-//        Game game = this;
-//        paintThread = new Thread(game);
-//        matchThread = new Thread(match);
-//        boxer1Thread = new Thread(game);
-//        boxer2Thread = new Thread(game);
-//
-//
-//
-//         b1Identifier = System.identityHashCode(boxer1Thread);
-//         b2Identifier = System.identityHashCode(boxer2Thread);
-//
-//
-//>>>>>>> origin/fix_fatigue
         setIdentifier();
         startThreads();
-
-
     }
 
 
+    /**
+     * The thread loop for boxer threads and paint thread persist until
+     * both booleans or false
+     * The if statement only allows the thread paired with that boxer to enter boxer class, if it is not paired
+     * then it is the paint thread
+     * A wait loop collects threads after each round so they do not die
+     */
     public void  run(){
 
         setUpNewGame();
@@ -110,16 +97,13 @@ public class AIGame implements Game, Runnable {
 
             while (!round_in_Play&&gameOn) {
                 try {
-//                    System.out.println("waiting for round");
                     wait();
-
-
                 } catch (Exception e) {
                 }
             }
         }
         try {
-        Thread.currentThread().join();
+            Thread.currentThread().join();
         } catch (Exception e) {
         }
 
@@ -137,20 +121,16 @@ public class AIGame implements Game, Runnable {
         return madeOnce;
     }
 
-
-//    private void unRegBoxers(){
-//        boxers[0].unregister(obs2);
-//        boxers[1].unregister(obs1);
-//
-//    }
-
+    /**
+     * Sets start up location, and sends instances to observers and other boxers.
+     */
     private void updateNewBoxer(){
         boxers[0].setLoc(200,400);
         boxers[1].setLoc(600,400);
         pb.setBoxers(boxers[0], boxers[1]);
 
-         obs1 = new ObservaBoxing(boxers[0]);
-         obs2 = new ObservaBoxing(boxers[1]);
+        obs1 = new ObservaBoxing(boxers[0]);
+        obs2 = new ObservaBoxing(boxers[1]);
 
         boxers[0].register(obs2);
         boxers[1].register(obs1);
@@ -161,78 +141,74 @@ public class AIGame implements Game, Runnable {
 
     }
 
+    /**
+     * Sets up new game or shuts down a game first and then passes down updated
+     * boxer stats.
+     * Synchronized only allows for one thread at a time
+     */
     public void setUpNewGame(){
-//        System.out.println("setUpNewGame");
 
-            if (!madeOnce) {
-//                System.out.println("first if");
-                synchronized (lock) {
-                    if (!madeOnce) {
-//                        System.out.println("new game");
-                        match.match(3, boxers[0], boxers[1], this);
-                        madeOnce = true;
-                    }
-
+        if (!madeOnce) {
+            synchronized (lock) {
+                if (!madeOnce) {
+                    match.match(3, boxers[0], boxers[1], this);
+                    madeOnce = true;
                 }
-
-
-
-            } else if (match.getWinner() != null) {
-                synchronized (lock) {
-                    if (match.getWinner() != null) {
-//                        System.out.println("new match");
-                        String winner = match.getWinner();
-                        if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
-                            boxers[0].setExp(boxers[0].getExp() + WINEXP);
-                            currentpoints += LOSEEXP;
-                        } else {
-                            boxers[0].setExp(boxers[0].getExp() + LOSEEXP);
-                            currentpoints += WINEXP;
-                        }
-                        boxers[0].grow();
-                        boxers[1] = builder.buildAI(currentpoints);
-
-                        match = match.reset();
-
-                        madeOnce= false;
-                        gameOn = true;
-                        lock = new Object();
-
-                        updateNewBoxer();
-                        makeThreads();
-                        setIdentifier();
-                        startThreads();
-
-                    }
-
-                }
-
-
             }
+        } else if (match.getWinner() != null) {
+            synchronized (lock) {
+                if (match.getWinner() != null) {
+//                        System.out.println("new match");
+                    String winner = match.getWinner();
+                    if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
+                        boxers[0].setExp(boxers[0].getExp() + WINEXP);
+                        currentpoints += LOSEEXP;
+                    } else {
+                        boxers[0].setExp(boxers[0].getExp() + LOSEEXP);
+                        currentpoints += WINEXP;
+                    }
+                    boxers[0].grow();
+                    boxers[1] = builder.buildAI(currentpoints);
+                    match = match.reset();
+                    madeOnce= false;
+                    gameOn = true;
+                    lock = new Object();
 
+                    updateNewBoxer();
+                    makeThreads();
+                    setIdentifier();
+                    startThreads();
+                }
+            }
+        }
     }
+
+    /**
+     * matches thread to a boxer
+     */
     public void setIdentifier(){
         boxers[0].setid(b1Identifier, 0);
         boxers[1].setid(b2Identifier, 1);
     }
 
 
+    /**
+     * makes threads
+     */
     public void makeThreads(){
-         cleanup();
-         matchThread = new Thread(match);
-         boxer1Thread = new Thread(this);
-         boxer2Thread = new Thread(this);
-         paintThread = new Thread(this);
-
-
-
+        cleanup();
+        matchThread = new Thread(match);
+        boxer1Thread = new Thread(this);
+        boxer2Thread = new Thread(this);
+        paintThread = new Thread(this);
 
         b1Identifier = System.identityHashCode(boxer1Thread);
         b2Identifier = System.identityHashCode(boxer2Thread);
-
-
-
     }
+
+    /**
+     * Start threads, wait for madeOnce flag which is boxer instantiation
+     */
     private void startThreads(){
         boxer1Thread.start();
         boxer2Thread.start();
@@ -245,12 +221,12 @@ public class AIGame implements Game, Runnable {
             }
         }
         matchThread.start();
-//        System.out.println("all threads started");
-
-
     }
 
 
+    /**
+     * closes out the threads
+     */
     public void cleanup(){
         int waitTime = 1000;
         try{
