@@ -100,7 +100,7 @@ public class Match implements Runnable {
                 }
             }
 
-            if(newAttack) {  //todo: added this so boxers don't get awarded multiple times for same attack, delete after read
+            if(newAttack) {
 
                 newAttack = false;
                 System.out.println("newAttack: " );
@@ -297,14 +297,13 @@ public class Match implements Runnable {
         game.setRoundInPlay(false);
         audio.endBell();
 
-        //todo make rounds won label for each boxer in mp and update
     }
 
     /**
      * handled by notifys from the observers to gather the data needed for an attack
      * @param attackerId the Id of the boxer performing the attack
      * @param a the attack being performed
-     * @param b the block in responce to the attack
+     * @param b the block in response to the attack
      */
     public void  setCurrentAttack(int attackerId,Attack a,Block b){
         this.attackerId = attackerId;
