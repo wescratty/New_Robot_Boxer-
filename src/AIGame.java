@@ -150,14 +150,13 @@ public class AIGame implements Game, Runnable {
         if (!madeOnce) {
             synchronized (lock) {
                 if (!madeOnce) {
-                    match.match(3, boxers[0], boxers[1], this);
+                    match.match(rounds, boxers[0], boxers[1], this);
                     madeOnce = true;
                 }
             }
         } else if (match.getWinner() != null) {
             synchronized (lock) {
                 if (match.getWinner() != null) {
-//                        System.out.println("new match");
                     String winner = match.getWinner();
                     if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
                         boxers[0].setExp(boxers[0].getExp() + WINEXP);

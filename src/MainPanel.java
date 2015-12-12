@@ -22,13 +22,14 @@ public class MainPanel extends JPanel {
     }
 
       JLabel expLbP1, strenghtLblP1, agilityLblP1, accuracyLblP1, reachLblP1, fatigueLbP1, expLbP2, strenghtLblP2, agilityLblP2, accuracyLblP2, reachLblP2,fatigueLbP2,  time, timer, splash,
-              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl,roundsWonp1, roundsWonp2,wonp1,wonp2;
+              p1Exp, p1Strenght,p1Agile,P1Accuracy,p1Reach,p1Fatigue ,p2Exp,p2Strenght,p2Agile,P2Accuracy,p2Reach,p2Fatigue,roundLbl,roundNumLbl,roundsWonp1, roundsWonp2,wonp1,wonp2,p1name,p1label,p2name,p2label;
 
     ArrayList<JLabel> labArray = new ArrayList<JLabel>();
     ArrayList<JLabel> titleLabArray = new ArrayList<JLabel>();
     GameTimer dt = GameTimer.getInstance();
     String padding = "              ";
     Game game;
+    String p2namestr="  Robot" ;
 
     /**
      * set up of labels and boarders for boxer stats in main gui
@@ -39,6 +40,7 @@ public class MainPanel extends JPanel {
         JPanel b2LabelPanel = new JPanel();
         JPanel gameLabelPanel = new JPanel();
         JPanel subPanel = new JPanel();
+
 
         time = new JLabel("Time left in bought: ");
         time.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -51,6 +53,7 @@ public class MainPanel extends JPanel {
         splash = new JLabel("client message");
         splash.setBorder(new EmptyBorder(10, 10, 10, 10));
 
+        titleLabArray.add(p1name = new JLabel("  Player 1"));
         titleLabArray.add(p1Exp = new JLabel("  Experience: "));
         titleLabArray.add(p1Strenght = new JLabel("  Strength: "));
         titleLabArray.add(p1Agile = new JLabel("  Agility: "));
@@ -58,6 +61,7 @@ public class MainPanel extends JPanel {
         titleLabArray.add(p1Reach = new JLabel("  Reach: "));
         titleLabArray.add(p1Fatigue = new JLabel("  Fatigue: "));
 
+        titleLabArray.add(p2name = new JLabel("  Player 2"));
         titleLabArray.add(p2Exp = new JLabel(" Experience: "));
         titleLabArray.add(p2Strenght = new JLabel("  Strength: "));
         titleLabArray.add(p2Agile = new JLabel("  Agility: "));
@@ -65,6 +69,7 @@ public class MainPanel extends JPanel {
         titleLabArray.add(p2Reach = new JLabel("  Reach: "));
         titleLabArray.add(p2Fatigue = new JLabel("  Fatigue: "));
 
+        labArray.add(p1label = new JLabel("0"));
         labArray.add(expLbP1 = new JLabel("  0   "));
         labArray.add(strenghtLblP1 = new JLabel("  0   "));
         labArray.add(agilityLblP1 = new JLabel("  0  "));
@@ -72,6 +77,7 @@ public class MainPanel extends JPanel {
         labArray.add(reachLblP1 = new JLabel("   0   "));
         labArray.add(fatigueLbP1 = new JLabel("   0   "));
 
+        labArray.add(p2label = new JLabel("0"));
         labArray.add(expLbP2 = new JLabel("  0   "));
         labArray.add(strenghtLblP2 = new JLabel("  0   "));
         labArray.add(agilityLblP2 = new JLabel("  0  "));
@@ -82,7 +88,7 @@ public class MainPanel extends JPanel {
 
         for (int i = 0; i < titleLabArray.size(); i++) {
             titleLabArray.get(i).setBorder(new EmptyBorder(10, 10, 10, 10));
-            if(i<titleLabArray.size()/2) {
+            if(i<((titleLabArray.size())/2)) {
                 b1LabelPanel.add(titleLabArray.get(i));
                 b1LabelPanel.add(labArray.get(i));
             }else{
@@ -91,11 +97,11 @@ public class MainPanel extends JPanel {
             }
         }
 
-        b1LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));
+        b1LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.blue));
         b1LabelPanel.setLayout(new BoxLayout(b1LabelPanel, BoxLayout.PAGE_AXIS));
 
         b2LabelPanel.setLayout(new BoxLayout(b2LabelPanel, BoxLayout.PAGE_AXIS));
-        b2LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.blue));
+        b2LabelPanel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.red));
 
 
         gameLabelPanel.setLayout(new BoxLayout(gameLabelPanel, BoxLayout.PAGE_AXIS));
@@ -129,6 +135,7 @@ public class MainPanel extends JPanel {
                 game = PVPGame.getInstance();
             } else if (choice == 1) {
                 game = AIGame.getInstance();
+                p2name.setText(p2namestr);
 
             }
         }
@@ -156,22 +163,24 @@ public class MainPanel extends JPanel {
         String inputs_b2;
 
         if(b1Id<b2Id){
-             inputs_b1= _boxer1;
-             inputs_b2= _boxer2;
+            inputs_b1= _boxer2;
+            inputs_b2= _boxer1;
+
         }else{
-             inputs_b1= _boxer2;
-             inputs_b2= _boxer1;
+
+            inputs_b1= _boxer1;
+            inputs_b2= _boxer2;
         }
 
         String[] inputArrayB1 = inputs_b1.split("\\|");
         String[] inputArrayB2 = inputs_b2.split("\\|");
 
         try {
-            for(int i=0; i<labArray.size(); i++){
-                if(i<(labArray.size()/2)) {
-                    labArray.get(i).setText(padding+inputArrayB1[i]);
+            for(int i=0; i<(labArray.size()-2); i++){
+                if(i<((labArray.size()-2)/2)) {
+                    labArray.get(i+1).setText(padding+inputArrayB1[i]);
                 }else{
-                    labArray.get(i).setText(padding+inputArrayB2[i - labArray.size()/2]);
+                    labArray.get(i+2).setText(padding+inputArrayB2[i - (((labArray.size()-2)/2))]);
                 }
             }
 

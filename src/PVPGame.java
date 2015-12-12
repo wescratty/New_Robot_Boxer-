@@ -58,8 +58,6 @@ public class PVPGame implements Game {
         makeThreads();
         setIdentifier();
         startThreads();
-
-
     }
 
     /**
@@ -102,7 +100,6 @@ public class PVPGame implements Game {
 
             while (!round_in_Play&&gameOn) {
                 try {
-//                    System.out.println("waiting for round");
                     wait();
 
 
@@ -131,13 +128,6 @@ public class PVPGame implements Game {
         return madeOnce;
     }
 
-
-//    private void unRegBoxers(){
-//        boxers[0].unregister(obs2);
-//        boxers[1].unregister(obs1);
-//
-//    }
-
     private void updateNewBoxer(){
         boxers[0].setLoc(200,400);
         boxers[1].setLoc(600,400);
@@ -160,25 +150,19 @@ public class PVPGame implements Game {
      * Synchronized only allows for one thread at a time
      */
     public void setUpNewGame(){
-//        System.out.println("setUpNewGame");
 
         if (!madeOnce) {
-//            System.out.println("first if");
             synchronized (lock) {
                 if (!madeOnce) {
-//                    System.out.println("new game");
                     match.match(3, boxers[0], boxers[1], this);
                     madeOnce = true;
                 }
 
             }
 
-
-
         } else if (match.getWinner() != null) {
             synchronized (lock) {
                 if (match.getWinner() != null) {
-//                    System.out.println("new match");
                     String winner = match.getWinner();
                     if (winner.compareTo(boxers[0].getBoxerID()) == 0) {
                         boxers[0].setExp(boxers[0].getExp() + WINEXP);
@@ -202,12 +186,8 @@ public class PVPGame implements Game {
                     startThreads();
 
                 }
-
             }
-
-
         }
-
     }
     /**
      * matches thread to a boxer
@@ -226,9 +206,6 @@ public class PVPGame implements Game {
         boxer1Thread = new Thread(this);
         boxer2Thread = new Thread(this);
         paintThread = new Thread(this);
-
-
-
 
         b1Identifier = System.identityHashCode(boxer1Thread);
         b2Identifier = System.identityHashCode(boxer2Thread);
@@ -251,9 +228,6 @@ public class PVPGame implements Game {
             }
         }
         matchThread.start();
-//        System.out.println("all threads started");
-
-
     }
 
     /**
@@ -274,6 +248,4 @@ public class PVPGame implements Game {
             return;
         }
     }
-
-
 }
