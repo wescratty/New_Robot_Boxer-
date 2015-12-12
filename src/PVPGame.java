@@ -46,7 +46,9 @@ public class PVPGame implements Game {
 
     protected PVPGame(){}
 
-
+    /**
+     * loads boxers into array, and goes through start up details
+     */
     public void start(){
         lock = new Object();
         boxers[0]=_boxer1;
@@ -60,7 +62,13 @@ public class PVPGame implements Game {
 
     }
 
-
+    /**
+     * The thread loop for boxer threads and paint thread persist until
+     * both booleans or false
+     * The if statement only allows the thread paired with that boxer to enter boxer class, if it is not paired
+     * then it is the paint thread
+     * A wait loop collects threads after each round so they do not die
+     */
     public void  run(){
 
         setUpNewGame();
@@ -109,7 +117,9 @@ public class PVPGame implements Game {
 
     }
 
-
+    /**
+     * Sets start up location, and sends instances to observers and other boxers.
+     */
     public void setRoundInPlay(boolean update){
         round_in_Play = update;
     }
@@ -144,7 +154,11 @@ public class PVPGame implements Game {
 
 
     }
-
+    /**
+     * Sets up new game or shuts down a game first and then passes down updated
+     * boxer stats.
+     * Synchronized only allows for one thread at a time
+     */
     public void setUpNewGame(){
 //        System.out.println("setUpNewGame");
 
@@ -195,12 +209,17 @@ public class PVPGame implements Game {
         }
 
     }
+    /**
+     * matches thread to a boxer
+     */
     public void setIdentifier(){
         boxers[0].setid(b1Identifier, 0);
         boxers[1].setid(b2Identifier, 1);
     }
 
-
+    /**
+     * makes threads
+     */
     public void makeThreads(){
         cleanup();
         matchThread = new Thread(match);
@@ -217,6 +236,9 @@ public class PVPGame implements Game {
 
 
     }
+    /**
+     * Start threads, wait for madeOnce flag which is boxer instantiation
+     */
     private void startThreads(){
         boxer1Thread.start();
         boxer2Thread.start();
@@ -234,7 +256,9 @@ public class PVPGame implements Game {
 
     }
 
-
+    /**
+     * closes out the threads
+     */
     public void cleanup(){
         int waitTime = 1000;
         try{
