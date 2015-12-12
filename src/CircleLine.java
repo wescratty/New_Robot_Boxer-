@@ -16,16 +16,23 @@ public class CircleLine {
     }
 
 
+    /**
+     * Calculates line and slope between boxer centers, makes radius size of boxer reach, returns location of
+     * boxer gloves
+     * @param pointA center of boxer A
+     * @param pointB center of boxer B
+     * @param center  center of boxer A, redundant but had ideas for extendability which are unimplemented
+     * @param radius of boxer reach
+     * @param didBlock whether or not boxer blocked
+     * @return two points that are gloves of boxer
+     */
+    protected List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius, boolean didBlock) {
 
-     protected List<Point> getCircleLineIntersectionPoint(Point pointA, Point pointB, Point center, double radius, boolean didBlock) {
-
-
-         double baX;
-         double baY;
-         baX = pointB.Y() - pointA.Y();
-         baY = pointB.X() - pointA.X();
-         baX =baX*(-1);
-
+        double baX;
+        double baY;
+        baX = pointB.Y() - pointA.Y();
+        baY = pointB.X() - pointA.X();
+        baX =baX*(-1);
 
         double caX = center.X() - pointA.X();
         double caY = center.Y() - pointA.Y();
@@ -54,11 +61,7 @@ public class CircleLine {
         }
         Point p2 = new Point(pointA.X() - baX * abScalingFactor2, pointA.Y()
                 - baY * abScalingFactor2);
-
-
-             return Arrays.asList(p1, p2);
+        return Arrays.asList(p1, p2);
     }
-
-
 }
 

@@ -101,7 +101,7 @@ public class Boxer implements Subject {
 
         }
 
-
+//todo may uncomment to add aggression to boxers
 //        if (desiredLocation !=thisBoxerLocation){move();}
 
         checkForPunch();
@@ -110,22 +110,6 @@ public class Boxer implements Subject {
         return 0;
     }
 
-    /**
-     * Allows for setting of name sake
-     * @param update
-     */
-    public  void setOpponentDown(boolean update){
-        this.OpponentDown = update;
-    }
-
-    public  void setThisBoxerDown(boolean update){
-        this.boxerDown = update;
-    }
-
-    public  boolean getThisBoxerDown(){
-         return this.boxerDown;
-
-    }
 
     private boolean sameSpot(){
         return _otherBoxer.X() == thisBoxerLocation.X() && _otherBoxer.Y() == thisBoxerLocation.Y();
@@ -174,53 +158,109 @@ public class Boxer implements Subject {
         }
     }
 
+    public double distance(Point b_1, Point b_2) {
+        return Math.sqrt(Math.pow(b_2.X() - b_1.X(), 2) + Math.pow(b_2.Y() - b_1.Y(), 2));
+
+    }
+
 
     /**
-     * Check to see if this boxer is attacking, if so seek other boxer
+     * Punch action for boxer, and checks to see of they blocked it
      */
-    public void checkIfAttack() {
-        if (attack) {
-            desiredLocation = _otherBoxer;
+    public void punch() {
+
+        notifyObserverOfPunch();  //punch in motion
+        sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));  // wait
+
+        if (distance(thisBoxerLocation, _otherBoxer) < reach) {
+            didPunch = true;
+            observerCheckDidBLock();  // see if blocked
         }
 
     }
 
+    public void sleepTime(int sleepTime) {
+        try {
+
+            Thread.sleep(sleepTime);  // wait
+
+        } catch (InterruptedException e) {
+        }//TODO actually deal with exception
+
+    }
+
+//    public Point getBoxerPoint() {
+//        return thisBoxerLocation;
+//
+//    }
+
+    public void takeDamage(int damage){
+        if (damage>= 0){
+            fatigue += damage;
+            updateAttacks(fatigue);
+            updateBlock(fatigue);
+            upDateLabels();
+        }
+    }
+
     /**
-     * Update opponent
-     * @param otherBoxer
+     * Resets the boxer in preparation for a new round, this includes undoing any fatigue and
+     * any reduction of attack or defence power to attacks or blocks
      */
-    public void setOtherBoxer(Boxer otherBoxer) {
-        this.otherBoxer = otherBoxer;
-        upDateLabels();
-
+    public void reset(){
+        fatigue = 0;
+        resetAttacks();
+        resetBlocks();
+        this.boxerDown = false;
+        this.OpponentDown = false;
     }
-
-    public void upDateOtherBoxerLoc(){
-        _otherBoxer.setX(otherBoxer.getX());
-        _otherBoxer.setY(otherBoxer.getY());
+    private void resetAttacks(){
+        for(Attack attack : attackList){
+            attack.refresh(strengthScore, agilityScore, accuracy);
+        }
+    }
+    private void resetBlocks(){
+        for(Block block : blockList){
+            block.refresh(strengthScore,agilityScore,accuracy);
+        }
     }
 
     /**
-     *
-     * @param a
-     * @return
+     * Used to apply experience to the boxer
      */
-    public Block setSentMessage(Attack a) {
-        sentMessage = true;
-        incomingAttack = a;
-        this.currentBlock = getBlock();
-        return  this.currentBlock;
-        //todo do something with this attack from other boxer
+    public void grow(){
+        StatDialogue dialogue = new StatDialogue();
+        int pointsUsed = 0;
+        String NewStats = dialogue.getStats(exp,this.getStats(),boxerID);
+        if (NewStats !=null) {
 
-    }
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
+            String[] inputArray = NewStats.split("\\|");
+            int strength = 0;
+            int speed = 0;
+            int accuracy = 0;
+            int reach = 0;
+            try {
+                pointsUsed = Integer.parseInt(inputArray[0]);
+                strength = Integer.parseInt(inputArray[1]);
+                speed = Integer.parseInt(inputArray[2]);
+                accuracy = Integer.parseInt(inputArray[3]);
+                reach = Integer.parseInt(inputArray[4]);
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
 
-    public int getExp() {
-        return exp;
+            this.setAgilityScore(speed);
+            this.setStrengthScore(strength);
+            this.setAccuracy(accuracy);
+            this.setReach(reach);
+            this.setFatigue(0);
+            this.exp -= pointsUsed;
+        }else{
+            dialogue.errorBox("Error Collecting New Parameters");
+        }
     }
-
+    /******************** observer notifications ******************************************
+     */
     public void register(Observer newObserver) {
 
         // Adds a new observer to the ArrayList
@@ -235,9 +275,6 @@ public class Boxer implements Subject {
 
         int observerIndex = observers.indexOf(deleteObserver);
 
-        // Print out message (Have to increment index to match)
-
-//        System.out.println("Observer " + (observerIndex + 1) + " deleted");
 
         // Removes observer from the ArrayList
 
@@ -249,12 +286,8 @@ public class Boxer implements Subject {
 
         // Cycle through all observers and notifies them
 
-        //todo not sure if this is what you were thinking------------------
         Attack a = getAttack();
-//        System.out.println("attack1:  "+a.getAttackName());
         a.setAttackName(a.getAttackName());
-//        mp.setSplash(a.getAttackName());
-
 
         for (Observer observer : observers) {
             if (observer.getObserverId() != this.bNum) {
@@ -265,25 +298,11 @@ public class Boxer implements Subject {
         }
     }
 
-//    public void notifyObserverOfMove() {
-//
-//        // Cycle through all observers and notifies them
-//
-//        for (Observer observer : observers) {
-//            if (observer.getObserverId() != this.bNum) {
-//
-////                observer.todo();
-//            }
-//
-//        }
-//    }
-
     public void upDateLabels(){
 
-        mp.setLables(getStats(), getid(), this.otherBoxer.getStats(),this.otherBoxer.getid());
+        mp.setLables(getStats(), getid(), this.otherBoxer.getStats(), this.otherBoxer.getid());
 
     }
-
 
     public void notifyObserver() {
 
@@ -297,7 +316,6 @@ public class Boxer implements Subject {
         }
     }
 
-
     public void observerCheckDidBLock() {
 
         // Cycle through all observers and notifies them
@@ -310,26 +328,75 @@ public class Boxer implements Subject {
         }
     }
 
-    public int getFatigue() {
-        return fatigue;
-    }
+    /**************************************************************************************
+     *
+     */
 
-    public double distance(Point b_1, Point b_2) {
-        return Math.sqrt(Math.pow(b_2.X() - b_1.X(), 2) + Math.pow(b_2.Y() - b_1.Y(), 2));
 
-    }
 
-    public void punch() {
-
-        notifyObserverOfPunch();  //punch in motion
-        //TODO make sleeptime reflect punch strangth
-        sleepTime(chance.getRandomAttackDelay(punchTime+fatigue));  // wait
-
-        if (distance(thisBoxerLocation, _otherBoxer) < reach) {
-            didPunch = true;
-            observerCheckDidBLock();  // see if blocked
+    /************************  Getters and setters ****************************************
+     * Check to see if this boxer is attacking, if so seek other boxer
+     */
+    public void checkIfAttack() {
+        if (attack) {
+            desiredLocation = _otherBoxer;
         }
 
+    }
+
+    public int getBoxerReach(){
+       return this.reach;
+    }
+
+    public  void setOpponentDown(boolean update){
+        this.OpponentDown = update;
+    }
+
+    public  void setThisBoxerDown(boolean update){
+        this.boxerDown = update;
+    }
+
+    public  boolean getThisBoxerDown(){
+        return this.boxerDown;
+
+    }
+
+    /**
+     * Update opponent
+     * @param otherBoxer, not this boxer
+     */
+    public void setOtherBoxer(Boxer otherBoxer) {
+        this.otherBoxer = otherBoxer;
+        upDateLabels();
+
+    }
+
+    public void upDateOtherBoxerLoc(){
+        _otherBoxer.setX(otherBoxer.getX());
+        _otherBoxer.setY(otherBoxer.getY());
+    }
+
+    /**
+     *
+     * @param a attack sent by other boxer
+     * @return
+     */
+    public Block setSentMessage(Attack a) {
+        sentMessage = true;
+        incomingAttack = a;
+        this.currentBlock = getBlock();
+        return  this.currentBlock;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+    public int getFatigue() {
+        return fatigue;
     }
 
     public boolean getDidPunch() {
@@ -339,13 +406,8 @@ public class Boxer implements Subject {
     }
 
     public boolean getDidBlock() {
-        boolean retBool = didBLock;
-//        didBLock = false;
-        return retBool;
+        return didBLock;
     }
-
-
-    //TODO this seems redundant to have both functions getDidBlock and checkDidBlock
 
 
     public void checkDidBlock() {
@@ -354,14 +416,11 @@ public class Boxer implements Subject {
             player.blockSound();
             didBLock = false;
         }else{
-
             attack = false;
             player.punchSound();
             sleepTime(chance.getRandomAttackDelay(punchedTime+fatigue));
-
         }
     }
-
 
     public void checkForPunch() {
         if (sentMessage) {
@@ -373,27 +432,6 @@ public class Boxer implements Subject {
     public String getStats() {
         String stats = "" + exp + "|" + strengthScore + "|" + agilityScore + "|" + accuracy + "|" + reach + "|" + fatigue;
         return stats;
-    }
-
-    public void sleepTime(int sleepTime) {
-        try {
-
-            Thread.sleep(sleepTime);  // wait
-
-        } catch (InterruptedException e) {
-        }//TODO actually deal with exception
-
-    }
-
-    public Point getBoxerPoint() {
-        return thisBoxerLocation;
-
-    }
-
-    public void setLoc(int x, int y) {
-        this.x = x;
-        this.y = y;
-
     }
 
     public int getX() {
@@ -451,97 +489,34 @@ public class Boxer implements Subject {
 
     }
 
-    public void takeDamage(int damage){
-        if (damage>= 0){
-            fatigue += damage;
-            updateAttacks(fatigue);
-            updateBlock(fatigue);
-            upDateLabels();
-//            System.out.println("fategue "+fatigue);
-
-        }
+    public void setLoc(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
 
-   private void updateAttacks( int fatigue){
-   for(Attack attack :attackList){
-       updateAttack(fatigue,attack);
-   }
+    private void updateAttacks( int fatigue){
+        for(Attack attack :attackList){
+            updateAttack(fatigue,attack);
+        }
 
-   }
+    }
 
     private void updateAttack(int fatigue, Attack attack){
         attack.update(fatigue);
     }
-//    public void getAction(){
+    //    public void getAction(){
 //
 //    }
-   public Block getBlock(){
-       int randBlockIdx = chance.getRandomChoice(blockList.size());
-       return blockList.get(randBlockIdx);
+    public Block getBlock(){
+        int randBlockIdx = chance.getRandomChoice(blockList.size());
+        return blockList.get(randBlockIdx);
     }
     public void updateBlock(int fatigue){
-    for(Block block : blockList){
-        block.update(fatigue);
-    }
-    }
-
-    /**
-     * Resets the boxer in preperation for a new round, this includes undoing any fatigue and any reduction of attack or defence power to attacks or blocks
-     */
-    public void reset(){
-    fatigue = 0;
-    resetAttacks();
-    resetBlocks();
-        this.boxerDown = false;
-        this.OpponentDown = false;
-    }
-    private void resetAttacks(){
-        for(Attack attack : attackList){
-            attack.refresh(strengthScore, agilityScore, accuracy);
-        }
-    }
-    private void resetBlocks(){
         for(Block block : blockList){
-            block.refresh(strengthScore,agilityScore,accuracy);
+            block.update(fatigue);
         }
     }
-
-    /**
-     * Used to apply experience to the boxer
-     */
-      public void grow(){
-        StatDialogue dialogue = new StatDialogue();
-          int pointsUsed = 0;
-          String NewStats = dialogue.getStats(exp,this.getStats(),boxerID);
-              if (NewStats !=null) {
-
-                  String[] inputArray = NewStats.split("\\|");
-                  int strength = 0;
-                  int speed = 0;
-                  int accuracy = 0;
-                  int reach = 0;
-                  try {
-                      pointsUsed = Integer.parseInt(inputArray[0]);
-                      strength = Integer.parseInt(inputArray[1]);
-                      speed = Integer.parseInt(inputArray[2]);
-                      accuracy = Integer.parseInt(inputArray[3]);
-                      reach = Integer.parseInt(inputArray[4]);
-                  } catch (Exception e) {
-                      System.out.println(e.toString());
-                  }
-
-                  this.setAgilityScore(speed);
-                  this.setStrengthScore(strength);
-                  this.setAccuracy(accuracy);
-                  this.setReach(reach);
-                  this.setFatigue(0);
-                  this.exp -= pointsUsed;
-              }else{
-                  dialogue.errorBox("Error Collecting New Parameters");
-              }
-      }//<String in to dialogue, string out of dialogue pipe delim, attribute order,unused points leader>
-
 
     public String getBoxerID() {
         return boxerID;
@@ -550,5 +525,10 @@ public class Boxer implements Subject {
     public void setBoxerID(String boxerID) {
         this.boxerID = boxerID;
     }
+
+    /**************************************************************************************
+     *
+     */
+
 
 }

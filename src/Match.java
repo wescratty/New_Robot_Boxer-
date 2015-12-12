@@ -17,12 +17,11 @@ public class Match implements Runnable {
     private final int COUNTDELAY = 10;
     private final int COUNTTOLERANCE = 2;
     private final int DOWNTHRESHOLD = 100;
-    //TODO changed round durration from 300 for testing
     private final int ROUNDDURATION = 300;
     private final int HEALRATE = 50;
     private final double MAXUPPERCENT = 0.9;
     private final double MINUPPERCENT = 0.7;
-    private final long ROUNDRESETTME = 1000;//todo 10000?
+    private final long ROUNDRESETTME = 1000;
     private int currentRound = 0;
     private int totalRounds;
     private Boxer[] boxers;

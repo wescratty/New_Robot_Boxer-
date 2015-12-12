@@ -46,6 +46,7 @@ public class Paint_aBoxer extends JPanel {
         super.paintComponent(g);
 
 
+        final double REACHSCALE = 0.0007030371;
 
         double gw = getWidth();
         double factor = gw/889;
@@ -65,7 +66,8 @@ public class Paint_aBoxer extends JPanel {
         Point _b_2;
         CircleLine circleLine = CircleLine.getInstance();
 
-        int newR = (int)(gw*.05624297);
+        int newR1 = (int)(gw*_boxer1.getBoxerReach()*REACHSCALE);
+        int newR2 = (int)(gw*_boxer2.getBoxerReach()*REACHSCALE);
 
         b_1x = (int)(_boxer1.getX()*factor);
         b_1y = (int)(_boxer1.getY()*factor);
@@ -77,7 +79,7 @@ public class Paint_aBoxer extends JPanel {
         _b_2 = new Point(b_2x,b_2y);
 
         if(b1_first) {
-            b_1gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, newR,_b1block);
+            b_1gloves=circleLine.getCircleLineIntersectionPoint(_b_1, _b_2, _b_1, newR1,_b1block);
         }
 
 
@@ -86,7 +88,7 @@ public class Paint_aBoxer extends JPanel {
 
 
         if(b2_first) {
-            b_2gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, newR,_b2block);
+            b_2gloves=circleLine.getCircleLineIntersectionPoint(_b_2, _b_1, _b_2, newR2,_b2block);
         }
 
 
