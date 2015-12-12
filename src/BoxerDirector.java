@@ -1,11 +1,10 @@
 /**
  * Created by Brian Trethewey on 11/4/15.
  */
-//todo needs javadoc comments
 
 public class BoxerDirector {
     /**
-     * the buliders for making a boxer object
+     * the builders for making a boxer object
      */
     private BoxerBuilder boxerbuilder;
     private AttackBuilder attackBuilder;
